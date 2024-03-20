@@ -1,4 +1,4 @@
-# React + Vite PROJETO INICIADO
+# React + Vite PROJETO INICIADO o
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
