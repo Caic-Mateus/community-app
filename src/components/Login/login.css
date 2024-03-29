@@ -5,42 +5,72 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Centralizar verticalmente */
     height: 100vh;
 }
-
 .login-container {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #022766;
+    padding: 2.5em;
+    border-radius: 0.5em;
+    box-shadow: 0px 0px 0.625em rgba(0, 0, 0, 0.1);
+    width: 60em;
+    height: 20em;
+    margin-left: auto; /* Centralizar horizontalmente */
+    margin-right: auto; /* Centralizar horizontalmente */
 }
 
-.login-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.login-container input[type="text"],
-.login-container input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+.google-login-button {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.625em;
+    border-radius: 0.3125em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-bottom: 0.9375em;
 }
 
-.login-container input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
+.google-login-button:hover {
+    background-color: #f0f0f0;
+}
+
+.google-logo {
+    width: 2em;
+    margin-right: 0.5em;
+}
+
+.input-field {
+    width: calc(100% - 1.25em);
+    padding: 0.625em;
+    margin-bottom: 0.9375em;
+    border: 1px solid #ccc;
+    border-radius: 0.3125em;
+}
+
+.submit-button {
+    width:80%;
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.login-container input[type="submit"]:hover {
+.submit-button:hover {
     background-color: #0056b3;
+}
+.signup-text {
+    text-align: center; /* Centralizar texto horizontalmente */
+    margin-top: 0.9375em; /* Espaçamento do topo */
+    color: #fff; /* Cor do texto */
+}
+
+.signup-text a {
+    color: #fff; /* Cor do link */
+    text-decoration: none; /* Remover sublinhado padrão do link */
+}
+
+.signup-text a:hover {
+    text-decoration: underline; /* Adicionar sublinhado ao passar o mouse */
 }

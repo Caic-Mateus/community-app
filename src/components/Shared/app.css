@@ -1,0 +1,16 @@
+.app-container {
+    text-align: center; /* Centraliza conteúdo horizontalmente */
+  }
+  
+  .header {
+    display: flex;
+    justify-content: center; /* Centraliza conteúdo horizontalmente */
+    align-items: center; /* Centraliza conteúdo verticalmente */
+    margin-bottom: 20px; /* Espaçamento inferior */
+  }
+  
+  .header img {
+    max-width: 50%; /* Largura máxima das imagens */
+    margin: 0 10px; /* Espaçamento horizontal entre as imagens */
+  }
+  
