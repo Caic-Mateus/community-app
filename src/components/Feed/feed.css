@@ -1,0 +1,20 @@
+body{
+    background-color: #010101;
+}
+.feedStart{
+    padding: 12px;
+    width: 20%;
+    background-color: rgba(26, 252, 79, 0.375);
+}
+.feedTop{
+    padding: 12px;
+    width: 80%;
+    background-color: rgb(252, 248, 26);
+}
+.feedContainer{
+    display: flex;
+    justify-content: space-around;
+    width: 1519px;
+    height: 800px;
+    background-color: blue;
+}

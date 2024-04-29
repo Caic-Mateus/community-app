@@ -1,16 +1,18 @@
 .app-container {
-    text-align: center; /* Centraliza conteúdo horizontalmente */
-  }
-  
-  .header {
-    display: flex;
-    justify-content: center; /* Centraliza conteúdo horizontalmente */
-    align-items: center; /* Centraliza conteúdo verticalmente */
-    margin-bottom: 20px; /* Espaçamento inferior */
-  }
-  
-  .header img {
-    max-width: 50%; /* Largura máxima das imagens */
-    margin: 0 10px; /* Espaçamento horizontal entre as imagens */
-  }
-  
+  text-align: center; /* Centraliza conteúdo horizontalmente */
+  align-items: flex-start; /* Alinha itens ao topo */
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  flex-direction: column; /* Altera o fluxo dos itens para uma coluna */
+  justify-content: center; /* Centraliza conteúdo horizontalmente */
+  align-items: center; /* Centraliza conteúdo verticalmente */
+  margin-bottom: 20px; /* Espaçamento inferior */
+  margin-top: 50px;
+}
+
+.header img {
+  margin-bottom: 10px; /* Espaço entre as imagens */
+}
