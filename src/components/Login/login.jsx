@@ -4,6 +4,9 @@ import './login.css'
 function LoginForm() {
   return (
     <div className="login-container">
+      <div className='quadrado'>
+
+      
     <button className="google-login-button" /*onClick={handleGoogleLogin}*/>
         <img src="../../public/img/google-37.png" alt="Google Logo" className="google-logo" />
         <span>Fazer login com o Google</span>
@@ -15,6 +18,7 @@ function LoginForm() {
     </form>
     <div className="signup-text">
     Não tem uma conta? <a href="#">Inscreva-se</a>
+    </div>
     </div>
     </div>
 

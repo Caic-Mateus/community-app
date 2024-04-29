@@ -1,5 +1,12 @@
 body{
-    background-color: #010101;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centralizar verticalmente */
+    height: 100vh;
 }
 .feedStart{
     padding: 12px;

@@ -5,16 +5,23 @@ function CadastroForm() {
   return (
    <div className="Cadastro-container">
          <form action="#">
-          <input type="text" className='TextField ' placeholder='Nome completo' required/>
-          <input type="text" className='TextField ' placeholder='Usuario' required/>
-          <input type="tel" className='TextField ' placeholder='(11)99999-9999' required/>
-          <input type="text" className='TextField' placeholder='Curso' required/>
-          <input type="date" className='TextField' required/>
-          <input type="text" className="TextField" placeholder="E-mail" required />
-          <input type="password" className="TextField" placeholder="Senha" required />
-          <input type="password" className="TextField" placeholder="Confirmar senha" required />
+          <div className='Input-Text'>
+          <input type="text" className='TextBlock1 ' placeholder='Nome completo' required/>
+          <input type="text" className='TextBlock1 ' placeholder='Usuario' required/>
+          </div>
+          <div className='Input-Text'>
+          <input type="text" className='TextBlock2 ' placeholder="E-mail" required />
+          <input type="tel" className='TextBlock2 ' placeholder='(11)99999-9999' required/>
+          </div>
+          <div className='Input-Text'>
+          <input type="date" className='TextBlock2 ' required/>
+          <input type="text" className='TextBlock2 '  placeholder='Curso' required/>
+          </div>
+          <div className='Input-Text'>
+          <input type="password" className='TextBlock2 ' placeholder="Senha" required />
+          <input type="password" className='TextBlock2 ' placeholder="Confirmar senha" required />
+          </div>
           <input type="submit" className="Button-Cadastro" value="Cadastrar" />
-         
     </form>
     <div className="signup-text">
     Não tem uma conta? <a href="#">Inscreva-se</a>

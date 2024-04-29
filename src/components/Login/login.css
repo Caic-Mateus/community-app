@@ -12,8 +12,8 @@ body {
     background-color: #022766;
     padding: 2.5em;
     border-radius: 0.5em;
-    box-shadow: 0px 0px 0.625em rgba(0, 0, 0, 0.1);
-    width: 60em;
+    box-shadow: 0px 0px 0.625em rgba(0, 0, 0, 0.381);
+    width: 40em;
     height: 20em;
     margin-left: auto; /* Centralizar horizontalmente */
     margin-right: auto; /* Centralizar horizontalmente */
@@ -24,12 +24,11 @@ body {
     align-items: center;
     background-color: #fff;
     border: 1px solid #ccc;
-    padding: 0.625em;
-    border-radius: 0.3125em;
+    border-radius: 0.7em;
     cursor: pointer;
     transition: background-color 0.3s;
-    width: 100%;
-    margin-bottom: 0.9375em;
+    width: 45em;
+    height: 3.5em;
 }
 
 .google-login-button:hover {
@@ -42,19 +41,22 @@ body {
 }
 
 .input-field {
-    width: calc(100% - 1.25em);
+    width: 40em;
+    height: 2.5em;
     padding: 0.625em;
     margin-bottom: 0.9375em;
     border: 1px solid #ccc;
-    border-radius: 0.3125em;
+    border-radius: 0.7em; 
 }
 
 .submit-button {
-    width:80%;
-    background-color: #007bff;
+    width:65%;
+    height: 3em;
+    background-color: #02457A;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 14px;
 }
 
 .submit-button:hover {
@@ -73,4 +75,13 @@ body {
 
 .signup-text a:hover {
     text-decoration: underline; /* Adicionar sublinhado ao passar o mouse */
+}
+.quadrado{
+    padding-top: 1.3em;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
