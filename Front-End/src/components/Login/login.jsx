@@ -5,7 +5,6 @@ function LoginForm() {
   return (
     <div className="login-container">
       <div className='quadrado'>
-
       
     <button className="google-login-button" /*onClick={handleGoogleLogin}*/>
         <img src="../../public/img/google-37.png" alt="Google Logo" className="google-logo" />

@@ -1,27 +1,58 @@
 body{
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: white;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center; /* Centralizar verticalmente */
-    height: 100vh;
-}
-.feedStart{
-    padding: 12px;
-    width: 20%;
-    background-color: rgba(26, 252, 79, 0.375);
-}
-.feedTop{
-    padding: 12px;
-    width: 80%;
-    background-color: rgb(252, 248, 26);
 }
 .feedContainer{
+    width: 198vh;
+    height: 100vh;
+    background-color: white;
+}
+.LineUnique{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 15px;
+    margin-top: 1%;
+    background-color: #022766;
+    align-items: center;
+}
+.Options{
+    background-color: white;
+    align-items: flex-end;
+    padding: 1%;
+    width: 15%;
+    height: 90%;
+    float: left;
+    margin-left: 0.5%;
+}
+.Feed{
+    background-color: whitesmoke;
+    width: 85%;
+    height: 90%;
+    margin-left: 17%;
+    margin-top: -1%;
+    
+}
+.input{
     display: flex;
     justify-content: space-around;
-    width: 1519px;
-    height: 800px;
-    background-color: blue;
+    width: 500px;
+    height: 20px;
+    margin-left: 20%;
+}
+.Button{
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    align-items: center;
+    padding: 20px;
+    border: none;
+    text-emphasis-color: black;
 }
