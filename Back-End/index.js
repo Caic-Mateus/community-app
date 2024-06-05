@@ -21,4 +21,4 @@ app.get("/users", (request,response) =>{
     
 })
 
-app.listen(3000,() => console.log('foi.'))
+app.listen(3000,() => console.log('Aplicação iniciada.'))
