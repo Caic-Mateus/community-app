@@ -6,6 +6,7 @@ export default class AuthService{
         return signInWithEmailAndPassword(auth, email, password)
             .then(userCredential => {
                 console.log('Logged in user: ', userCredential.user)
+                console.log(userCredential)
                 return userCredential.user;
     })
     .catch(error => {
