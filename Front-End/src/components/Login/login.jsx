@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import './login.css'
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import AuthService from '../services/AuthServices';
 
-function LoginForm() {
+LoginForm.propTypes = {
+  authService: PropTypes.shape({
+    login: PropTypes.func.isRequired
+  }).isRequired
+};
+
+function LoginForm({authService}) {
   const [form, setForm] = useState({
     email: {
       hasChanged: false,
@@ -13,11 +22,20 @@ function LoginForm() {
     }
   })
 
+  const navigate = useNavigate();
+
+  const login = () => {
+    authService.login(
+      form.email.value, form.password.value
+    ).then( ()=>{
+      navigate('/feed');
+    });
+  }
+
   const isEmailValid = (email) => {
     return /\S+@\S+\.\S+/.test(email);
   }
   
-
   return (
     <div className="login-container">
       <div className='quadrado'>
@@ -50,7 +68,7 @@ function LoginForm() {
           form.password.hasChanged && !form.password.value 
             && <div className='inputvalidation'>Senha é obrigatória</div>
         }
-        <button type="button" className="input-field submit-button" disabled={!isEmailValid(form.email.value) || !form.password.value}>Entrar</button>
+        <button type="button" className="input-field submit-button" disabled={!isEmailValid(form.email.value) || !form.password.value}  onClick = {login}>Entrar</button>
         <button type="button" disable={!isEmailValid(form.email.value)}>Recuperar Senha</button>
     </form>
     <div className="signup-text">Não tem uma conta? <a href="http://localhost:5173/cadastro">Inscreva-se</a>
