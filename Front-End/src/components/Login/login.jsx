@@ -47,16 +47,13 @@ function LoginForm() {
           }})}
         required />
         {
-          form.password.hasChanged && !form.password.value
+          form.password.hasChanged && !form.password.value 
             && <div className='inputvalidation'>Senha é obrigatória</div>
         }
-        <button type="button" className="input-field submit-button"
-          disabled={!isEmailValid(form.email.value) || !form.password.value}
-        >Entrar</button>
-
+        <button type="button" className="input-field submit-button" disabled={!isEmailValid(form.email.value) || !form.password.value}>Entrar</button>
+        <button type="button" disable={!isEmailValid(form.email.value)}>Recuperar Senha</button>
     </form>
-    <div className="signup-text">
-    Não tem uma conta? <a href="http://localhost:5173/cadastro">Inscreva-se</a>
+    <div className="signup-text">Não tem uma conta? <a href="http://localhost:5173/cadastro">Inscreva-se</a>
     </div>
     </div>
     </div>
