@@ -88,9 +88,11 @@ LoginForm.propTypes = {
             && <div className='inputvalidation'>Senha é obrigatória</div>
         }
         <button type="button" className="input-field submit-button" disabled={!isEmailValid(form.email.value) || !form.password.value}  onClick = {login}>Entrar</button>
-        <button type="button" classname= "clear" disable={!isEmailValid(form.email.value)} onClick={recoverPassword}>Recuperar Senha</button>
     </form>
+    <div className="signup-text">
+    <a type="button" classname= "signup-text" disable={!isEmailValid(form.email.value)} onClick={recoverPassword}>Recuperar Senha</a>
     <div className="signup-text">Não tem uma conta? <a href="http://localhost:5173/cadastro">Inscreva-se</a></div>
+    </div>
     </div>
     {showLoading && <Loading/>}
     {

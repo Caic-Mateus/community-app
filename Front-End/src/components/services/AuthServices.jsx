@@ -15,8 +15,15 @@ export default class AuthService{
         return Promisse.reject(error);
     })
     }
-    logout(){
-        return auth.signOut();
+    logout() {
+        return auth.signOut()
+            .then(() => {
+                console.log('User logged out successfully');
+            })
+            .catch(error => {
+                console.log('Logout error', error);
+                return Promise.reject(error);
+            });
     }
     recoverPassword(email){
         return sendPasswordResetEmail(auth, email)

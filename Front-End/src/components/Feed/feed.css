@@ -8,20 +8,71 @@ body{
     align-items: center; /* Centralizar verticalmente */
     height: 100vh;
 }
-.feedStart{
-    padding: 12px;
-    width: 20%;
-    background-color: rgba(26, 252, 79, 0.375);
+.container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: lightgreen;
 }
-.feedTop{
-    padding: 12px;
-    width: 80%;
-    background-color: rgb(252, 248, 26);
-}
-.feedContainer{
+.lineUnique{
+    width: 100%;
+    height: 50px; /* Ajuste a altura conforme necessário */
+    background-color: darkblue; /* Cor de fundo para visualização */
+    position: absolute;
     display: flex;
-    justify-content: space-around;
-    width: 1519px;
-    height: 800px;
-    background-color: blue;
+    top: 0;
+    left: 0;
+    padding: 1px;
+}
+.line-unique .text {
+    margin-right: 20px; /* Espaçamento entre o texto e o input */
+    white-space: nowrap; /* Impedir quebra de linha no texto */
+}
+.line-unique input[type="text"] {
+    height: 30px; 
+    width: 100%; 
+    max-width: 300px; 
+    padding: 5px 10px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    display: flex;
+    white-space: nowrap;
+}
+.content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: calc(100% - 50px); /* Subtrai a altura da line-unique */
+    position: absolute;
+    top: 50px;
+}
+.options {
+    width: 10%; /* Ajuste a largura conforme necessário */
+    background-color: purple; /* Cor de fundo para visualização */
+    padding: 10px; /* Apenas para visualização */
+}
+
+/* Estilos para a div feed */
+.feed {
+    width: 90%; /* Ajuste a largura conforme necessário */
+    background-color: lightcoral; /* Cor de fundo para visualização */
+    padding: 10px; /* Apenas para visualização */
+}
+/* Estilos para a lista dentro da div options */
+.options list {
+    list-style-type: disc; /* Tipo de marcador da lista */
+    padding-left: 20px; /* Espaço antes dos itens da lista */
+    margin: 0; /* Remove a margem padrão da lista */
+    padding: 0; /* Remove o preenchimento padrão da lista */
+}
+
+/* Estilos para os itens da lista */
+.options list a {
+    font-size: 15px; /* Tamanho do texto */
+    color: whitesmoke; /* Cor do texto */
+    margin-bottom: 10px; /* Espaçamento entre os itens da lista */
+    display: block; /* Garante que cada item seja exibido como bloco */
 }
