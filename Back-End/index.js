@@ -16,6 +16,6 @@ admin.initializeApp({
 })
 app.use(bodyParser.json());
 app.use('/users', usersRouter)
-app.use("/myposts", postsRouter)
+app.use("/posts", postsRouter)
 
 app.listen(3000,() => console.log('Aplicação iniciada.'))

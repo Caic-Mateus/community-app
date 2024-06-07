@@ -1,6 +1,7 @@
-import admin from 'firebase-admin'
+import admin from 'firebase-admin';
 import { PostRepository } from './repository.js';
-export class Post{
+
+export class Post {
     commentsCount;
     context;
     likesCount;
@@ -8,28 +9,42 @@ export class Post{
     postId;
     userId;
 
-    #repository
+    #repository;
 
-    constructor(){
+    constructor() {
         this.#repository = new PostRepository();
     }
 
-    findPostById(){  
-        if(!this.userId){
-            return Promise.reject({
+    async findPostById() {
+        if (!this.userId) {
+            throw {
                 code: 500,
                 message: 'Usuário não informado!'
-            })
+            };
         }
-        console.log(this.userId)
-        try{
-            return this.#repository.findMyPosts(this.userId)
+
+        try {
+            return await this.#repository.findMyPosts(this.userId);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+            throw error;
         }
-        catch(error){
-                console.error('Error fetching posts:', error);
-                throw error;
-            }
     }
-    
-    
+    async createPost(postData) {
+        if (!this.userId) {
+            throw {
+                code: 500,
+                message: 'Usuário não informado!'
+            };
+        }
+        try {
+            // Adiciona o ID do post aos dados do post
+            postData.postId = this.postId;
+
+            return await this.#repository.createPost(postData);
+        } catch (error) {
+            console.error('Error creating post:', error);
+            throw error;
+        }
+    }
 }
