@@ -14,7 +14,6 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Login authService={authService} />,
-    
   },
   {
     path: '/cadastro',
@@ -22,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/feed',
-    element: <Feed/>
+    element: <Feed authService={authService}/>
   },
 ])
 

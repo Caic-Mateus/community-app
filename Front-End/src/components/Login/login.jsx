@@ -3,12 +3,7 @@ import './login.css'
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../services/AuthServices';
-
-LoginForm.propTypes = {
-  authService: PropTypes.shape({
-    login: PropTypes.func.isRequired
-  }).isRequired
-};
+import Loading from '../loading/loading';
 
 function LoginForm({authService}) {
   const [form, setForm] = useState({
@@ -21,6 +16,30 @@ function LoginForm({authService}) {
       value: ""
     }
   })
+
+const [error, setError] = useState(null);
+const [showLoading, setShowLoading] = useState(false);
+const [showRecoverPasswordMessage, setShowRecoverPasswordMessage] = useState(false);
+
+const recoverPassword = () =>{
+  setShowLoading(true);
+    authService.recoverPassword(
+    form.email.value
+  ).then( () =>{
+    setShowRecoverPasswordMessage(true);
+    setShowLoading(false);
+  }).catch(error => {
+    setError(error);
+    setShowLoading(false);
+  })
+}
+
+LoginForm.propTypes = {
+  authService: PropTypes.shape({
+    login: PropTypes.func.isRequired,
+    recoverPassword: PropTypes.func.isRequired
+  }).isRequired
+};
 
   const navigate = useNavigate();
 
@@ -69,11 +88,15 @@ function LoginForm({authService}) {
             && <div className='inputvalidation'>Senha é obrigatória</div>
         }
         <button type="button" className="input-field submit-button" disabled={!isEmailValid(form.email.value) || !form.password.value}  onClick = {login}>Entrar</button>
-        <button type="button" disable={!isEmailValid(form.email.value)}>Recuperar Senha</button>
+        <button type="button" classname= "clear" disable={!isEmailValid(form.email.value)} onClick={recoverPassword}>Recuperar Senha</button>
     </form>
-    <div className="signup-text">Não tem uma conta? <a href="http://localhost:5173/cadastro">Inscreva-se</a>
+    <div className="signup-text">Não tem uma conta? <a href="http://localhost:5173/cadastro">Inscreva-se</a></div>
     </div>
-    </div>
+    {showLoading && <Loading/>}
+    {
+      showRecoverPasswordMessage && 
+      <div className='signup-text'>Verifique sua caixa de email!</div>
+    }
     </div>
 
   );

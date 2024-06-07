@@ -1,5 +1,6 @@
+import firebase from 'firebase/compat/app';
 import {auth} from '../../FirebaseConfig'
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
 export default class AuthService{
     login(email, password){
@@ -13,5 +14,18 @@ export default class AuthService{
         console.log('Login error', error)
         return Promisse.reject(error);
     })
+    }
+    logout(){
+        return auth.signOut();
+    }
+    recoverPassword(email){
+        return sendPasswordResetEmail(auth, email)
+        .then( () => {
+            console.log('Password reset email sent');
+        })
+        .catch(error => {
+            console.error('Error sending password reset email: ', error);
+            return Promise.reject(error)
+        })
     }
 }
