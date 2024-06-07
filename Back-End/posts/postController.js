@@ -1,21 +1,19 @@
-import admin from 'firebase-admin';
+import { Post } from './model.js';
 
 export class PostController{
     findPostsById = (request,response) =>{
         console.log('chamou api')
         
         console.log('GET');
-        admin.firestore()
-        .collection('Posts')
-        .where('user.uid', '==', request.user.uid)
-        .orderBy('date', 'desc')
-        .get()
-        .then(snapshot => {
-            const posts = snapshot.docs.map(doc => ({
-                ...doc.data(),
-                uid: doc.id
-            }))
+        const post = new Post();
+        
+        post.userId = request.user.uid;
+
+        post.findPostById().then(posts =>{
             response.json(posts)
+        }).catch(error => {
+            console.log('erro');
+            response.status(error.code).json(error);
         })
         
     }
