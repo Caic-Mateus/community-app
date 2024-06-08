@@ -17,6 +17,24 @@ export class PostController {
             });
     }
 
+    findPostsByPostId = (request, response) => {
+        console.log('GET');
+        const post = new Post();
+
+        post.userId = request.user.uid;
+
+        const postId = request.params.postId;
+
+        post.findPostByPostId(postId)
+            .then(posts => {
+                response.json(posts);
+            })
+            .catch(error => {
+                console.log('Error fetching posts:', error);
+                response.status(500).json(error);
+            });
+    }
+
     createPost = (request, response) => {
         console.log('POST');
         const post = new Post();

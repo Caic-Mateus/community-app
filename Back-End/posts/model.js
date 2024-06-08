@@ -30,6 +30,23 @@ export class Post {
             throw error;
         }
     }
+
+    async findPostByPostId(postId) {
+        if (!this.userId) {
+            throw {
+                code: 500,
+                message: 'Usuário não informado!'
+            };
+        }
+
+        try {
+            return await this.#repository.findPostsByPostId(this.postId);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+            throw error;
+        }
+    }
+
     async createPost(postData) {
         if (!this.userId) {
             throw {
@@ -40,7 +57,7 @@ export class Post {
         try {
             // Adiciona o ID do post aos dados do post
             postData.postId = this.postId;
-
+            postData.registrationDate = admin.firestore.Timestamp.now();
             return await this.#repository.createPost(postData);
         } catch (error) {
             console.error('Error creating post:', error);

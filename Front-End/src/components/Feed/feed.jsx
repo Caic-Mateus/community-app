@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './feed.css';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loading from '../loading/loading';
@@ -7,8 +8,13 @@ import AuthService from '../services/AuthServices';
 
 function FeedIndex({ authService }) {
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const [newPostContent, setNewPostContent] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    const token = localStorage.getItem('token');
+    const uid = localStorage.getItem('uid');
     FeedIndex.propTypes = {
         authService: PropTypes.shape({
             login: PropTypes.func.isRequired,
@@ -26,6 +32,33 @@ function FeedIndex({ authService }) {
         } catch (error) {
             console.error('Logout error:', error);
             setIsLoggingOut(false);
+        }
+    };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+        try {
+            const newPostData = {
+                context: newPostContent,
+                likesCount: 0,
+                commentsCount: 0,
+                userId: uid// Seu ID de usuário aqui
+            };
+            const response = await axios.post('http://localhost:3000/posts', newPostData, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': token
+                }
+              });
+            console.log('Novo post criado:', response.data);
+            // Limpar o campo do formulário após o sucesso da criação do post
+            setNewPostContent('');
+            setLoading(false);
+            // Atualizar a lista de posts (se necessário)
+        } catch (error) {
+            console.error('Erro ao criar o novo post:', error);
+            setError(error.message);
+            setLoading(false);
         }
     };
 
@@ -67,9 +100,19 @@ function FeedIndex({ authService }) {
         <div className="main">
             <div className="header">
                     <div className="search-bar">
-                        <input type="text" placeholder="O que está acontecendo?" className="input-personalizado" />
-                        <button className="botao-sem-fundo">Postar</button>
-                        <i className="fas fa-search"></i>
+                    <form onSubmit={handleSubmit}>
+                            <input
+                                type="text"
+                                placeholder="O que está acontecendo?"
+                                className="input-personalizado"
+                                value={newPostContent}
+                                onChange={(event) => setNewPostContent(event.target.value)}
+                            />
+                            <button type="submit" className="botao-sem-fundo" disabled={loading}>
+                                {loading ? <Loading /> : 'Postar'}
+                            </button>
+                            <i className="fas fa-search"></i>
+                        </form>
                     </div>
             </div>
             <div className="posts">

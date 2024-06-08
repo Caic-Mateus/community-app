@@ -6,8 +6,9 @@ export default class AuthService{
     login(email, password){
         return signInWithEmailAndPassword(auth, email, password)
             .then(userCredential => {
-                console.log('Logged in user: ', userCredential.user)
-                console.log(userCredential)
+                localStorage.setItem('token', userCredential.user.accessToken); // Salvando o token no localStorage
+                localStorage.setItem('uid', userCredential.user.uid); 
+                console.log(userCredential.user)
                 return userCredential.user;
     })
     .catch(error => {
@@ -18,6 +19,7 @@ export default class AuthService{
     logout() {
         return auth.signOut()
             .then(() => {
+                localStorage.removeItem('token'); // Removendo o token do localStorage
                 console.log('User logged out successfully');
             })
             .catch(error => {

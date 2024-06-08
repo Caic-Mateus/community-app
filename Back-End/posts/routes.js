@@ -8,6 +8,6 @@ const app = express();
 const postController = new PostController();
 
 app.get("/", autheticateToken, postController.findPostsById)
-
+app.get("/:postId", autheticateToken, postController.findPostsById)
 app.post('/', autheticateToken, postController.createPost);
 export const postsRouter = app;

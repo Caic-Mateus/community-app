@@ -13,7 +13,18 @@ export class PostRepository {
                 }));
             });
     }
-
+    async findPostsByPostId(postId) {
+        return admin.firestore()
+            .collection('Posts')
+            .where('postId', '==', postId)
+            .get()
+            .then(snapshot => {
+                return snapshot.docs.map(doc => ({
+                    ...doc.data(),
+                    uid: doc.id
+                }));
+            });
+    }
     async createPost(postData) {
         try {
             const docRef = await admin.firestore().collection('Posts').doc(); // Gera o ID automaticamente
