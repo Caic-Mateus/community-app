@@ -26,4 +26,12 @@ export class Comment {
             throw error;
         }
     }
+    async getCommentsByPostId(postId) {
+        try {
+            return await this.#repository.getCommentsByPostId(postId);
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            throw error;
+        }
+    }
 }

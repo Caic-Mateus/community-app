@@ -11,4 +11,22 @@ export class CommentRepository {
             throw new Error(`Error creating comment: ${error.message}`);
         }
     }
+    async getCommentsByPostId(postId) {
+        try {
+            const commentsRef = admin.firestore().collection('Comments').where('postId', '==', postId);
+            const snapshot = await commentsRef.get();
+            if (snapshot.empty) {
+                return [];
+            }
+
+            const comments = [];
+            snapshot.forEach(doc => {
+                comments.push(doc.data());
+            });
+
+            return comments;
+        } catch (error) {
+            throw new Error(`Error fetching comments: ${error.message}`);
+        }
+    }
 }

@@ -31,4 +31,16 @@ export class CommentController {
                 response.status(500).json(error);
             });
     }
+    getCommentsByPostId = async (request, response) => {
+        const postId = request.params.postId;
+        
+        try {
+            const comment = new Comment();
+            const comments = await comment.getCommentsByPostId(postId);
+            response.status(200).json(comments);
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            response.status(500).json({ error: error.message });
+        }
+    };
 }

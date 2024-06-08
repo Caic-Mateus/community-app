@@ -8,4 +8,5 @@ const app = express();
 const commentController = new CommentController();
 
 app.post('/', autheticateToken, commentController.createComment);
+app.get('/:postId', autheticateToken, commentController.getCommentsByPostId);
 export const commentsRouter = app;
