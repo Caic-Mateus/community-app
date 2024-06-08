@@ -67,6 +67,7 @@ body {
 .main {
     flex: 1;
     padding: 20px;
+    width: 900px;
 }
 
 .header {
@@ -127,6 +128,7 @@ body {
 .posts {
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 20px;
 }
 

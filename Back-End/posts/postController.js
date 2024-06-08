@@ -53,4 +53,16 @@ export class PostController {
                 response.status(500).json(error);
             });
     }
+    async findPosts(request, response) {
+        const post = new Post();
+        try {
+            
+            post.userId = request.user.uid;
+
+            const posts = await post.findPosts();
+            response.json(posts);
+        } catch (error) {
+            response.status(500).json({ message: 'Error fetching users', error: error.message });
+        }
+    }
 }

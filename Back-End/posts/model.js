@@ -40,7 +40,23 @@ export class Post {
         }
 
         try {
-            return await this.#repository.findPostsByPostId(this.postId);
+            return await this.#repository.findPostsByPostId(postId);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+            throw error;
+        }
+    }
+
+    async findPosts() {
+        if (!this.userId) {
+            throw {
+                code: 500,
+                message: 'Usuário não informado!'
+            };
+        }
+
+        try {
+            return await this.#repository.findPosts();
         } catch (error) {
             console.error('Error fetching posts:', error);
             throw error;
