@@ -1,78 +1,210 @@
-body{
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+body {
+    font-family: sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f2f2f2;
+}
+
+.container {
     display: flex;
-    justify-content: center;
-    align-items: center; /* Centralizar verticalmente */
     height: 100vh;
 }
-.container{
+
+.commu-logo {
+    width: 5em;
+    margin-right: 0.5em;
+    margin-left: 2.5em;
+}
+.homePage-logo{
+    width: 1em;
+    margin-right: 0.5em;
+    align-items: center;
+}
+.sidebar {
+    background-color: #fff;
+    width: 200px;
+    padding: 20px;
+    align-items: end;
+}
+
+.sidebar h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar i {
+    margin-right: 10px;
+}
+
+.sidebar button {
+    background-color: transparent;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     bottom: 0;
-    background-color: lightgreen;
+    margin-bottom: 1%;
 }
-.lineUnique{
-    width: 100%;
-    height: 50px; /* Ajuste a altura conforme necessário */
-    background-color: darkblue; /* Cor de fundo para visualização */
-    position: absolute;
-    display: flex;
-    top: 0;
-    left: 0;
-    padding: 1px;
-}
-.line-unique .text {
-    margin-right: 20px; /* Espaçamento entre o texto e o input */
-    white-space: nowrap; /* Impedir quebra de linha no texto */
-}
-.line-unique input[type="text"] {
-    height: 30px; 
-    width: 100%; 
-    max-width: 300px; 
-    padding: 5px 10px; 
-    font-size: 16px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-    display: flex;
-    white-space: nowrap;
-}
-.content {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: calc(100% - 50px); /* Subtrai a altura da line-unique */
-    position: absolute;
-    top: 50px;
-}
-.options {
-    width: 10%; /* Ajuste a largura conforme necessário */
-    background-color: purple; /* Cor de fundo para visualização */
-    padding: 10px; /* Apenas para visualização */
+.main {
+    flex: 1;
+    padding: 20px;
 }
 
-/* Estilos para a div feed */
-.feed {
-    width: 90%; /* Ajuste a largura conforme necessário */
-    background-color: lightcoral; /* Cor de fundo para visualização */
-    padding: 10px; /* Apenas para visualização */
-}
-/* Estilos para a lista dentro da div options */
-.options list {
-    list-style-type: disc; /* Tipo de marcador da lista */
-    padding-left: 20px; /* Espaço antes dos itens da lista */
-    margin: 0; /* Remove a margem padrão da lista */
-    padding: 0; /* Remove o preenchimento padrão da lista */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-/* Estilos para os itens da lista */
-.options list a {
-    font-size: 15px; /* Tamanho do texto */
-    color: whitesmoke; /* Cor do texto */
-    margin-bottom: 10px; /* Espaçamento entre os itens da lista */
-    display: block; /* Garante que cada item seja exibido como bloco */
+.header h2 {
+    margin: 0;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%; /* Para ocupar todo o espaço horizontal */
+    box-sizing: border-box; /* Inclui o padding na largura total */
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 16px;
+    flex: 1; /* Faz o input ocupar o espaço restante */
+}
+
+.search-bar button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Adiciona espaço entre os botões */
+}
+
+.search-bar .botao-sem-fundo {
+    background-color: #007bff;
+    color: #fff;
+    margin-left: 10px; /* Adiciona espaço entre os botões */
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.lineUnique {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.post {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post .user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post .user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post .user .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post .user .info .name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.post .content {
+    margin-bottom: 10px;
+}
+
+.post .content p {
+    margin: 0;
+}
+
+.post .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 50px;
+}
+
+.post .actions i {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.post .actions .like-count {
+    font-weight: bold;
+}
+
+.post .matrix {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.post .matrix .table {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.post .matrix .table .row {
+    display: flex;
+    gap: 10px;
+}
+
+.post .matrix .table .cell {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
 }
