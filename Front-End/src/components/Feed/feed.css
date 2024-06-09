@@ -22,9 +22,14 @@ body {
 }
 .sidebar {
     background-color: #fff;
-    width: 200px;
+    width: 50%;
     padding: 20px;
-    align-items: end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000; /* Garante que a sidebar esteja acima dos outros elementos */
+    overflow-y: auto; /* Adiciona uma barra de rolagem se necessário */
 }
 
 .sidebar h1 {
@@ -67,7 +72,9 @@ body {
 .main {
     flex: 1;
     padding: 20px;
-    width: 900px;
+    margin-left: 250px; /* Ajuste conforme necessário */
+    background-color: transparent;
+    min-width: 800px; /* Defina um mínimo para a largura da .main */
 }
 
 .header {
@@ -111,7 +118,7 @@ body {
 .search-bar .botao-sem-fundo {
     background-color: #007bff;
     color: #fff;
-    margin-left: 10px; /* Adiciona espaço entre os botões */
+    margin-left: 500px;
     padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
@@ -126,10 +133,11 @@ body {
 }
 
 .posts {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 20px;
+    background-color: #fff;
+    padding: 30px; /* Aumenta o espaçamento interno das postagens */
+    border-radius: 10px; /* Aumenta o raio da borda para um visual mais suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
+    margin-bottom: 20px; /* Adiciona espaço entre as postagens */
 }
 
 .post {
@@ -177,10 +185,14 @@ body {
     cursor: pointer;
     gap: 50px;
 }
+.post .actions button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
 
 .post .actions i {
     margin-right: 10px;
-    cursor: pointer;
 }
 
 .post .actions .like-count {

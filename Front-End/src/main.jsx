@@ -6,6 +6,7 @@ import AuthService from './components/services/AuthServices.jsx';
 import { Login } from './pages/login.jsx'
 import { Cadastro } from './pages/cadastro.jsx'
 import {Feed} from './pages/feed.jsx'
+import {Perfil} from './pages/perfil.jsx'
 
 const authService = new AuthService();
 
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
     path: '/feed',
     element: <Feed authService={authService}/>
   },
+  {
+  path: '/perfil',
+  element: <Perfil/>
+  },
+
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

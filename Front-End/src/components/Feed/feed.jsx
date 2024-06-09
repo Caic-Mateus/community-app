@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loading from '../loading/loading';
+import CommentPopup from '../ComentarioPop-Up/comentarioPopUp';
 import AuthService from '../services/AuthServices';
 
 function FeedIndex({ authService }) {
@@ -109,6 +110,25 @@ function FeedIndex({ authService }) {
         }
     };
 
+    
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    
+    const openPopup = () => {
+        setIsPopupOpen(true);
+    };
+
+    
+    const closePopup = () => {
+        setIsPopupOpen(false);
+    };
+
+    
+    const handleCommentSubmit = (comment) => {
+        console.log("Comentário enviado:", comment);
+        
+    };
+
     function formatDate(timestamp) {
         const date = timestamp ? new Date(timestamp._seconds * 1000) : null; // Verifica se timestamp está definido
         return date ? date.toLocaleDateString() : 'Data Desconhecida'; // Verifica se date está definido
@@ -135,7 +155,7 @@ function FeedIndex({ authService }) {
                         <img src="../../public/img/Save.png" alt="HomePage Logo" className='homePage-logo' />
                         <span>Itens Salvos</span>
                     </a>
-                    <a href="http://localhost:5173/feed">
+                    <a href="http://localhost:5173/perfil">
                         <img src="../../public/img/Profile.png" alt="HomePage Logo" className='homePage-logo' />
                         <span>Perfil</span>
                     </a>
@@ -188,14 +208,19 @@ function FeedIndex({ authService }) {
                                     <img src="../../public/img/Like.png" alt="HomePage Logo" className='homePage-logo' />
                                     <span>Curtir</span>
                                 </button>
-                                <a href="#">
+                                <button onClick={openPopup}>
                                     <img src="../../public/img/Comment.png" alt="HomePage Logo" className='homePage-logo' />
                                     <span>Comentar</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     ))}
                 </div>
+                <CommentPopup
+                    isOpen={isPopupOpen}
+                    onClose={closePopup}
+                    onSubmit={handleCommentSubmit}
+                />
             </div>
         </div>
     );
