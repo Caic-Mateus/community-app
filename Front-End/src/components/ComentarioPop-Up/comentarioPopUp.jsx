@@ -19,6 +19,27 @@ const CommentPopup = ({ isOpen, onClose, onSubmit }) => {
     return (
         <div className="popup-overlay">
             <div className="popup">
+            <div className='postsPop'>
+                <div className='postPop'>
+                <div className="user">
+                    <img src="https://via.placeholder.com/40" alt='Usuario' />
+                        <div className="info">
+                            <div className="name">Usuario</div>
+                            <div className="name">Curso</div>
+                            <div className="name">Conteudo</div>
+                            <div className="time">Data do post</div>
+                        </div>
+                    </div>
+                    <div>
+                        
+                    </div>
+                    <div className='comments'>
+                        <div className='allcomments'>
+                            <p>comentarios aqui</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 <h2>Comentar na Publicação</h2>
                 <textarea
                     value={comment}

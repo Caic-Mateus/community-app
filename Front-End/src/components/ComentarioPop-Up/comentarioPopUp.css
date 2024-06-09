@@ -16,10 +16,11 @@
     background: white;           /* Fundo branco */
     padding: 20px;               /* Espaçamento interno */
     border-radius: 10px;         /* Bordas arredondadas */
-    width: 400px;                /* Largura fixa */
+    width: 650px;                /* Largura fixa */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
     text-align: center;          /* Centraliza o texto */
-    z-index: 2000;
+    z-index: 20000;
+    max-height: 550px;
 }
 
 .popup h2 {
@@ -27,8 +28,8 @@
 }
 
 .popup textarea {
-    width: 100%;                 /* Largura total */
-    height: 100px;               /* Altura fixa */
+    width: 90%;                 /* Largura total */
+    height: 40px;               /* Altura fixa */
     margin-bottom: 20px;         /* Espaçamento inferior */
     padding: 10px;               /* Espaçamento interno */
     border: 1px solid #ccc;      /* Borda */
@@ -49,11 +50,67 @@
 }
 
 .popup-actions button:first-child {
-    background-color: #28a745;   /* Cor de fundo verde */
+    background-color: green;   /* Cor de fundo verde */
     color: white;                /* Texto branco */
 }
 
 .popup-actions button:last-child {
-    background-color: #dc3545;   /* Cor de fundo vermelho */
+    background-color: red;   /* Cor de fundo vermelho */
     color: white;                /* Texto branco */
+}
+
+.postsPop {
+    background-color: transparent;
+    padding: 30px; /* Aumenta o espaçamento interno das postagens */
+    border: none; /* Aumenta o raio da borda para um visual mais suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
+    margin-bottom: 20px; /* Adiciona espaço entre as postagens */
+}
+
+.postPop {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.postPop .user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.postPop .user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.postPop .user .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.postPop .user .info .name {
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+.comments{
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid black;
+    overflow-y: auto;
+    max-height: 100px;
+    max-width: 550px;
+}
+.comments .allcomments{
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 5px;
+    border-color: black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    max-width: 500px;
+    align-items: center;
 }
