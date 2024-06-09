@@ -30,4 +30,16 @@ export class UserController {
             });
         }
     }
+    getUserById = async (request, response) => {
+        const userId  = request.params.userId;
+        
+        try {
+            const user = new User();
+            const userData = await user.getUserById(userId);
+            response.status(200).json(userData);
+        } catch (error) {
+            console.error('Error fetching user:', error);
+            response.status(500).json({ error: error.message });
+        }
+    };
 }

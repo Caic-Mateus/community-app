@@ -8,6 +8,7 @@ const userController = new UserController();
 
 app.get("/", autheticateToken, userController.findUsers)
 
-app.post("/create", userController.createUser)
+app.post("/create", userController.createUser);
 
+app.get('/:userId', userController.getUserById);
 export const usersRouter = app;

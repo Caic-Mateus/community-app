@@ -22,7 +22,14 @@ export class User {
     async findUsers() {
         return this.#repository.findUsers();
     }
-
+    async getUserById(userId) {
+        try {
+            return await this.#repository.getUserById(userId);
+        } catch (error) {
+            console.error('Error fetching user:', error);
+            throw error;
+        }
+    }
     async createUser(userData) {
         const { email, password, name, avatarUrl, curso, date_Nasc, registrationDate, telefone, user } = userData;
         const newUser = { email, name, avatarUrl, curso, date_Nasc, registrationDate, telefone, user };
