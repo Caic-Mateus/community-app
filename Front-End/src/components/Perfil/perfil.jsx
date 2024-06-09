@@ -1,99 +1,156 @@
 import React, { useState, useEffect } from 'react';
 import './perfil.css';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Loading from '../loading/loading';
 import AuthService from '../services/AuthServices';
 
+function Profile({ authService }) {
+    const { userId } = useParams();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [user, setUser] = useState({});
+    const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
 
-function PerfilForm({ authService }) {
+    const token = localStorage.getItem('token');
+    const uid = localStorage.getItem('uid');
 
-    const logout = async () => {
-        setIsLoggingOut(true);
+
+    useEffect(() => {
+        fetchUser();
+        fetchPosts();
+    }, [userId]);
+
+    const fetchUser = async () => {
+        setLoading(true);
         try {
-            await authService.logout();
-            setIsLoggingOut(false);
-            navigate('/');
+            const response = await axios.get(`http://localhost:3000/users/${uid}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                }
+            });
+            setUser(response.data);
+            setLoading(false);
         } catch (error) {
-            console.error('Logout error:', error);
-            setIsLoggingOut(false);
+            console.error('Erro ao buscar o usuário:', error);
+            setError(error.message);
+            setLoading(false);
         }
     };
 
+    const fetchPosts = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`http://localhost:3000/posts/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+                body: {
+                    userid: uid
+                }
+            });
+            setPosts(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Erro ao buscar os posts do usuário:', error);
+            setError(error.message);
+            setLoading(false);
+        }
+    };
+
+    function formatDate(timestamp) {
+        const date = timestamp ? new Date(timestamp._seconds * 1000) : null;
+        return date ? date.toLocaleDateString() : 'Data Desconhecida';
+    }
+
+    if (loading) return <Loading />;
+
     return (
         <div className="container">
-             <div className="sidebar">
-                <img src="../../public/img/Ft_cu.png" alt="Google Logo" className="commu-logo" />
+            <div className="sidebar">
+                <img src="../../public/img/Ft_cu.png" alt="Logo" className="commu-logo" />
                 <ul>
                     <a href="http://localhost:5173/feed">
-                        <img src="../../public/img/HomePage.png" alt="HomePage Logo" className='homePage-logo' />
+                        <img src="../../public/img/HomePage.png" alt="HomePage Logo" className="homePage-logo" />
                         <span>Página inicial</span>
                     </a>
                     <a href="http://localhost:5173/feed">
-                        <img src="../../public/img/Notify.png" alt="HomePage Logo" className='homePage-logo' />
+                        <img src="../../public/img/Notify.png" alt="Notificações" className="homePage-logo" />
                         <span>Notificações</span>
                     </a>
                     <a href="http://localhost:5173/feed">
-                        <img src="../../public/img/Message.png" alt="HomePage Logo" className='homePage-logo' />
+                        <img src="../../public/img/Message.png" alt="Mensagens" className="homePage-logo" />
                         <span>Mensagens</span>
                     </a>
                     <a href="http://localhost:5173/feed">
-                        <img src="../../public/img/Save.png" alt="HomePage Logo" className='homePage-logo' />
+                        <img src="../../public/img/Save.png" alt="Itens Salvos" className="homePage-logo" />
                         <span>Itens Salvos</span>
                     </a>
                     <a href="http://localhost:5173/feed">
-                        <img src="../../public/img/Profile.png" alt="HomePage Logo" className='homePage-logo' />
+                        <img src="../../public/img/Profile.png" alt="Perfil" className="homePage-logo" />
                         <span>Perfil</span>
                     </a>
                     <a href="http://localhost:5173/feed">
-                        <img src="../../public/img/More.png" alt="HomePage Logo" className='homePage-logo' />
+                        <img src="../../public/img/More.png" alt="Mais" className="homePage-logo" />
                         <span>Mais</span>
                     </a>
-                    <button className='botao-logout' onClick={logout}>
-                        <img src='../../public/img/Logout.png' className='homePage-logo'></img>
+                    <button className="botao-logout" onClick={() => {
+                        authService.logout();
+                        navigate('/');
+                    }}>
+                        <img src="../../public/img/Logout.png" alt="Logout" className="homePage-logo" />
                         Sair
                     </button>
                 </ul>
             </div>
             <div className="main">
-                <div className="profile">
-                    <div className="profile-image">
-                        <img src="https://via.placeholder.com/150" alt="Lucas Borel" />
-                    </div>
-                    <div className="profile-info">
-                        <h2>Lucas Borel</h2>
-                        <p>lucas@fatec.com</p>
-                        <div className="profile-stats">
-                            <p>4 amigos</p>
-                            <p>47 seguindo</p>
-                        </div>
-                    </div>
+                <div className="profile-header">
+                    <h1>{user.name}</h1>
+                    <p>{user.email}</p>
                 </div>
                 <div className="posts">
-        <div className="post">
-            <div className="user">
-                <img src="https://via.placeholder.com/40" alt="Melissa Nascimento" />
-                <div className="info">
-                    <div className="name">Melissa Nascimento</div>
-                    <div className="time">1h</div>
+                    {posts.map(post => (
+                        <div className="post" key={post.postId}>
+                            <div className="user">
+                                <img src="https://via.placeholder.com/40" alt={user.name || 'Usuário Desconhecido'} />
+                                <div className="info">
+                                    <div className="name">{user ? "@" + user.user : 'Usuário Desconhecido'}</div>
+                                    <div className="name">{user.curso || 'Curso Desconhecido'}</div>
+                                    <div className="time">{formatDate(post.registrationDate)}</div>
+                                </div>
+                            </div>
+                            <div className="content">
+                                <p>{post.content}</p>
+                            </div>
+                            <div className="actions">
+                                <p>{post.likesCount}</p>
+                                <button onClick={() => handleLike(post.postId)}>
+                                    <img src="../../public/img/Like.png" alt="Curtir" className="homePage-logo" />
+                                    <span>Curtir</span>
+                                </button>
+                                <a href="#">
+                                    <img src="../../public/img/Comment.png" alt="Comentar" className="homePage-logo" />
+                                    <span>Comentar</span>
+                                </a>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            </div>
-    <div className="content">
-        <p>Até que enfim consegui entender. Quem precisar de ajuda é só me chamar kkkkkk.</p>
-    </div>
-    <div className="actions">
-        <a href="#">
-            <img src="../../public/img/Like.png" alt="HomePage Logo" className='homePage-logo'  />
-            <span>Curtir</span>
-            <span>Contador</span>
-        </a>
-        <a href="#">
-            <img src="../../public/img/Comment.png" alt="HomePage Logo" className='homePage-logo'  />
-            <span>Comentar</span>
-        </a>
-    </div>
-    </div>
-    </div>
-                
             </div>
         </div>
     );
-  }
-  export default PerfilForm;
+}
+
+Profile.propTypes = {
+    authService: PropTypes.shape({
+        login: PropTypes.func.isRequired,
+        logout: PropTypes.func.isRequired,
+        recoverPassword: PropTypes.func.isRequired,
+    }).isRequired,
+};
+
+export default Profile;

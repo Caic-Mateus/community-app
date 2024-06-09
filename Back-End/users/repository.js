@@ -24,7 +24,17 @@ export class UserRepository {
             throw new Error(`Error creating user in auth: ${error.message}`);
         }
     }
-
+    async getUserById(userId) {
+        try {
+            const userDoc = await admin.firestore().collection('Users').doc(userId).get();
+            if (!userDoc.exists) {
+                throw new Error('User not found');
+            }
+            return userDoc.data();
+        } catch (error) {
+            throw new Error(`Error fetching user: ${error.message}`);
+        }
+    }
     async saveUserInFirestore(user) {
         try {
             await admin.firestore().collection('Users').doc(user.userId).set({
