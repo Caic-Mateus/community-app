@@ -14,6 +14,8 @@ function FeedIndex({ authService }) {
     const [error, setError] = useState(null);
     const [posts, setPosts] = useState([]);
     const [updateFlag, setUpdateFlag] = useState(false);
+    const [selectedPost, setSelectedPost] = useState(null);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
     const navigate = useNavigate();
 
     const token = localStorage.getItem('token');
@@ -110,23 +112,19 @@ function FeedIndex({ authService }) {
         }
     };
 
-    
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-    
-    const openPopup = () => {
+    const openPopup = (post) => {
+        setSelectedPost(post);
         setIsPopupOpen(true);
     };
 
-    
     const closePopup = () => {
+        setSelectedPost(null);
         setIsPopupOpen(false);
     };
 
-    
     const handleCommentSubmit = (comment) => {
         console.log("Comentário enviado:", comment);
-        
+        // Você pode adicionar a lógica para enviar o comentário aqui
     };
 
     function formatDate(timestamp) {
@@ -208,7 +206,7 @@ function FeedIndex({ authService }) {
                                     <img src="../../public/img/Like.png" alt="HomePage Logo" className='homePage-logo' />
                                     <span>Curtir</span>
                                 </button>
-                                <button onClick={openPopup}>
+                                <button onClick={() => openPopup(post)}>
                                     <img src="../../public/img/Comment.png" alt="HomePage Logo" className='homePage-logo' />
                                     <span>Comentar</span>
                                 </button>
@@ -220,6 +218,7 @@ function FeedIndex({ authService }) {
                     isOpen={isPopupOpen}
                     onClose={closePopup}
                     onSubmit={handleCommentSubmit}
+                    post={selectedPost}
                 />
             </div>
         </div>

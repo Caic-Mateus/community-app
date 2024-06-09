@@ -41,6 +41,7 @@ export class PostRepository {
     async findPosts() {
         const posts = await admin.firestore()
             .collection('Posts')
+            .orderBy('registrationDate', 'desc')
             .get()
             .then(async snapshot => {
                 const postsData = [];
