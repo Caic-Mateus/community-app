@@ -112,21 +112,21 @@ function Profile({ authService }) {
                     <h1>{user.name}</h1>
                     <p>{user.email}</p>
                 </div>
-                <div className="posts">
+                <div className="posts-perfil">
                     {posts.map(post => (
-                        <div className="post" key={post.postId}>
-                            <div className="user">
+                        <div className="post-perfil" key={post.postId}>
+                            <div className="user-perfil">
                                 <img src="https://via.placeholder.com/40" alt={user.name || 'Usuário Desconhecido'} />
-                                <div className="info">
-                                    <div className="name">{user ? "@" + user.user : 'Usuário Desconhecido'}</div>
-                                    <div className="name">{user.curso || 'Curso Desconhecido'}</div>
-                                    <div className="time">{formatDate(post.registrationDate)}</div>
+                                <div className="info-perfil">
+                                    <div className="name-perfil">{user ? "@" + user.user : 'Usuário Desconhecido'}</div>
+                                    <div className="name-perfil">{user.curso || 'Curso Desconhecido'}</div>
+                                    <div className="time-perfil">{formatDate(post.registrationDate)}</div>
                                 </div>
                             </div>
-                            <div className="content">
-                                <p>{post.content}</p>
+                            <div className="content-perfil">
+                                <p>{post.context}</p>
                             </div>
-                            <div className="actions">
+                            <div className="actions-perfil">
                                 <p>{post.likesCount}</p>
                                 <button onClick={() => handleLike(post.postId)}>
                                     <img src="../../public/img/Like.png" alt="Curtir" className="homePage-logo" />

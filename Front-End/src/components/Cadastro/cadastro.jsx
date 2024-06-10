@@ -134,11 +134,12 @@ function CadastroForm() {
             required
           />
         </div>
-        <input type="submit" className="Button-Cadastro" value="Cadastrar" />
+        <input type="submit" className="Button-Cadastro" value="Cadastrar"/>
       </form>
       {error && <div className='inputvalidation'>{error}</div>}
       <div className="signup-text">
-        Não tem uma conta? <a href="#">Inscreva-se</a>
+        <p>Já tem uma conta?</p>
+        <a href='/'>Logue na sua conta</a>
       </div>
     </div>
   );

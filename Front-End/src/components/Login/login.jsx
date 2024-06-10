@@ -60,10 +60,10 @@ LoginForm.propTypes = {
       <div className='quadrado'>
 
       
-    <button className="google-login-button" /*onClick={handleGoogleLogin}*/>
+     {/*  <button className="google-login-button" /*onClick={handleGoogleLogin}>
         <img src="../../public/img/google-37.png" alt="Google Logo" className="google-logo" />
         <span>Fazer login com o Google</span>
-    </button>
+      </button>  */}
     <form action="#">
         <input type="email" className="input-field" placeholder="E-mail" value={form.email.value}
           onChange={event => setForm({...form, email:{
@@ -91,14 +91,17 @@ LoginForm.propTypes = {
     </form>
     <div className="signup-text">
     <a type="button" classname= "signup-text" disable={!isEmailValid(form.email.value)} onClick={recoverPassword}>Recuperar Senha</a>
-    <div className="signup-text">Não tem uma conta? <a href="http://localhost:5173/cadastro">Inscreva-se</a></div>
-    </div>
-    </div>
-    {showLoading && <Loading/>}
+    <div className="signup-text">
+      <p>Não tem uma conta?</p> 
+      <a href="http://localhost:5173/cadastro">Inscreva-se</a>
+      {showLoading && <Loading/>}
     {
       showRecoverPasswordMessage && 
       <div className='signup-text'>Verifique sua caixa de email!</div>
     }
+    </div>
+    </div>
+    </div>
     </div>
 
   );

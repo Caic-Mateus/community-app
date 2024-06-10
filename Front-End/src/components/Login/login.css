@@ -14,11 +14,10 @@ body {
     border-radius: 0.5em;
     box-shadow: 0px 0px 0.625em rgba(0, 0, 0, 0.381);
     width: 40em;
-    height: 20em;
+    height: 24.6em;
     margin-left: auto; /* Centralizar horizontalmente */
     margin-right: auto; /* Centralizar horizontalmente */
 }
-
 .google-login-button {
     margin-bottom: 0.5%;
     display: flex;
@@ -31,16 +30,13 @@ body {
     width: 45em;
     height: 3.5em;
 }
-
 .google-login-button:hover {
     background-color: #f0f0f0;
 }
-
 .google-logo {
     width: 2em;
     margin-right: 0.5em;
 }
-
 .input-field {
     margin-top: 2%;
     width: 40em;
@@ -50,7 +46,6 @@ body {
     border: 1px solid #ccc;
     border-radius: 0.7em; 
 }
-
 .submit-button {
     width:65%;
     height: 3em;
@@ -60,23 +55,27 @@ body {
     transition: background-color 0.3s;
     font-size: 14px;
 }
-
 .submit-button:hover {
     background-color: #0056b3;
 }
 .signup-text {
-    text-align: center; /* Centralizar texto horizontalmente */
-    margin-top: 0.9375em; /* Espaçamento do topo */
-    color: #fff; /* Cor do texto */
+    text-align: center; 
+    margin-top: 0.1em; 
+    color: #fff; 
+    cursor:default
 }
-
 .signup-text a {
-    color: #fff; /* Cor do link */
-    text-decoration: none; /* Remover sublinhado padrão do link */
+    color: #fff; 
+    text-decoration: none; 
+    padding: 0;
+    cursor: pointer;
+    margin-top: 0;
 }
-
+.signup-text p{
+    padding: 0;
+}
 .signup-text a:hover {
-    text-decoration: underline; /* Adicionar sublinhado ao passar o mouse */
+    text-decoration: underline;
 }
 .quadrado{
     padding-top: 1.3em;

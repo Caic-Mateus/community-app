@@ -103,6 +103,7 @@ body {
     padding: 5px;
     font-size: 16px;
     flex: 1; /* Faz o input ocupar o espaço restante */
+    width: 800px;
 }
 
 .search-bar button {
@@ -112,13 +113,13 @@ body {
     padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px; /* Adiciona espaço entre os botões */
+    margin-left: 0px;
 }
 
 .search-bar .botao-sem-fundo {
     background-color: #007bff;
     color: #fff;
-    margin-left: 500px;
+    margin-left:0px;
     padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
@@ -138,6 +139,7 @@ body {
     border-radius: 10px; /* Aumenta o raio da borda para um visual mais suave */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
     margin-bottom: 20px; /* Adiciona espaço entre as postagens */
+    max-width: 800px;
 }
 
 .post {
@@ -150,7 +152,8 @@ body {
 .post .user {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    max-width: 720px;
 }
 
 .post .user img {
@@ -163,11 +166,39 @@ body {
 .post .user .info {
     display: flex;
     flex-direction: column;
+    font-weight: lighter;
+}
+.post .user .info .infoUser{
+    background-color: whitesmoke;
+    max-width: 720px;
 }
 
 .post .user .info .name {
-    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px; 
+    font-weight: bolder;   
     margin-bottom: 5px;
+}
+.post .user .info .content {
+    display: flex;
+    font-size: 18px; 
+    font-weight: bolder;   
+    margin-bottom: 5px;
+    margin-top: 15px;
+    width: 690px;
+    max-width: 690px;
+}
+.post .user .info .content p {
+    font-size: 20px; 
+    font-weight: bold; 
+    overflow-wrap: break-word;
+    width: 690px;
+    max-width: 690px;
+}
+.post .user .info .time{
+    font-size: 10px; 
+    font-weight: lighter; 
 }
 
 .post .content {
@@ -175,7 +206,9 @@ body {
 }
 
 .post .content p {
-    margin: 0;
+    font-size: 20px; 
+    font-weight: bold; 
+    overflow-wrap: break-word;
 }
 
 .post .actions {
@@ -190,11 +223,7 @@ body {
     background-color: transparent;
     cursor: pointer;
 }
-
-.post .actions i {
-    margin-right: 10px;
-}
-
-.post .actions .like-count {
+.post .actions p {
     font-weight: bold;
+    cursor:default;
 }

@@ -101,14 +101,6 @@ a:hover {
     justify-content: space-between;
     font-size: 0.8rem;
 }
-
-.post {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-}
-
 .post-header {
     display: flex;
     align-items: center;
@@ -116,49 +108,99 @@ a:hover {
     margin-bottom: 10px;
 }
 
-.post-user {
-    display: flex;
-    align-items: center;
+.posts-perfil {
+    background-color: #fff;
+    padding: 30px; /* Aumenta o espaçamento interno das postagens */
+    border-radius: 10px; /* Aumenta o raio da borda para um visual mais suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
+    margin-bottom: 20px; /* Adiciona espaço entre as postagens */
+    max-width: 800px;
 }
 
-.post-user img {
+.post-perfil {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.post-perfil .user-perfil {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    max-width: 720px;
+    background-color: whitesmoke;
+}
+
+.post-perfil .user-perfil img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
 
-.post-user h3 {
-    margin-bottom: 0;
-}
-
-.post-actions {
+.post-perfil .user-perfil .info-perfil {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    font-weight: lighter;
+}
+.post-perfil .user-perfil .info-perfil .infoUser-perfil{
+    background-color: whitesmoke;
+    max-width: 720px;
 }
 
-.post-actions i {
-    font-size: 1.2rem;
-    margin-right: 5px;
-    cursor: pointer;
+.post-perfil .user-perfil .info-perfil .name-perfil {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px; 
+    font-weight: bolder;   
+    margin-bottom: 5px;
+}
+.post-perfil .user-perfil .info-perfil .content-perfil {
+    display: flex;
+    font-size: 18px; 
+    font-weight: bolder;   
+    margin-bottom: 5px;
+    margin-top: 15px;
+    width: 690px;
+    max-width: 690px;
+}
+.post-perfil .user-perfil .info-perfil .content-perfil p {
+    font-size: 20px; 
+    font-weight: bold; 
+    overflow-wrap: break-word;
+    width: 690px;
+    max-width: 690px;
+}
+.post-perfil .user-perfil .info-perfil .time-perfil{
+    font-size: 10px; 
+    font-weight: lighter; 
 }
 
-.post-content {
+.post-perfil .content-perfil {
     margin-bottom: 10px;
 }
 
-.post-content p {
-    margin-bottom: 5px;
+.post-perfil .content-perfil p {
+    font-size: 20px; 
+    font-weight: bold; 
+    overflow-wrap: break-word;
 }
 
-.post-content img {
-    width: 100%;
-    height: auto;
-    margin-top: 10px;
-}
-
-.post-footer {
+.post-perfil .actions-perfil {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    cursor: pointer;
+    gap: 50px;
+}
+.post-perfil .actions-perfil button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.post-perfil .actions-perfil p {
+    font-weight: bold;
+    cursor:default;
 }

@@ -191,14 +191,15 @@ function FeedIndex({ authService }) {
                             <div className="user">
                                 <img src="https://via.placeholder.com/40" alt={post.user ? post.user.name : 'Usuário Desconhecido'} />
                                 <div className="info">
-                                    <div className="name">{post.user ? "@"+ post.user.user : 'Usuário Desconhecido'}</div>
-                                    <div className="name">{post.user?.curso ? post.user.curso : 'Curso Desconhecido'}</div>
-                                    <div className="name">{post.context}</div>
-                                    <div className="time">{formatDate(post.registrationDate)}</div>
+                                    <div className='infoUser'>
+                                        <div className="name">{post.user ? "@"+ post.user.user : 'Usuário Desconhecido'}</div>
+                                        <div className="name">{post.user?.curso ? post.user.curso : 'Curso Desconhecido'}</div>
+                                        <div className="time">{formatDate(post.registrationDate)}</div>
+                                    </div>
+                                    <div className="content">
+                                        <p>{post.context}</p>
+                                        </div>
                                 </div>
-                            </div>
-                            <div className="content">
-                                <p>{post.content}</p>
                             </div>
                             <div className="actions">
                                 <p>{post.likesCount}</p>
