@@ -8,6 +8,7 @@ const CommentPopup = ({ isOpen, onClose, post, onSubmit }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [updateFlag, setUpdateFlag] = useState(false);
+    
 
     useEffect(() => {
         if (isOpen && post) {

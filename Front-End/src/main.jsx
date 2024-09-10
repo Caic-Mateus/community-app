@@ -7,6 +7,7 @@ import { Login } from './pages/login.jsx'
 import { Cadastro } from './pages/cadastro.jsx'
 import {Feed} from './pages/feed.jsx'
 import {Perfil} from './pages/perfil.jsx'
+import { PageNotificacao } from './pages/notificacao.jsx';
 
 const authService = new AuthService();
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   path: '/perfil',
   element: <Perfil/>
   },
+  {
+    path: '/notificacao',
+    element: <PageNotificacao/>
+  }
 
 ])
 

@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+.logo {
+    text-align: center;
+    padding: 20px;
+}
+
+.menu {
+    padding-left: 20px;
+}
+.homePage-logo{
+    width: 1em;
+    margin-right: 0.5em;
+    align-items: center;
+}
+.user {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.user img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-info p {
+    margin: 0;
+}
+
+.contentNotify {
+    flex-grow: 1;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.headerNotify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px ;
+    padding-bottom: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.notifications {
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: whitesmoke;
+}
+
+.notification {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    
+}
+.notification p {
+    margin: 5px 0;
+}
+
+

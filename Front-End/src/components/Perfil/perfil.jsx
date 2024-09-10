@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loading from '../loading/loading';
 import AuthService from '../services/AuthServices';
+import CommentPopup from '../ComentarioPop-Up/comentarioPopUp';
 
 function Profile({ authService }) {
     const { userId } = useParams();
@@ -12,6 +13,8 @@ function Profile({ authService }) {
     const [error, setError] = useState(null);
     const [user, setUser] = useState({});
     const [posts, setPosts] = useState([]);
+    const [selectedPost, setSelectedPost] = useState(null);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
     const navigate = useNavigate();
 
     const token = localStorage.getItem('token');
@@ -22,6 +25,15 @@ function Profile({ authService }) {
         fetchUser();
         fetchPosts();
     }, [userId]);
+
+    
+Profile.propTypes = {
+    authService: PropTypes.shape({
+        login: PropTypes.func.isRequired,
+        logout: PropTypes.func.isRequired,
+        recoverPassword: PropTypes.func.isRequired,
+    }).isRequired,
+};
 
     const fetchUser = async () => {
         setLoading(true);
@@ -38,6 +50,25 @@ function Profile({ authService }) {
             console.error('Erro ao buscar o usuário:', error);
             setError(error.message);
             setLoading(false);
+        }
+    };
+
+    const handleLike = async (postId) => {
+        try {
+            const newLike = {
+                userId: uid,
+                postId: postId
+            };
+            const response = await axios.post(`http://localhost:3000/likes`, newLike, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                }
+            });
+            console.log('Like adicionado:', response.data);
+            setUpdateFlag(!updateFlag); // Atualizar a flag aqui
+        } catch (error) {
+            console.error('Erro ao adicionar like:', error);
         }
     };
 
@@ -60,6 +91,22 @@ function Profile({ authService }) {
             setError(error.message);
             setLoading(false);
         }
+    };
+
+    
+    const openPopup = (post) => {
+        setSelectedPost(post);
+        setIsPopupOpen(true);
+    };
+
+    const closePopup = () => {
+        setSelectedPost(null);
+        setIsPopupOpen(false);
+    };
+
+    const handleCommentSubmit = (comment) => {
+        console.log("Comentário enviado:", comment);
+        // Você pode adicionar a lógica para enviar o comentário aqui
     };
 
     function formatDate(timestamp) {
@@ -132,25 +179,23 @@ function Profile({ authService }) {
                                     <img src="../../public/img/Like.png" alt="Curtir" className="homePage-logo" />
                                     <span>Curtir</span>
                                 </button>
-                                <a href="#">
-                                    <img src="../../public/img/Comment.png" alt="Comentar" className="homePage-logo" />
+                                <button onClick={() => openPopup(post)}>
+                                    <img src="../../public/img/Comment.png" alt="HomePage Logo" className='homePage-logo' />
                                     <span>Comentar</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     ))}
                 </div>
+                <CommentPopup
+                    isOpen={isPopupOpen}
+                    onClose={closePopup}
+                    onSubmit={handleCommentSubmit}
+                    post={selectedPost}
+                />
             </div>
         </div>
     );
 }
-
-Profile.propTypes = {
-    authService: PropTypes.shape({
-        login: PropTypes.func.isRequired,
-        logout: PropTypes.func.isRequired,
-        recoverPassword: PropTypes.func.isRequired,
-    }).isRequired,
-};
 
 export default Profile;
