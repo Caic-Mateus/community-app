@@ -5,62 +5,67 @@ body {
     background-color: #f2f2f2;
 }
 
-.container {
+.container-feed {
     display: flex;
     height: 100vh;
 }
 
-.commu-logo {
-    width: 5em;
+.commu-logo-feed {
+    width: 100px;
     margin-right: 0.5em;
     margin-left: 2.5em;
+    margin-top: 25px;
 }
-.homePage-logo{
-    width: 1em;
+
+.homePage-logo-feed {
+    width: 15px;
     margin-right: 0.5em;
     align-items: center;
 }
-.sidebar {
-    background-color: #fff;
-    width: 50%;
+
+.sidebar-feed {
+    background-color: #cccccc3b;
+    border-right: solid;
+    width: 250px;
     padding: 20px;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 1000; /* Garante que a sidebar esteja acima dos outros elementos */
-    overflow-y: auto; /* Adiciona uma barra de rolagem se necessário */
+    z-index: 1000;
 }
 
-.sidebar h1 {
+.sidebar-feed h1 {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.sidebar ul {
+.sidebar-feed ul {
     list-style: none;
     padding: 0;
 }
 
-.sidebar li {
+.sidebar-feed li {
     margin-bottom: 10px;
 }
 
-.sidebar a {
+.sidebar-feed a {
     text-decoration: none;
     color: #333;
     display: flex;
     align-items: center;
+    font-size: larger;
+    margin-top: 30px;
 }
 
-.sidebar i {
+.sidebar-feed i {
     margin-right: 10px;
 }
 
-.sidebar button {
+.sidebar-feed button {
     background-color: transparent;
     color: black;
-    border: none;
+    border-style: outset;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -69,161 +74,164 @@ body {
     bottom: 0;
     margin-bottom: 1%;
 }
-.main {
+
+.main-feed {
+    background-color: whitesmoke;
     flex: 1;
     padding: 20px;
-    margin-left: 250px; /* Ajuste conforme necessário */
-    background-color: transparent;
-    min-width: 800px; /* Defina um mínimo para a largura da .main */
+    margin-left: 250px;
+    min-width: 800px;
 }
 
-.header {
+.header-feed {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.header h2 {
+.header-feed h2 {
     margin: 0;
 }
-.search-bar {
+
+.search-bar-feed {
+    background-color: #cccccc59;
+    border: solid;
     display: flex;
     align-items: center;
-    background-color: #fff;
     border-radius: 5px;
     padding: 10px;
-    width: 100%; /* Para ocupar todo o espaço horizontal */
-    box-sizing: border-box; /* Inclui o padding na largura total */
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.search-bar input {
-    border: none;
-    outline: none;
-    padding: 5px;
+.search-bar-feed input {
+    padding: 10px;
     font-size: 16px;
-    flex: 1; /* Faz o input ocupar o espaço restante */
+    flex: 1;
     width: 800px;
+    border-radius: 15px;
+    border: #333;
 }
 
-.search-bar button {
+.search-bar-feed .button-post-feed {
     background-color: #007bff;
     color: #fff;
-    border: none;
+    margin-left: 10px;
     padding: 8px 12px;
-    border-radius: 5px;
     cursor: pointer;
-    margin-left: 0px;
+    border-radius: 10px;
+    border: solid;
+    border-color: black;
 }
 
-.search-bar .botao-sem-fundo {
-    background-color: #007bff;
-    color: #fff;
-    margin-left:0px;
-    padding: 8px 12px;
+.posts-feed {
+    background-color: whitesmoke;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 1000px;
+}
+
+.post-feed {
+    background-color: white;
+    padding: 5px;
+    margin-bottom: 20px;
     border-radius: 5px;
-    cursor: pointer;
-}
-.lineUnique {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-}
-
-.posts {
-    background-color: #fff;
-    padding: 30px; /* Aumenta o espaçamento interno das postagens */
-    border-radius: 10px; /* Aumenta o raio da borda para um visual mais suave */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
-    margin-bottom: 20px; /* Adiciona espaço entre as postagens */
-    max-width: 800px;
-}
-
-.post {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
+    border: solid;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.post .user {
+.post-feed .user-feed {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
     max-width: 720px;
 }
 
-.post .user img {
-    width: 40px;
+.post-feed .user-feed img {
+    width: 45px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    margin-left: 5px;
+    border: solid;
 }
 
-.post .user .info {
+.post-feed .user-feed .info-feed {
     display: flex;
     flex-direction: column;
     font-weight: lighter;
-}
-.post .user .info .infoUser{
-    background-color: whitesmoke;
-    max-width: 720px;
+    margin-left: 5px;
 }
 
-.post .user .info .name {
+.post-feed .user-feed .info-feed .infoUser-feed {
+    max-width: 720px;
+    margin-left: 5px;
+    border: solid;
+}
+
+.post-feed .user-feed .info-feed .name-feed {
     display: flex;
     flex-direction: column;
-    font-size: 12px; 
-    font-weight: bolder;   
+    font-size: 15px;
+    font-weight: bolder;
     margin-bottom: 5px;
+    margin-left: 1px;
+    border-bottom: solid;
+
 }
-.post .user .info .content {
+
+.post-feed .user-feed .info-feed .content-feed {
+    background-color: #cccccc2e;
     display: flex;
-    font-size: 18px; 
-    font-weight: bolder;   
+    font-size: 18px;
+    font-weight: bolder;
     margin-bottom: 5px;
     margin-top: 15px;
     width: 690px;
     max-width: 690px;
+    margin-left: 5px;
+    border: solid;
 }
-.post .user .info .content p {
-    font-size: 20px; 
-    font-weight: bold; 
+
+.post-feed .user-feed .info-feed .content-feed p {
+    font-size: 20px;
+    font-weight: bold;
     overflow-wrap: break-word;
     width: 690px;
     max-width: 690px;
 }
-.post .user .info .time{
-    font-size: 10px; 
-    font-weight: lighter; 
+
+.post-feed .user-feed .info-feed .time-feed {
+    font-size: 10px;
+    font-weight: lighter;
 }
 
-.post .content {
-    margin-bottom: 10px;
-}
-
-.post .content p {
-    font-size: 20px; 
-    font-weight: bold; 
+.post-feed .content-feed p {
+    font-size: 20px;
+    font-weight: bold;
     overflow-wrap: break-word;
 }
 
-.post .actions {
+.post-feed .actions-feed {
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    gap: 50px;
 }
-.post .actions button{
-    border: none;
+
+.post-feed .actions-feed button {
     background-color: transparent;
     cursor: pointer;
+    max-width: 15px;
+    margin-left: 50px;
+    border: none;
 }
-.post .actions p {
+
+.post-feed .actions-feed p {
     font-weight: bold;
-    cursor:default;
+    cursor: context-menu;
+    align-items: flex-start;
 }

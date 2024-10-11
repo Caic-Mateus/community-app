@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
+.container-notificacao {
+    width: 1000px;
+    height: 1000px;
+    display: flex;
+    background-color: whitesmoke;
+}
+
+.sidebar-notificacao {
+    background-color: #cccccc3b;
+    width: 200px;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.sidebar-notificacao ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-notificacao a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    margin-top: 30px;
+}
+
+.sidebar-notificacao button {
+    background-color: transparent;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1%;
+}
+
+.homePage-logo-notificacao {
+    width: 15px;
+    margin-right: 0.5em;
+}
+
+.commu-logo-notificacao {
+    width: 100px;
+    margin-left: 2.5em;
+    margin-top: 25px;
+}
+
+.main-notificacao {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 220px;
+    /* Ajuste para que o conteúdo principal não sobreponha a sidebar */
+}
+
+.notificacoes-lista {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notificacao-item {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notificacao-item:last-child {
+    border-bottom: none;
+    /* Remove a borda do último item */
+}
+
+.notificacao-item p {
+    margin: 0;
+}
+
+.notificacao-item span {
+    font-size: 0.8rem;
+    color: #888;
+}

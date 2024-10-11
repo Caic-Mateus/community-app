@@ -1,102 +1,101 @@
-/* Estilos para o overlay */
-.popup-overlay {
-    position: fixed;             /* Fixa o overlay na tela */
-    top: 0;                      /* Alinha ao topo */
-    left: 0;                     /* Alinha à esquerda */
-    width: 100%;                 /* Ocupa toda a largura da tela */
-    height: 100%;                /* Ocupa toda a altura da tela */
-    background: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
-    display: flex;               /* Flexbox para centralização */
-    justify-content: center;     /* Centraliza horizontalmente */
-    align-items: center;         /* Centraliza verticalmente */
+.popup-overlay-comentario {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Estilos para o pop-up */
-.popup {
-    background: white;           /* Fundo branco */
-    padding: 20px;               /* Espaçamento interno */
-    border-radius: 10px;         /* Bordas arredondadas */
-    width: 650px;                /* Largura fixa */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
-    text-align: center;          /* Centraliza o texto */
+.popup-comentario {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 650px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
     z-index: 20000;
     max-height: 550px;
 }
 
-.popup h2 {
-    margin-bottom: 20px;         /* Espaçamento inferior */
+.popup-comentario h2 {
+    margin-bottom: 20px;
 }
 
-.popup textarea {
-    width: 90%;                 /* Largura total */
-    height: 40px;               /* Altura fixa */
-    margin-bottom: 20px;         /* Espaçamento inferior */
-    padding: 10px;               /* Espaçamento interno */
-    border: 1px solid #ccc;      /* Borda */
-    border-radius: 5px;          /* Bordas arredondadas */
-    font-size: 14px;             /* Tamanho da fonte */
+.popup-comentario textarea {
+    width: 90%;
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
-.popup-actions {
-    display: flex;               /* Flexbox para os botões */
-    justify-content: space-between; /* Distribuição dos botões */
+.popup-actions-comentario {
+    display: flex;
+    justify-content: space-between;
 }
 
-.popup-actions button {
-    padding: 10px 20px;          /* Espaçamento interno */
-    border: none;                /* Sem borda */
-    border-radius: 5px;          /* Bordas arredondadas */
-    cursor: pointer;             /* Cursor de ponteiro */
+.popup-actions-comentario button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.popup-actions button:first-child {
-    background-color: green;   /* Cor de fundo verde */
-    color: white;                /* Texto branco */
+.popup-actions-comentario button:first-child {
+    background-color: green;
+    color: white;
 }
 
-.popup-actions button:last-child {
-    background-color: red;   /* Cor de fundo vermelho */
-    color: white;                /* Texto branco */
+.popup-actions-comentario button:last-child {
+    background-color: red;
+    color: white;
 }
 
-.postsPop {
+.postsPop-comentario {
     background-color: transparent;
-    padding: 30px; /* Aumenta o espaçamento interno das postagens */
-    border: none; /* Aumenta o raio da borda para um visual mais suave */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
-    margin-bottom: 20px; /* Adiciona espaço entre as postagens */
+    padding: 30px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-.postPop {
+.postPop-comentario {
     background-color: transparent;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.postPop .user {
+.user-comentario {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.postPop .user img {
+.user-comentario img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
 
-.postPop .user .info {
+.info-comentario {
     display: flex;
     flex-direction: column;
 }
 
-.postPop .user .info .name {
+.name-comentario {
     font-weight: bolder;
     margin-bottom: 5px;
 }
-.comments{
+
+.comments-comentario {
     background-color: transparent;
     border-radius: 10px;
     border: 1px solid black;
@@ -104,13 +103,22 @@
     max-height: 100px;
     max-width: 550px;
 }
-.comments .allcomments{
+
+.allcomments-comentario {
     background-color: transparent;
     padding: 20px;
     border-radius: 5px;
     border-color: black;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     max-width: 500px;
-    max-width: 500px;
     align-items: center;
+}
+
+.comment-comentario {
+    margin-bottom: 10px;
+}
+
+.commentText-comentario {
+    margin-top: 5px;
+    font-size: 14px;
 }
