@@ -59,35 +59,108 @@ body {
     margin-top: 25px;
 }
 
-.main-notificacao {
-    flex-grow: 1;
-    padding: 20px;
-    margin-left: 220px;
-    /* Ajuste para que o conteúdo principal não sobreponha a sidebar */
+ul {
+    list-style: none;
+    padding: 0;
 }
 
-.notificacoes-lista {
-    background-color: #fff;
-    padding: 30px;
+ul a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+ul a img {
+    width: 24px;
+    margin-right: 10px;
+}
+
+ul a:hover {
+    background-color: #cce7ff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.notificacao-item {
+.botao-logout-notificacao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botao-logout-notificacao img {
+    width: 24px;
+    margin-right: 10px;
+}
+
+.botao-logout-notificacao:hover {
+    background-color: #ff3333;
+}
+
+h3 {
+    margin-bottom: 10px;
+}
+
+.nao-visto-notificacao, .visto-notificacao, .outras-turmas-notificacao {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 20px;
+    border-left: 0.5px solid;
+    border-right: 1px solid;
+    
+}
+
+.lista-notificacao {
+    list-style: none;
+    padding: 0;
+}
+
+.item-notificacao {
+    background-color: #f9f9f9;
     padding: 15px;
-    border-bottom: 1px solid #ddd;
+    border-radius: 10px;
+    border:2px solid;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
-.notificacao-item:last-child {
-    border-bottom: none;
-    /* Remove a borda do último item */
+.nome-notificacao {
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.notificacao-item p {
-    margin: 0;
+.curso-notificacao, .tempo-notificacao {
+    color: gray;
+    font-size: 12px;
+    margin-bottom: 10px;
 }
 
-.notificacao-item span {
-    font-size: 0.8rem;
-    color: #888;
+.tempo-notificacao {
+    margin-left: auto;
+}
+
+.texto-notificacao {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Links */
+.texto-notificacao a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.texto-notificacao a:hover {
+    text-decoration: underline;
 }
