@@ -29,4 +29,21 @@ export class ChatController {
             res.status(500).json({ message: 'Erro ao buscar mensagens', error: error.message });
         }
     };
+
+   async getUserChats(req, res) {
+    
+    const chat = new Chat();
+    chat.userId = req.params.userId; // Pegando o ID do usuário da URL
+    try {
+        const chats = await chat.findUserChats(chat.userId); // Chama a função do repositório
+        if (chats.length === 0) {
+            return res.status(404).json({ message: "Nenhum chat encontrado." });
+        }
+        res.status(200).json(chats);
+    } catch (error) {
+        console.error("Error fetching user chats:", error);
+        res.status(500).json({ error: "Erro ao buscar chats." });
+    }
+}
+    
 }

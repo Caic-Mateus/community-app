@@ -13,6 +13,23 @@ export class Chat {
         this.#repository = new ChatRepository();
     }
 
+    async findUserChats() {
+        if (!this.userId) {
+            throw {
+                code: 400,
+                message: 'Usuário não informado!'
+            };
+        }
+
+        try {
+            console.log("entrou model")
+            return await this.#repository.findUserChats(this.userId);
+        } catch (error) {
+            console.error('Erro ao buscar todos os chats:', error);
+            throw error;
+        }
+    }
+
     // Enviar mensagem
     async sendMessage() {
         if (!this.userId || !this.recipientId || !this.message) {

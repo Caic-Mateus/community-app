@@ -30,6 +30,17 @@ export class User {
             throw error;
         }
     }
+
+    async findUsersByName(name) {
+        try {
+            return await this.#repository.findUsersByName(name);
+        } catch (error) {
+            console.error('Error fetching users by name:', error);
+            throw error;
+        }
+    }
+
+
     async createUser(userData) {
         const { email, password, name, avatarUrl, curso, date_Nasc, registrationDate, telefone, user } = userData;
         const newUser = { email, name, avatarUrl, curso, date_Nasc, registrationDate, telefone, user };

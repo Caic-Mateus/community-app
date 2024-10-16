@@ -10,5 +10,7 @@ app.get("/", autheticateToken, userController.findUsers)
 
 app.post("/create", userController.createUser);
 
+
+app.get('/search', autheticateToken, userController.findUsersByName);
 app.get('/:userId', autheticateToken,userController.getUserById);
 export const usersRouter = app;

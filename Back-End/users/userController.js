@@ -13,6 +13,21 @@ export class UserController {
         }
     }
 
+    async findUsersByName(request, response) {
+        const { name } = request.query;
+        if (!name) {
+            return response.status(400).json({ message: "O parâmetro 'name' é obrigatório." });
+        }
+
+        try {
+            const user = new User();
+            const users = await user.findUsersByName(name);
+            response.json(users);
+        } catch (error) {
+            response.status(500).json({ message: 'Error fetching users by name', error: error.message });
+        }
+    }
+
     async createUser(request, response) {
         const { email, password, name, avatarUrl, curso, date_Nasc, registrationDate, telefone, user } = request.body;
         const userModel = new User();

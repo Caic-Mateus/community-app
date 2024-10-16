@@ -13,6 +13,26 @@ export class UserRepository {
             });
     }
 
+    async findUsersByName(name) {
+        return admin.firestore()
+            .collection('Users')
+            .where('name', '>=', name) // Buscando usuários cujos nomes começam com o valor dado
+            .where('name', '<=', name + '\uf8ff') // Para capturar usuários com nomes próximos lexicograficamente
+            .get()
+            .then(snapshot => {
+                if (snapshot.empty) {
+                    throw new Error('Nenhum usuário encontrado');
+                }
+                return snapshot.docs.map(doc => ({
+                    ...doc.data(),
+                    uid: doc.id
+                }));
+            })
+            .catch(error => {
+                throw new Error(`Error fetching users by name: ${error.message}`);
+            });
+    }
+
     async createUserInAuth(email, password) {
         try {
             const userRecord = await admin.auth().createUser({

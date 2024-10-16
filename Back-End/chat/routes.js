@@ -9,6 +9,8 @@ const chatController = new ChatController();
 router.post('/send', autheticateToken, chatController.sendMessage);
 
 // Rota para buscar histórico de mensagens entre dois usuários
-router.get('/:recipientId', autheticateToken, chatController.getMessages);
+//router.get('/:recipientId', autheticateToken, chatController.getMessages);
+
+router.get('/:userId', autheticateToken, chatController.getUserChats);
 
 export const chatRouter = router;

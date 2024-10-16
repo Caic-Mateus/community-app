@@ -28,4 +28,32 @@ export class ChatRepository {
             throw error;
         }
     }
+
+    async findUserChats(userId) {
+        try {
+            console.log("entrou repos")
+            // Buscando chats onde o userId é o remetente ou o destinatário
+            const chatsRef = admin.firestore().collection("Chats");
+            
+            const snapshot = await chatsRef
+                .where("userId", "==", userId)
+                .get();
+            console.log("schat:")
+            console.log(snapshot);
+            const chats = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+            const recipientChatsSnapshot = await chatsRef
+                .where("recipientId", "==", userId)
+                .get();
+    
+            const recipientChats = recipientChatsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+            // Unindo as mensagens de ambos os casos
+            return [...chats, ...recipientChats];
+        } catch (error) {
+            console.error('Erro ao buscar chats do usuário:', error);
+            throw error;
+        }
+    }
+    
 }
