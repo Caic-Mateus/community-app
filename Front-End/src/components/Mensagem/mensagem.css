@@ -1,0 +1,97 @@
+.container-mensagem {
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar-mensagem {
+    width: 20%;
+    background-color: #f2f2f2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-mensagem img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.menu-mensagem {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.menu-mensagem li {
+    padding: 15px 0;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.menu-mensagem li.active-mensagem {
+    background-color: #cce7ff;
+    border-radius: 10px;
+}
+
+.user-info-mensagem {
+    margin-top: auto;
+    text-align: center;
+}
+
+.user-info-mensagem img {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.content-mensagem {
+    width: 80%;
+    padding: 20px;
+}
+
+.search-mensagem input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.lista-mensagem {
+    list-style: none;
+    padding: 0;
+}
+
+.item-mensagem {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-mensagem.active-mensagem {
+    background-color: #e6f7ff;
+}
+
+.nome-mensagem {
+    font-weight: bold;
+}
+
+.curso-mensagem, .tempo-mensagem {
+    color: gray;
+    font-size: 12px;
+}
+
+.tempo-mensagem {
+    margin-left: auto;
+}
+
+.texto-mensagem {
+    margin-top: 10px;
+    font-size: 14px;
+}

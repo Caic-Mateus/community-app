@@ -1,0 +1,261 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
+.container-perfil {
+    width: 1000px;
+    height: 1000px;
+    display: flex;
+    background-color: whitesmoke;
+    align-items: center;
+    position: relative;
+}
+
+.sidebar-perfil {
+    background-color: #cccccc3b;
+    width: 200px;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.sidebar-perfil h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sidebar-perfil ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-perfil li {
+    margin-bottom: 10px;
+}
+
+.sidebar-perfil a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    margin-top: 30px;
+}
+
+.sidebar-perfil i {
+    margin-right: 10px;
+}
+
+.sidebar-perfil button {
+    background-color: transparent;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1%;
+}
+
+.homePage-logo-perfil {
+    width: 15px;
+    margin-right: 0.5em;
+    align-items: center;
+}
+
+.commu-logo-perfil {
+    width: 100px;
+    margin-right: 0.5em;
+    margin-left: 2.5em;
+    margin-top: 25px;
+}
+
+.botao-logout-perfil {
+    margin-top: 250px;
+    border: none;
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #e9ecef;
+}
+
+.main-perfil {
+    align-items: flex-start;
+    width: 100%;
+    padding: 20px;
+    margin-top: 150px;
+    margin-left: 100px;
+}
+
+.perfil-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.perfil-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+    border: solid;
+}
+
+.perfil-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.info-perfil {
+    flex-grow: 1;
+
+}
+
+.info-perfil h2 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.info-perfil p {
+    margin-bottom: 10px;
+}
+
+
+
+.posts-perfil {
+    align-items: center;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 800px;
+}
+
+.post-perfil {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.post-perfil .user-perfil {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    max-width: 720px;
+    background-color: whitesmoke;
+}
+
+.post-perfil .user-perfil img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-perfil .user-perfil .info-perfil {
+    display: flex;
+    flex-direction: column;
+    font-weight: lighter;
+}
+
+.post-perfil .user-perfil .info-perfil .infoUser-perfil {
+    background-color: whitesmoke;
+    max-width: 720px;
+}
+
+.post-perfil .user-perfil .info-perfil .name-perfil {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+
+.post-perfil .user-perfil .info-perfil .content-perfil {
+    display: flex;
+    font-size: 18px;
+    font-weight: bolder;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    width: 690px;
+    max-width: 690px;
+}
+
+.post-perfil .user-perfil .info-perfil .content-perfil p {
+    font-size: 20px;
+    font-weight: bold;
+    overflow-wrap: break-word;
+    width: 690px;
+    max-width: 690px;
+}
+
+.post-perfil .user-perfil .info-perfil .time-perfil {
+    font-size: 10px;
+    font-weight: lighter;
+}
+
+.post-perfil .content-perfil {
+    margin-bottom: 10px;
+}
+
+.post-perfil .content-perfil p {
+    font-size: 20px;
+    font-weight: bold;
+    overflow-wrap: break-word;
+}
+
+.post-perfil .actions-perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 50px;
+}
+
+.post-perfil .actions-perfil button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.post-perfil .actions-perfil p {
+    font-weight: bold;
+    cursor: default;
+}

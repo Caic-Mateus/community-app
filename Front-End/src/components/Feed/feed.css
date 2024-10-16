@@ -1,58 +1,237 @@
-body{
-    font-family: Arial, sans-serif;
-    background-color: white;
+body {
+    font-family: sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f2f2f2;
+}
+
+.container-feed {
+    display: flex;
+    height: 100vh;
+}
+
+.commu-logo-feed {
+    width: 100px;
+    margin-right: 0.5em;
+    margin-left: 2.5em;
+    margin-top: 25px;
+}
+
+.homePage-logo-feed {
+    width: 15px;
+    margin-right: 0.5em;
+    align-items: center;
+}
+
+.sidebar-feed {
+    background-color: #cccccc3b;
+    border-right: solid;
+    width: 250px;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.sidebar-feed h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sidebar-feed ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-feed li {
+    margin-bottom: 10px;
+}
+
+.sidebar-feed a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    margin-top: 30px;
+}
+
+.sidebar-feed i {
+    margin-right: 10px;
+}
+
+.sidebar-feed button {
+    background-color: transparent;
+    color: black;
+    border-style: outset;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1%;
+}
+
+.main-feed {
+    background-color: whitesmoke;
+    flex: 1;
+    padding: 20px;
+    margin-left: 250px;
+    min-width: 800px;
+}
+
+.header-feed {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-feed h2 {
+    margin: 0;
+}
+
+.search-bar-feed {
+    background-color: #cccccc59;
+    border: solid;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-bar-feed input {
+    padding: 10px;
+    font-size: 16px;
+    flex: 1;
+    width: 800px;
+    border-radius: 15px;
+    border: #333;
+}
+
+.search-bar-feed .button-post-feed {
+    background-color: #007bff;
+    color: #fff;
+    margin-left: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: solid;
+    border-color: black;
+}
+
+.posts-feed {
+    background-color: whitesmoke;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 1000px;
+}
+
+.post-feed {
+    background-color: white;
+    padding: 5px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: solid;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-feed .user-feed {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    max-width: 720px;
+}
+
+.post-feed .user-feed img {
+    width: 45px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 5px;
+    border: solid;
+}
+
+.post-feed .user-feed .info-feed {
+    display: flex;
+    flex-direction: column;
+    font-weight: lighter;
+    margin-left: 5px;
+}
+
+.post-feed .user-feed .info-feed .infoUser-feed {
+    max-width: 720px;
+    margin-left: 5px;
+    border: solid;
+}
+
+.post-feed .user-feed .info-feed .name-feed {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    font-weight: bolder;
+    margin-bottom: 5px;
+    margin-left: 1px;
+    border-bottom: solid;
+
+}
+
+.post-feed .user-feed .info-feed .content-feed {
+    background-color: #cccccc2e;
+    display: flex;
+    font-size: 18px;
+    font-weight: bolder;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    width: 690px;
+    max-width: 690px;
+    margin-left: 5px;
+    border: solid;
+}
+
+.post-feed .user-feed .info-feed .content-feed p {
+    font-size: 20px;
+    font-weight: bold;
+    overflow-wrap: break-word;
+    width: 690px;
+    max-width: 690px;
+}
+
+.post-feed .user-feed .info-feed .time-feed {
+    font-size: 10px;
+    font-weight: lighter;
+}
+
+.post-feed .content-feed p {
+    font-size: 20px;
+    font-weight: bold;
+    overflow-wrap: break-word;
+}
+
+.post-feed .actions-feed {
     display: flex;
     justify-content: center;
-    align-items: center; /* Centralizar verticalmente */
-}
-.feedContainer{
-    width: 198vh;
-    height: 100vh;
-    background-color: white;
-}
-.LineUnique{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    flex-shrink: 0;
-    white-space: nowrap;
-    padding: 15px;
-    margin-top: 1%;
-    background-color: #022766;
     align-items: center;
+    cursor: pointer;
 }
-.Options{
-    background-color: white;
-    align-items: flex-end;
-    padding: 1%;
-    width: 15%;
-    height: 90%;
-    float: left;
-    margin-left: 0.5%;
-}
-.Feed{
-    background-color: whitesmoke;
-    width: 85%;
-    height: 90%;
-    margin-left: 17%;
-    margin-top: -1%;
-    
-}
-.input{
-    display: flex;
-    justify-content: space-around;
-    width: 500px;
-    height: 20px;
-    margin-left: 20%;
-}
-.Button{
-    display: flex;
-    justify-content: space-around;
-    background-color: white;
-    align-items: center;
-    padding: 20px;
+
+.post-feed .actions-feed button {
+    background-color: transparent;
+    cursor: pointer;
+    max-width: 15px;
+    margin-left: 50px;
     border: none;
-    text-emphasis-color: black;
+}
+
+.post-feed .actions-feed p {
+    font-weight: bold;
+    cursor: context-menu;
+    align-items: flex-start;
 }

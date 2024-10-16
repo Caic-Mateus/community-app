@@ -1,14 +1,13 @@
 import React from 'react'
-import FeedIndex from '../components/Feed/feed'
+import PerfilForm from '../components/Perfil/perfil'
 import AuthService from '../components/services/AuthServices';
 
 const authService = new AuthService();
-
-export function Feed() {
+export function Perfil() {
   return (
     <>
       <div>
-        <FeedIndex authService={authService}/>
+        <PerfilForm authService={authService}/>
       </div>
     </>
   )
