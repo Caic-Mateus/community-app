@@ -2,26 +2,83 @@ import React from "react";
 import "./mensagem.css";
 
 const MensagemForm = () => {
+  const logout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await authService.logout();
+      setIsLoggingOut(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      setIsLoggingOut(false);
+    }
+  };
   return (
     <div className="container-mensagem">
-      <aside className="sidebar-mensagem">
-        <div className="logo-mensagem">
-          <img src="logo_url" alt="Commu Unity Logo" />
-        </div>
-        <ul className="menu-mensagem">
-          <li>Página inicial</li>
-          <li>Notificações</li>
-          <li className="active-mensagem">Mensagens</li>
-          <li>Itens salvos</li>
-          <li>Perfil</li>
-          <li>Mais</li>
+      <div className="sidebar-mensagem">
+        <img
+          src="../../public/img/Ft_cu.png"
+          alt="Google Logo"
+          className="commu-logo-mensagem"
+        />
+        <ul>
+          <a href="http://localhost:5173/feed">
+            <img
+              src="../../public/img/HomePage.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Página inicial</span>
+          </a>
+          <a href="http://localhost:5173/notificacao">
+            <img
+              src="../../public/img/Notify.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Notificações</span>
+          </a>
+          <a href="http://localhost:5173/mensagens">
+            <img
+              src="../../public/img/Message.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Mensagens</span>
+          </a>
+          <a href="http://localhost:5173/feed">
+            <img
+              src="../../public/img/Save.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Itens Salvos</span>
+          </a>
+          <a href="http://localhost:5173/perfil">
+            <img
+              src="../../public/img/Profile.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Perfil</span>
+          </a>
+          <a href="http://localhost:5173/feed">
+            <img
+              src="../../public/img/More.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Mais</span>
+          </a>
+          <button onClick={logout}>
+            <img
+              src="../../public/img/Logout.png"
+              className="homePage-logo-mensagem"
+            ></img>
+            Sair
+          </button>
         </ul>
-        <div className="user-info-mensagem">
-          <img src="user_image_url" alt="Lucas Borel" />
-          <p>Lucas Borel</p>
-          <p>lucas@fatec.com</p>
-        </div>
-      </aside>
+      </div>
 
       <main className="content-mensagem">
         <div className="search-mensagem">

@@ -4,18 +4,70 @@
     font-family: Arial, sans-serif;
 }
 
+
 .sidebar-mensagem {
-    width: 20%;
-    background-color: #f2f2f2;
+    background-color: #cccccc3b;
+    border-right: solid;
+    width: 250px;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
 }
 
-.logo-mensagem img {
-    width: 100px;
+.sidebar-mensagem h1 {
+    font-size: 24px;
     margin-bottom: 20px;
+}
+
+.sidebar-mensagem ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-mensagem li {
+    margin-bottom: 10px;
+}
+
+.sidebar-mensagem a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    margin-top: 30px;
+}
+
+.sidebar-mensagem i {
+    margin-right: 10px;
+}
+
+.sidebar-mensagem button {
+    background-color: transparent;
+    color: black;
+    border-style: outset;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1%;
+}
+
+.commu-logo-mensagem {
+    width: 100px;
+    margin-right: 0.5em;
+    margin-left: 2.5em;
+    margin-top: 25px;
+}
+
+.homePage-logo-mensagem{
+    width: 15px;
+    margin-right: 0.5em;
+    align-items: center;
 }
 
 .menu-mensagem {
