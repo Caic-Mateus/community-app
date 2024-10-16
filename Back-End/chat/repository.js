@@ -2,15 +2,37 @@ import admin from 'firebase-admin';
 
 export class ChatRepository {
     // Salvar mensagem no Firestore
-    async saveMessage(chatData) {
+    async saveMessage(messageData) {
         try {
-            const chatDoc = await admin.firestore().collection('Chats').add(chatData);
-            return chatDoc.id;
+            const messageDoc = await admin.firestore().collection('Messages').add(messageData);
+            return messageDoc.id;
         } catch (error) {
             console.error('Erro ao salvar mensagem:', error);
             throw error;
         }
     }
+    async findChat(userId, recipientId) {
+        try {
+            return await admin.firestore()
+                .collection('Chats')
+                .where('userId', '==', userId)
+                .where('recipientId', '==', recipientId)
+                .get();
+        } catch (error) {
+            console.error('Erro ao buscar chat:', error);
+            throw error;
+        }
+    }
+    async createChat(chatData) {
+        try {
+            const chatDoc = await admin.firestore().collection('Chats').add(chatData);
+            return chatDoc;
+        } catch (error) {
+            console.error('Erro ao criar chat:', error);
+            throw error;
+        }
+    }
+
 
     // Buscar mensagens entre dois usuários
     async findMessages(userId, recipientId) {
