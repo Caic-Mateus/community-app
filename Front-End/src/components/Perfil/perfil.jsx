@@ -85,7 +85,7 @@ function Profile({ authService }) {
             />
             <span>Página inicial</span>
           </a>
-          <a href="http://localhost:5173/feed">
+          <a href="http://localhost:5173/notificacao">
             <img
               src="../../public/img/Notify.png"
               alt="Notificações"
@@ -93,7 +93,7 @@ function Profile({ authService }) {
             />
             <span>Notificações</span>
           </a>
-          <a href="http://localhost:5173/feed">
+          <a href="http://localhost:5173/mensagens">
             <img
               src="../../public/img/Message.png"
               alt="Mensagens"

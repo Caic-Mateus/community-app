@@ -7,7 +7,8 @@ import { Login } from "./pages/login.jsx";
 import { Cadastro } from "./pages/cadastro.jsx";
 import { Feed } from "./pages/feed.jsx";
 import { Perfil } from "./pages/perfil.jsx";
-import { Notificacoes } from "./pages/notificacoes.jsx";
+import { Notificacao } from "./pages/notificacao.jsx";
+import { Mensagem } from "./pages/mensagem.jsx";
 
 const authService = new AuthService();
 
@@ -29,8 +30,12 @@ const router = createBrowserRouter([
     element: <Perfil />,
   },
   {
-    path: "/notificacoes",
-    element: <Notificacoes />,
+    path: "/notificacao",
+    element: <Notificacao />,
+  },
+  {
+    path: "/mensagens",
+    element: <Mensagem />,
   },
 ]);
 

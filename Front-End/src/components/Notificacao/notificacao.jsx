@@ -1,7 +1,7 @@
 import React from "react";
-import "./notificacoes.css";
+import "./notificacao.css";
 
-function NotificacoesForm() {
+function NotificacaoForm() {
   const logout = async () => {
     setIsLoggingOut(true);
     try {
@@ -30,7 +30,7 @@ function NotificacoesForm() {
             />
             <span>Página inicial</span>
           </a>
-          <a href="http://localhost:5173/notificacoes">
+          <a href="http://localhost:5173/notificacao">
             <img
               src="../../public/img/Notify.png"
               alt="Notificações"
@@ -38,7 +38,7 @@ function NotificacoesForm() {
             />
             <span>Notificações</span>
           </a>
-          <a href="http://localhost:5173/feed">
+          <a href="http://localhost:5173/mensagens">
             <img
               src="../../public/img/Message.png"
               alt="Mensagens"
@@ -62,7 +62,7 @@ function NotificacoesForm() {
             />
             <span>Perfil</span>
           </a>
-          <a href="http://localhost:5173/feed">
+          <a href="http://localhost:5173/perfil">
             <img
               src="../../public/img/More.png"
               alt="Mais"
@@ -80,19 +80,8 @@ function NotificacoesForm() {
           </button>
         </ul>
       </div>
-      <div className="main-notificacao">
-        <h1>Notificações</h1>
-        <div className="notificacoes-lista">
-          {notificacoes.map((notificacao) => (
-            <div className="notificacao-item" key={notificacao.id}>
-              <p>{notificacao.mensagem}</p>
-              <span>{new Date(notificacao.data).toLocaleString()}</span>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
 
-export default NotificacoesForm;
+export default NotificacaoForm;
