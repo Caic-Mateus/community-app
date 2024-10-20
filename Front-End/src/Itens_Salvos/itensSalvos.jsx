@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./feed.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import Loading from "../loading/loading";
-import CommentPopup from "../ComentarioPop-Up/comentarioPopUp";
-import AuthService from "../services/AuthServices";
+import Loading from "../components/loading/loading";
+import CommentPopup from "../components/ComentarioPop-Up/comentarioPopUp";
+import AuthService from "../components/services/AuthServices";
+import "./itensSalvos.css";
 
-function FeedIndex({ authService }) {
+function ItensSalvosForm({ authService }) {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [newPostContent, setNewPostContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ function FeedIndex({ authService }) {
     fetchPosts();
   }, [updateFlag]); // Dependência adicionada aqui
 
-  FeedIndex.propTypes = {
+  ItensSalvosForm.propTypes = {
     authService: PropTypes.shape({
       login: PropTypes.func.isRequired,
       logout: PropTypes.func.isRequired,
@@ -141,8 +141,8 @@ function FeedIndex({ authService }) {
   }
 
   return (
-    <div className="container-feed">
-      <div className="sidebar-feed">
+    <div className="container-salvos">
+      <div className="sidebar-salvos">
         <img
           src="../../public/img/Ft_cu.png"
           alt="Google Logo"
@@ -153,7 +153,7 @@ function FeedIndex({ authService }) {
             <img
               src="../../public/img/HomePage.png"
               alt="HomePage Logo"
-              className="homePage-logo-feed"
+              className="homePage-logo-salvos"
             />
             <span>Página inicial</span>
           </a>
@@ -161,7 +161,7 @@ function FeedIndex({ authService }) {
             <img
               src="../../public/img/Notify.png"
               alt="HomePage Logo"
-              className="homePage-logo-feed"
+              className="homePage-logo-salvos"
             />
             <span>Notificações</span>
           </a>
@@ -169,15 +169,15 @@ function FeedIndex({ authService }) {
             <img
               src="../../public/img/Message.png"
               alt="HomePage Logo"
-              className="homePage-logo-feed"
+              className="homePage-logo-salvos"
             />
             <span>Mensagens</span>
           </a>
-          <a href="http://localhost:5173/itensSalvos">
+          <a href="http://localhost:5173/feed">
             <img
               src="../../public/img/Save.png"
               alt="HomePage Logo"
-              className="homePage-logo-feed"
+              className="homePage-logo-salvos"
             />
             <span>Itens Salvos</span>
           </a>
@@ -185,83 +185,69 @@ function FeedIndex({ authService }) {
             <img
               src="../../public/img/Profile.png"
               alt="HomePage Logo"
-              className="homePage-logo-feed"
+              className="homePage-logo-salvos"
             />
             <span>Perfil</span>
           </a>
-          <a href="http://localhost:5173/maisOpcoes">
+          <a href="http://localhost:5173/feed">
             <img
               src="../../public/img/More.png"
               alt="HomePage Logo"
-              className="homePage-logo-feed"
+              className="homePage-logo-salvos"
             />
             <span>Mais</span>
           </a>
           <button onClick={logout}>
             <img
               src="../../public/img/Logout.png"
-              className="homePage-logo-feed"
+              className="homePage-logo-salvos"
             ></img>
             Sair
           </button>
         </ul>
       </div>
-      <div className="main-feed">
-        <div className="header-feed">
-          <div className="search-bar-feed">
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="O que está acontecendo?"
-                value={newPostContent}
-                onChange={(event) => setNewPostContent(event.target.value)}
-              />
-              <button
-                type="submit"
-                className="button-post-feed"
-                disabled={loading}
-              >
-                {loading ? <Loading /> : "Postar"}
-              </button>
-            </form>
-          </div>
-        </div>
-        <div className="posts-feed">
+
+      <main className="content-salvos">
+        <header className="header-salvos">
+          <h2>Seus itens salvos:</h2>
+        </header>
+
+        <div className="posts-salvos">
           {posts.map((post) => (
-            <div className="post-feed" key={post.uid}>
-              <div className="user-feed">
+            <div className="post-salvos" key={post.uid}>
+              <div className="user-salvos">
                 <img
                   src="https://via.placeholder.com/40"
                   alt={post.user ? post.user.name : "Usuário Desconhecido"}
                 />
-                <div className="info-feed">
-                  <div className="infoUser-feed">
-                    <div className="name-feed">
+                <div className="info-salvos">
+                  <div className="infoUser-salvos">
+                    <div className="name-salvos">
                       {post.user
                         ? "@" + post.user.user
                         : "Usuário Desconhecido"}
                     </div>
-                    <div className="name-feed">
+                    <div className="name-salvos">
                       {post.user?.curso
                         ? post.user.curso
                         : "Curso Desconhecido"}
                     </div>
-                    <div className="time-feed">
+                    <div className="time-salvos">
                       {formatDate(post.registrationDate)}
                     </div>
                   </div>
-                  <div className="content-feed">
+                  <div className="content-salvos">
                     <p>{post.context}</p>
                   </div>
                 </div>
               </div>
-              <div className="actions-feed">
+              <div className="actions-salvos">
                 <p>{post.likesCount}</p>
                 <button onClick={() => handleLike(post.postId)}>
                   <img
                     src="../../public/img/Like.png"
                     alt="HomePage Logo"
-                    className="homePage-logo-feed"
+                    className="homePage-logo-salvos"
                   />
                   <span>Curtir</span>
                 </button>
@@ -269,13 +255,9 @@ function FeedIndex({ authService }) {
                   <img
                     src="../../public/img/Comment.png"
                     alt="HomePage Logo"
-                    className="homePage-logo-feed"
+                    className="homePage-logo-salvos"
                   />
                   <span>Comentar</span>
-                </button>
-                <button>
-                  <img></img>
-                  <span>Salvar</span>
                 </button>
               </div>
             </div>
@@ -287,9 +269,9 @@ function FeedIndex({ authService }) {
           onSubmit={handleCommentSubmit}
           post={selectedPost}
         />
-      </div>
+      </main>
     </div>
   );
 }
 
-export default FeedIndex;
+export default ItensSalvosForm;
