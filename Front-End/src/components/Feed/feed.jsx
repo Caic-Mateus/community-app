@@ -118,6 +118,10 @@ function FeedIndex({ authService }) {
       setError(error.message);
       setLoading(false);
     }
+    const textarea = event.target.querySelector("textarea");
+    if (textarea) {
+      textarea.style.height = "auto"; // Reseta para altura original (ou você pode definir uma altura fixa aqui, se preferir)
+    }
   };
 
   const openPopup = (post) => {
@@ -206,77 +210,110 @@ function FeedIndex({ authService }) {
           </button>
         </ul>
       </div>
+
       <div className="main-feed">
-        <div className="header-feed">
-          <div className="search-bar-feed">
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="O que está acontecendo?"
-                value={newPostContent}
-                onChange={(event) => setNewPostContent(event.target.value)}
-              />
-              <button
-                type="submit"
-                className="button-post-feed"
-                disabled={loading}
-              >
-                {loading ? <Loading /> : "Postar"}
-              </button>
-            </form>
-          </div>
+        <div className="container-search-bar-feed">
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: "flex", width: "100%" }}
+          >
+            <textarea
+              rows={1}
+              placeholder="O que está acontecendo?"
+              value={newPostContent}
+              onChange={(event) => {
+                setNewPostContent(event.target.value);
+                event.target.style.height = "auto";
+                event.target.style.height = `${event.target.scrollHeight}px`;
+              }}
+            />
+            <button type="submit" disabled={loading}>
+              {loading ? <Loading /> : "Postar"}
+            </button>
+          </form>
         </div>
+
         <div className="posts-feed">
           {posts.map((post) => (
             <div className="post-feed" key={post.uid}>
-              <div className="user-feed">
-                <img
-                  src="https://via.placeholder.com/40"
-                  alt={post.user ? post.user.name : "Usuário Desconhecido"}
-                />
-                <div className="info-feed">
-                  <div className="infoUser-feed">
-                    <div className="name-feed">
+              <div className="container-user-feed">
+                <div className="image-user-feed">
+                  <img
+                    src="https://via.placeholder.com/40"
+                    alt={post.user ? post.user.name : "Usuário Desconhecido"}
+                  />
+                </div>
+                <div className="container-info-user-feed">
+                  <div className="name-user-feed">
+                    <p>
                       {post.user
                         ? "@" + post.user.user
                         : "Usuário Desconhecido"}
-                    </div>
-                    <div className="name-feed">
+                    </p>
+                  </div>
+                  <div className="curso-user-feed">
+                    <p>
                       {post.user?.curso
                         ? post.user.curso
                         : "Curso Desconhecido"}
-                    </div>
-                    <div className="time-feed">
-                      {formatDate(post.registrationDate)}
-                    </div>
-                  </div>
-                  <div className="content-feed">
-                    <p>{post.context}</p>
+                    </p>
                   </div>
                 </div>
               </div>
+              <div className="time-post-feed">
+                {formatDate(post.registrationDate)}
+              </div>
+              <div className="content-feed">
+                <p>{post.context}</p>
+              </div>
+
               <div className="actions-feed">
-                <p>{post.likesCount}</p>
-                <button onClick={() => handleLike(post.postId)}>
-                  <img
-                    src="../../public/img/Like.png"
-                    alt="HomePage Logo"
-                    className="homePage-logo-feed"
-                  />
-                  <span>Curtir</span>
-                </button>
-                <button onClick={() => openPopup(post)}>
-                  <img
-                    src="../../public/img/Comment.png"
-                    alt="HomePage Logo"
-                    className="homePage-logo-feed"
-                  />
-                  <span>Comentar</span>
-                </button>
-                <button>
-                  <img></img>
-                  <span>Salvar</span>
-                </button>
+                <div className="curtir-feed">
+                  <p>{post.likesCount}</p>
+                  <button onClick={() => handleLike(post.postId)}>
+                    <img
+                      src="../../public/img/Like.png"
+                      alt="HomePage Logo"
+                      className="homePage-logo-feed"
+                    />
+                    <span>Curtir</span>
+                  </button>
+                </div>
+                <div className="comentar-feed">
+                  <button onClick={() => openPopup(post)}>
+                    <img
+                      src="../../public/img/Comment.png"
+                      alt="HomePage Logo"
+                      className="homePage-logo-feed"
+                    />
+                    <span>Comentar</span>
+                  </button>
+                </div>
+                <div className="salvar-feed">
+                  <button>
+                    <img></img>
+                    <span>Salvar</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div>
+          {posts.map((post) => (
+            <div className="sidebar-feed-amigos">
+              <h1>Seus Amigos</h1>
+              <div className="amigos">
+                <img
+                  onClick={false} //Para clicar e abrir o perfil do amigo
+                  src="https://via.placeholder.com/40"
+                  alt={post.user ? post.user.name : "Usuário Desconhecido"}
+                />
+                <div className="name-feed">
+                  <p>Lucas Borel</p>
+                  <p>Analise e Desenvolvimento de Sistemas</p>
+                  <button>Enviar Mensagem</button>
+                </div>
               </div>
             </div>
           ))}

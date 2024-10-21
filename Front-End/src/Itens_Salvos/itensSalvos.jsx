@@ -207,58 +207,73 @@ function ItensSalvosForm({ authService }) {
         </ul>
       </div>
 
-      <main className="content-salvos">
+      <main className="main-salvos">
         <header className="header-salvos">
           <h2>Seus itens salvos:</h2>
         </header>
 
         <div className="posts-salvos">
           {posts.map((post) => (
-            <div className="post-salvos" key={post.uid}>
-              <div className="user-salvos">
-                <img
-                  src="https://via.placeholder.com/40"
-                  alt={post.user ? post.user.name : "Usuário Desconhecido"}
-                />
-                <div className="info-salvos">
-                  <div className="infoUser-salvos">
-                    <div className="name-salvos">
+            <div className="post-feed" key={post.uid}>
+              <div className="container-user-salvos">
+                <div className="image-user-salvos">
+                  <img
+                    src="https://via.placeholder.com/40"
+                    alt={post.user ? post.user.name : "Usuário Desconhecido"}
+                  />
+                </div>
+                <div className="container-info-user-salvos">
+                  <div className="name-user-salvos">
+                    <p>
                       {post.user
                         ? "@" + post.user.user
                         : "Usuário Desconhecido"}
-                    </div>
-                    <div className="name-salvos">
+                    </p>
+                  </div>
+                  <div className="curso-user-salvos">
+                    <p>
                       {post.user?.curso
                         ? post.user.curso
                         : "Curso Desconhecido"}
-                    </div>
-                    <div className="time-salvos">
-                      {formatDate(post.registrationDate)}
-                    </div>
-                  </div>
-                  <div className="content-salvos">
-                    <p>{post.context}</p>
+                    </p>
                   </div>
                 </div>
               </div>
+              <div className="time-post-salvos">
+                {formatDate(post.registrationDate)}
+              </div>
+              <div className="content-salvos">
+                <p>{post.context}</p>
+              </div>
+
               <div className="actions-salvos">
-                <p>{post.likesCount}</p>
-                <button onClick={() => handleLike(post.postId)}>
-                  <img
-                    src="../../public/img/Like.png"
-                    alt="HomePage Logo"
-                    className="homePage-logo-salvos"
-                  />
-                  <span>Curtir</span>
-                </button>
-                <button onClick={() => openPopup(post)}>
-                  <img
-                    src="../../public/img/Comment.png"
-                    alt="HomePage Logo"
-                    className="homePage-logo-salvos"
-                  />
-                  <span>Comentar</span>
-                </button>
+                <div className="curtir-salvos">
+                  <p>{post.likesCount}</p>
+                  <button onClick={() => handleLike(post.postId)}>
+                    <img
+                      src="../../public/img/Like.png"
+                      alt="HomePage Logo"
+                      className="homePage-logo-salvos"
+                    />
+                    <span>Curtir</span>
+                  </button>
+                </div>
+                <div className="comentar-salvos">
+                  <button onClick={() => openPopup(post)}>
+                    <img
+                      src="../../public/img/Comment.png"
+                      alt="HomePage Logo"
+                      className="homePage-logo-salvos"
+                    />
+                    <span>Comentar</span>
+                  </button>
+                </div>
+                <div className="salvar-salvos">
+                  <button>
+                    <img></img>
+                    <span>Salvar</span>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
