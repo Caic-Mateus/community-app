@@ -1,0 +1,115 @@
+
+
+.commu-logo-mais {
+    width: 100px;
+    margin-right: 0.5em;
+    margin-left: 2.5em;
+    margin-top: 25px;
+}
+
+.homePage-logo-mais {
+    width: 15px;
+    margin-right: 0.5em;
+    align-items: center;
+}
+.sidebar-mais {
+    background-color: #cccccc3b;
+    border-right: solid;
+    width: 250px;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.sidebar-maisd h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sidebar-mais ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-mais li {
+    margin-bottom: 10px;
+}
+
+.sidebar-mais a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    margin-top: 30px;
+}
+
+.sidebar-mais i {
+    margin-right: 10px;
+}
+
+.sidebar-mais button {
+    background-color: transparent;
+    color: black;
+    border-style: outset;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1%;
+}
+
+.content-mais {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.header-mais {
+  margin-bottom: 20px;
+}
+
+.settings-mais {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.settings-item-mais {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.settings-item-mais i {
+  font-size: 24px;
+}
+
+.icon-profile-mais::before {
+  content: "👤"; /* Icone de perfil */
+}
+
+.icon-notifications-mais::before {
+  content: "🔔"; /* Icone de notificações */
+}
+
+.icon-security-mais::before {
+  content: "🔒"; /* Icone de segurança */
+}
+
+.icon-blocked-mais::before {
+  content: "🚫"; /* Icone de bloqueados */
+}
+
+.icon-help-mais::before {
+  content: "❓"; /* Icone de ajuda */
+}
+
+.icon-logout-mais::before {
+  content: "🚪"; /* Icone de sair */
+}

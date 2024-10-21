@@ -1,76 +1,21 @@
-body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: whitesmoke;
-}
 
-.container-feed {
-    height: 100vh;
-    width: 100%;
-}
-
-.commu-logo-feed {
+.commu-logo-salvos {
     width: 100px;
     margin-right: 0.5em;
     margin-left: 2.5em;
     margin-top: 25px;
 }
 
-.homePage-logo-feed {
+.homePage-logo-salvos {
     width: 15px;
     margin-right: 0.5em;
     align-items: center;
 }
 
-
-.sidebar-feed-amigos {
-    right: 0;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    z-index: 1000;
-    background-color: whitesmoke;
-    border-left: solid;
-    width: 250px;
-    padding: 10px;
-    top: 0;
-}
-.amigos{
-    display: flex;
-    width: 100%;
-    height: max-content;
-    padding: 2px;
-    margin-top: 5px;
-    border: solid;
-}
-.amigos button{
-    text-align: center;
-    width: 155px;
-    height: 20px;
-    background-color: transparent;
-    color: black;
-    cursor: pointer;
-    border-radius: 10px;
-    border: 1px solid;
-    border-color: black;
-}
-.amigos p{
-    font-size: 10px;
-}
-.amigos img{
-    max-width: 35px;
-    max-height: 35px;
-    cursor: pointer;
-    border: 1px solid;
-    border-radius: 100px;
-    margin-right: 3px;
-    margin-top: 5px;
-}
-.sidebar-feed {
-    background-color: transparent;
+.sidebar-salvos {
+    background-color: #cccccc3b;
     border-right: solid;
-    width: 200px;
+    width: 250px;
     padding: 20px;
     position: fixed;
     top: 0;
@@ -79,21 +24,21 @@ body {
     z-index: 1000;
 }
 
-.sidebar-feed h1 {
+.sidebar-salvos h1 {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.sidebar-feed ul {
+.sidebar-salvos ul {
     list-style: none;
     padding: 0;
 }
 
-.sidebar-feed li {
+.sidebar-salvos li {
     margin-bottom: 10px;
 }
 
-.sidebar-feed a {
+.sidebar-salvos a {
     text-decoration: none;
     color: #333;
     display: flex;
@@ -102,11 +47,11 @@ body {
     margin-top: 30px;
 }
 
-.sidebar-feed i {
+.sidebar-salvos i {
     margin-right: 10px;
 }
 
-.sidebar-feed button {
+.sidebar-salvos button {
     background-color: transparent;
     color: black;
     border-style: outset;
@@ -118,8 +63,9 @@ body {
     bottom: 0;
     margin-bottom: 1%;
 }
-
-.main-feed {
+.main-salvos {
+    display: flex;
+    flex-direction: column;
     background-color: whitesmoke;
     flex: 1;
     padding: 20px;
@@ -127,43 +73,7 @@ body {
     margin-right: 250px;
     min-width: 800px;
 }
-.container-search-bar-feed {
-    background-color: whitesmoke;
-    border: 2px solid;
-    display: flex;
-    flex-direction: row; 
-    align-items: center;  
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.container-search-bar-feed textarea {
-    background-color: whitesmoke;
-    padding: 10px;
-    font-size: 16px;
-    min-height: 40px;
-    border-radius: 15px;
-    border: 1px solid #333;
-    overflow: hidden;
-    resize: none;
-    flex: 1;  /* Faz o textarea ocupar o espaço disponível */
-    box-sizing: border-box;
-}
-
-.container-search-bar-feed button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 10px;
-    border: 2px solid black;
-    margin-left: 5px;
-}
-
-
-.posts-feed {
+.posts-salvos {
     background-color: whitesmoke;
     padding: 15px;
     border-radius: 10px;
@@ -172,7 +82,7 @@ body {
     max-width: 1000px;
 }
 
-.post-feed {
+.post-salvos {
     background-color: white;
     padding: 5px;
     margin-bottom: 20px;
@@ -180,12 +90,12 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.container-user-feed {
+.container-user-salvos {
     display: flex;
     width: 700px;
     height: 50px;
 }
-.image-user-feed img{
+.image-user-salvos img{
     margin-top: 5px;
     margin-left: 5px;
     width: 40px;
@@ -194,41 +104,41 @@ body {
     border:1px solid;
    
 }
-.container-info-user-feed {
+.container-info-user-salvos {
     display: flex;
     flex-direction: row; 
 }
 
-.name-user-feed{
+.name-user-salvos{
     justify-content: center;
     font-size: 14px;
     margin-left: 5px;
     margin-right: 10px;
     
 } 
-.curso-user-feed{
+.curso-user-salvos{
     font-size: 14px;
 
 }
-.time-post-feed {
+.time-post-salvos {
     margin-left: 5px;
     font-size: 12px;
 }
 
-.content-feed {
+.content-salvos {
     background-color: #cccccc2e;
     display: flex;
     font-size: 18px;
     font-weight: bolder;
     margin-bottom: 5px;
     margin-top: 5px;
-    width: 8000px;
+    width: 800px;
     max-width: 800px;
     margin-left: 5px;
     border: 1px solid;
 }
 
-.content-feed p {
+.content-salvos p {
     font-size: 15px;
     font-weight: bold;
     overflow-wrap: break-word;
@@ -237,60 +147,59 @@ body {
     margin-left: 5px;
 }
 
-.actions-feed {
+.actions-salvos {
     display: flex;
     flex-direction: row;
     justify-content: center;
     cursor: pointer;
 }
-.curtir-feed{
+.curtir-salvos{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-items: center;
     margin-right: 10px;
 }
-.curtir-feed p{
+.curtir-salvos p{
     margin-right: 10px;
     font-size: 14px;
 }
-.curtir-feed button{
+.curtir-salvos button{
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
 
-.comentar-feed{
+.comentar-salvos{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-items: center;
     margin-right: 10px;
 }
-.comentar-feed p{
+.comentar-salvos p{
     margin-right: 10px;
     font-size: 14px;
 }
-.comentar-feed button{
+.comentar-salvos button{
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
 
-.salvar-feed{
+.salvar-salvos{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-items: center;
     margin-right: 10px;
 }
-.salvar-feed p{
+.salvar-salvos p{
     margin-right: 10px;
     font-size: 14px;
 }
-.salvar-feed button{
+.salvar-salvos button{
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
-
