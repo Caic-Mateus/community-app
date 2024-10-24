@@ -250,6 +250,7 @@ function FeedIndex({ authService }) {
                         ? "@" + post.user.user
                         : "Usuário Desconhecido"}
                     </p>
+                    <p>{formatDate(post.registrationDate)}</p>
                   </div>
                   <div className="curso-user-feed">
                     <p>
@@ -258,10 +259,8 @@ function FeedIndex({ authService }) {
                         : "Curso Desconhecido"}
                     </p>
                   </div>
+                  <div className="time-post-feed"></div>
                 </div>
-              </div>
-              <div className="time-post-feed">
-                {formatDate(post.registrationDate)}
               </div>
               <div className="content-feed">
                 <p>{post.context}</p>

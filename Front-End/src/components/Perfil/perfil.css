@@ -5,12 +5,12 @@ body {
 }
 
 .container-perfil {
-    width: 1000px;
-    height: 1000px;
+    width: 100%;
+    height: 100%;
     display: flex;
     background-color: whitesmoke;
     align-items: center;
-    position: relative;
+    justify-content:center ;
 }
 
 .sidebar-perfil {
@@ -114,8 +114,6 @@ a:hover {
     align-items: flex-start;
     width: 100%;
     padding: 20px;
-    margin-top: 150px;
-    margin-left: 100px;
 }
 
 .perfil-header {
