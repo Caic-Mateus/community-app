@@ -1,0 +1,90 @@
+.overlay-edit-perfil {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .container-edit-perfil {
+    background-color: #fff;
+    padding: 20px;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .header-edit-perfil {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .back-button-edit-perfil {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .title-edit-perfil {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-card-edit-perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .avatar-edit-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  .form-edit-perfil {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .label-edit-perfil {
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .input-edit-perfil {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .username-birthdate-edit-perfil {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .button-save-edit-perfil {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .button-save-edit-perfil:hover {
+    background-color: #0056b3;
+  }
+  

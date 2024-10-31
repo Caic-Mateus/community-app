@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import Loading from "../loading/loading";
 import AuthService from "../services/AuthServices";
 import CommentPopup from "../ComentarioPop-Up/comentarioPopUp";
+import Edit_perfilPopUp from "../Edit_Perfil_Pop-Up/edit_perfilPop-Up";
 
 function Profile({ authService }) {
   const { userId } = useParams();
@@ -85,6 +86,14 @@ function Profile({ authService }) {
     } catch (error) {
       console.error("Erro ao adicionar like:", error);
     }
+  };
+
+  const openEditPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closeEditPopup = () => {
+    setIsPopupOpen(false);
   };
 
   const openCommentPopup = (post) => {
@@ -193,7 +202,7 @@ function Profile({ authService }) {
             <p>{user.email}</p>
           </div>
           <div className="edit-perfil">
-            <button>
+            <button onClick={() => openEditPopup()}>
               <img
                 src="../../public/img/Edit.png"
                 alt="Edit Perfil"
@@ -266,6 +275,7 @@ function Profile({ authService }) {
           onSubmit={handleCommentSubmit}
           post={selectedPost}
         />
+        <Edit_perfilPopUp isOpen={isPopupOpen} onClose={closeEditPopup} />
       </div>
     </div>
   );
