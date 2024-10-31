@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./maisOpcoes.css";
-import EditPerfil from "../components/Editar_Perfil_Pop_Up/editPerfil";
 
 function MaisOpcoesForm() {
   const [showEditPerfil, setShowEditPerfil] = useState(false);

@@ -11,7 +11,6 @@ import { Notificacao } from "./pages/notificacao.jsx";
 import { Mensagem } from "./pages/mensagem.jsx";
 import { ItensSalvos } from "./pages/itensSalvos.jsx";
 import { MaisOpcoes } from "./pages/maisOpcoes.jsx";
-
 const authService = new AuthService();
 
 const router = createBrowserRouter([
