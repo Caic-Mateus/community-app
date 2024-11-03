@@ -11,12 +11,13 @@ export class ChatRepository {
             throw error;
         }
     }
+    //erro aqui
     async findChat(userId, recipientId) {
         try {
+            const participants = [userId, recipientId].sort();
             return await admin.firestore()
                 .collection('Chats')
-                .where('userId', '==', userId)
-                .where('recipientId', '==', recipientId)
+                .where('participants', '==', participants)
                 .get();
         } catch (error) {
             console.error('Erro ao buscar chat:', error);
@@ -25,8 +26,12 @@ export class ChatRepository {
     }
     async createChat(chatData) {
         try {
+            console.log('entou chat')
             const chatDoc = await admin.firestore().collection('Chats').add(chatData);
+
+            console.log('criou chat')
             return chatDoc;
+
         } catch (error) {
             console.error('Erro ao criar chat:', error);
             throw error;

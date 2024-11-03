@@ -4,15 +4,15 @@ export class ChatController {
     // Enviar mensagem entre dois usuários
     sendMessage = async (req, res) => {
         const chat = new Chat();
-        chat.userId = req.user.uid; // Usuário autenticado
+        chat.userId = req.body.uid; // Usuário autenticado
         chat.recipientId = req.body.recipientId; // Destinatário da mensagem
         chat.message = req.body.message;
-
         try {
             const messageId = await chat.sendMessage();
             res.status(201).json({ message: 'Mensagem enviada com sucesso!', messageId });
         } catch (error) {
-            res.status(500).json({ message: 'Erro ao enviar mensagem', error: error.message });
+
+            res.status(500).json({ message: 'Erro ao enviar mensagem', error: error.data  });
         }
     };
 
