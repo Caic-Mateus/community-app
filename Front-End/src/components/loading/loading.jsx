@@ -1,13 +1,15 @@
-import './loading.css';
+import "./loading.css";
 
 function Loading() {
-    return (
-        <div
-            className='loading-overlay centralize'
-            data-testid="loading">
-            Loading...
-        </div>
-    )
+  return (
+    <div class="loading-screen">
+      <img
+        src="../../public/img/Ft_cu.png"
+        alt="Loading..."
+        class="loading-image"
+      />
+    </div>
+  );
 }
 
 export default Loading;

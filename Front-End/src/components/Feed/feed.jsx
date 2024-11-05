@@ -23,7 +23,7 @@ function FeedIndex({ authService }) {
 
   useEffect(() => {
     fetchPosts();
-  }, [updateFlag]); // Dependência adicionada aqui
+  }, [updateFlag]);
 
   FeedIndex.propTypes = {
     authService: PropTypes.shape({
@@ -144,6 +144,8 @@ function FeedIndex({ authService }) {
     return date ? date.toLocaleDateString() : "Data Desconhecida"; // Verifica se date está definido
   }
 
+  if (loading) return <Loading />;
+
   return (
     <div className="container-feed">
       <div className="sidebar-feed">
@@ -211,7 +213,28 @@ function FeedIndex({ authService }) {
         </ul>
       </div>
 
+      <div>
+        {posts.map((post) => (
+          <div className="sidebar-feed-amigos">
+            <h1>Seus Amigos</h1>
+            <div className="amigos">
+              <img
+                onClick={false} //Para clicar e abrir o perfil do amigo
+                src="https://via.placeholder.com/40"
+                alt={post.user ? post.user.name : "Usuário Desconhecido"}
+              />
+              <div className="name-feed">
+                <p>Lucas Borel</p>
+                <p>Analise e Desenvolvimento de Sistemas</p>
+                <button>Enviar Mensagem</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
       <div className="main-feed">
+        <div>{loading ? <Loading /> : ""}</div>
         <div className="container-search-bar-feed">
           <form
             onSubmit={handleSubmit}
@@ -228,7 +251,7 @@ function FeedIndex({ authService }) {
               }}
             />
             <button type="submit" disabled={loading}>
-              {loading ? <Loading /> : "Postar"}
+              {"Postar"}
             </button>
           </form>
         </div>
@@ -293,25 +316,6 @@ function FeedIndex({ authService }) {
                     <img></img>
                     <span>Salvar</span>
                   </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div>
-          {posts.map((post) => (
-            <div className="sidebar-feed-amigos">
-              <h1>Seus Amigos</h1>
-              <div className="amigos">
-                <img
-                  onClick={false} //Para clicar e abrir o perfil do amigo
-                  src="https://via.placeholder.com/40"
-                  alt={post.user ? post.user.name : "Usuário Desconhecido"}
-                />
-                <div className="name-feed">
-                  <p>Lucas Borel</p>
-                  <p>Analise e Desenvolvimento de Sistemas</p>
-                  <button>Enviar Mensagem</button>
                 </div>
               </div>
             </div>

@@ -26,10 +26,10 @@ body {
 
 .sidebar-feed-amigos {
     right: 0;
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
-    z-index: 1000;
+    z-index: 5;
     background-color:whitesmoke;
     width: 250px;
     padding: 10px;
@@ -43,7 +43,7 @@ body {
     margin-top: 5px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-    background-color: white;
+    background-color:transparent;
 }
 .amigos button{
     text-align: center;
@@ -73,11 +73,11 @@ body {
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
     width: 200px;
     padding: 20px;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 1000;
+    z-index: 5;
 }
 
 .sidebar-feed h1 {
@@ -127,6 +127,7 @@ body {
     margin-left: 250px;
     margin-right: 250px;
     min-width: 800px;
+    z-index: 1;
 }
 .container-search-bar-feed {
     background-color: whitesmoke;

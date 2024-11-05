@@ -285,6 +285,7 @@ function ItensSalvosForm({ authService }) {
           post={selectedPost}
         />
       </main>
+      <div className="loading-salvos">{loading ? <Loading /> : ""}</div>
     </div>
   );
 }

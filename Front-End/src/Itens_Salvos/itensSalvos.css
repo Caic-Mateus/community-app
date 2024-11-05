@@ -15,7 +15,7 @@
 .sidebar-salvos {
     background-color: #cccccc3b;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-    width: 250px;
+    width: 200px;
     padding: 20px;
     position: fixed;
     top: 0;
@@ -64,13 +64,13 @@
     margin-bottom: 1%;
 }
 .main-salvos {
+    position:relative;
+    top:835vh;
+    left:100px;
     display: flex;
     flex-direction: column;
     background-color: whitesmoke;
     flex: 1;
-    padding: 20px;
-    margin-left: 250px;
-    margin-right: 250px;
     min-width: 800px;
 }
 .posts-salvos {
@@ -200,4 +200,10 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+.loading-salvos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
