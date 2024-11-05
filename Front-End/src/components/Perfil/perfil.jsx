@@ -5,6 +5,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Loading from "../loading/loading";
 import AuthService from "../services/AuthServices";
+import CommentPopup from "../ComentarioPop-Up/comentarioPopUp";
+import Edit_perfilPopUp from "../Edit_Perfil_Pop-Up/edit_perfilPop-Up";
 
 function Profile({ authService }) {
   const { userId } = useParams();
@@ -12,6 +14,8 @@ function Profile({ authService }) {
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -59,6 +63,51 @@ function Profile({ authService }) {
       setError(error.message);
       setLoading(false);
     }
+  };
+
+  const handleLike = async (postId) => {
+    try {
+      const newLike = {
+        userId: uid,
+        postId: postId,
+      };
+      const response = await axios.post(
+        `http://localhost:3000/likes`,
+        newLike,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      console.log("Like adicionado:", response.data);
+      setUpdateFlag(!updateFlag); // Atualizar a flag aqui
+    } catch (error) {
+      console.error("Erro ao adicionar like:", error);
+    }
+  };
+
+  const openEditPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closeEditPopup = () => {
+    setIsPopupOpen(false);
+  };
+
+  const openCommentPopup = (post) => {
+    setSelectedPost(post);
+    setIsPopupOpen(true);
+  };
+
+  const closeCommentPopup = () => {
+    setSelectedPost(null);
+    setIsPopupOpen(false);
+  };
+
+  const handleCommentSubmit = (comment) => {
+    console.log("Comentário enviado:", comment);
   };
 
   function formatDate(timestamp) {
@@ -143,55 +192,90 @@ function Profile({ authService }) {
       </div>
       <div className="main-perfil">
         <div className="perfil-header">
-          <h1>{user.name}</h1>
-          <p>{user.email}</p>
+          <img
+            src="https://via.placeholder.com/40"
+            className="foto-perfil"
+            alt={user.name || "Usuário Desconhecido"}
+          />
+          <div className="perfil-info">
+            <h1>{user.name}</h1>
+            <p>{user.email}</p>
+          </div>
+          <div className="edit-perfil">
+            <button onClick={() => openEditPopup()}>
+              <img
+                src="../../public/img/Edit.png"
+                alt="Edit Perfil"
+                className="edit-perfil-img"
+              ></img>
+              <p>Editar Perfil</p>
+            </button>
+          </div>
         </div>
+
         <div className="posts-perfil">
           {posts.map((post) => (
-            <div className="post-perfil" key={post.postId}>
-              <div className="user-perfil">
-                <img
-                  className="perfil-image"
-                  src="https://via.placeholder.com/40"
-                  alt={user.name || "Usuário Desconhecido"}
-                />
-                <div className="info-perfil">
-                  <div className="name-perfil">
-                    {user ? "@" + user.user : "Usuário Desconhecido"}
+            <div className="post-perfil" key={post.id}>
+              <div className="container-user-perfil">
+                <div className="image-user-perfil">
+                  <img
+                    src="https://via.placeholder.com/40"
+                    alt={user.name || "Usuário Desconhecido 1"}
+                  />
+                </div>
+                <div className="container-info-user-perfil">
+                  <div className="name-user-perfil">
+                    <p>{user ? "@" + user.user : "Usuário Desconhecido 2"}</p>
+                    <p>{formatDate(post.registrationDate)}</p>
                   </div>
-                  <div className="name-perfil">
-                    {user.curso || "Curso Desconhecido"}
+                  <div className="curso-user-perfil">
+                    <p>{user.curso || "Curso Desconhecido 1"}</p>
                   </div>
-                  <div className="time-perfil">
-                    {formatDate(post.registrationDate)}
-                  </div>
+                  <div className="time-post-perfil"></div>
                 </div>
               </div>
               <div className="content-perfil">
                 <p>{post.context}</p>
               </div>
               <div className="actions-perfil">
-                <p>{post.likesCount}</p>
-                <button onClick={() => handleLike(post.postId)}>
-                  <img
-                    src="../../public/img/Like.png"
-                    alt="Curtir"
-                    className="homePage-logo"
-                  />
-                  <span>Curtir</span>
-                </button>
-                <a href="#">
-                  <img
-                    src="../../public/img/Comment.png"
-                    alt="Comentar"
-                    className="homePage-logo"
-                  />
-                  <span>Comentar</span>
-                </a>
+                <div className="curtir-perfil">
+                  <p>{post.likesCount}</p>
+                  <button onClick={() => handleLike(post.postId)}>
+                    <img
+                      src="../../public/img/Like.png"
+                      alt="HomePage Logo"
+                      className="homePage-logo-perfil"
+                    />
+                    <span>Curtir</span>
+                  </button>
+                </div>
+                <div className="comentar-perfil">
+                  <button onClick={() => openCommentPopup(post)}>
+                    <img
+                      src="../../public/img/Comment.png"
+                      alt="HomePage Logo"
+                      className="homePage-logo-perfil"
+                    />
+                    <span>Comentar</span>
+                  </button>
+                </div>
+                <div className="salvar-perfil">
+                  <button>
+                    <img src="../../public/img/Save.png" />
+                    <span>Salvar</span>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
+        <CommentPopup
+          isOpen={isPopupOpen}
+          onClose={closeCommentPopup}
+          onSubmit={handleCommentSubmit}
+          post={selectedPost}
+        />
+        <Edit_perfilPopUp isOpen={isPopupOpen} onClose={closeEditPopup} />
       </div>
     </div>
   );

@@ -124,7 +124,7 @@ function LoginForm({ authService }) {
             {showLoading && <Loading />}
             {showRecoverPasswordMessage && (
               <div className="signup-text-login">
-                Verifique sua caixa de email!
+                <p>Verifique sua caixa de email!</p>
               </div>
             )}
           </div>

@@ -9,7 +9,8 @@ import { Feed } from "./pages/feed.jsx";
 import { Perfil } from "./pages/perfil.jsx";
 import { Notificacao } from "./pages/notificacao.jsx";
 import { Mensagem } from "./pages/mensagem.jsx";
-
+import { ItensSalvos } from "./pages/itensSalvos.jsx";
+import { MaisOpcoes } from "./pages/maisOpcoes.jsx";
 const authService = new AuthService();
 
 const router = createBrowserRouter([
@@ -36,6 +37,14 @@ const router = createBrowserRouter([
   {
     path: "/mensagens",
     element: <Mensagem />,
+  },
+  {
+    path: "/itensSalvos",
+    element: <ItensSalvos />,
+  },
+  {
+    path: "/maisOpcoes",
+    element: <MaisOpcoes />,
   },
 ]);
 
