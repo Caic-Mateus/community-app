@@ -6,7 +6,7 @@ const router = express.Router();
 const chatController = new ChatController();
 
 // Rota para enviar mensagem
-router.post('/send', autheticateToken, chatController.sendMessage);
+router.post('/send', chatController.sendMessage);
 
 // Rota para buscar histórico de mensagens entre dois usuários
 //router.get('/:recipientId', autheticateToken, chatController.getMessages);

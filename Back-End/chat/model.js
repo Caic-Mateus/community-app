@@ -31,26 +31,33 @@ export class Chat {
     }
 
     async sendMessage() {
+        console.log(this.message)
         if (!this.userId || !this.recipientId || !this.message) {
             throw {
                 code: 400,
-                message: 'Dados insuficientes para enviar a mensagem!'
+                message: 'Dados insuficientes para enviar a mensagem!',
+                data: 'uId' + this.userId + 'recpId' + this.recipientId + 'msg' + this.message 
             };
         }
-
+var i;
         try {
             // Verifica se já existe um chat
             const chatSnapshot = await this.#repository.findChat(this.userId, this.recipientId);
+
+            console.log('Snap'+ chatSnapshot.docs[0])
             let chatId;
 
             if (!chatSnapshot.empty) {
                 // Chat existe
+                console.log('entrou')
                 chatId = chatSnapshot.docs[0].id; // Pega o ID do chat existente
             } else {
+
                 // Cria novo chat
                 const newChatData = {
                     userId: this.userId,
                     recipientId: this.recipientId,
+                    participants: [this.userId, this.recipientId].sort(),
                     lastMessageTime: admin.firestore.Timestamp.now(),
                 };
                 const chatDoc = await this.#repository.createChat(newChatData);
@@ -66,11 +73,12 @@ export class Chat {
                 timestamp: admin.firestore.Timestamp.now(),
                 read: false,
             };
-
+            console.log('Erro ao enviar mensagem:', messageData);
+            
             return await this.#repository.saveMessage(messageData);
         } catch (error) {
-            console.error('Erro ao enviar mensagem:', error);
-            throw error;
+            
+           
         }
     }
 

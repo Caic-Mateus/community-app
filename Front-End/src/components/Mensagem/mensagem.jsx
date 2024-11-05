@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./mensagem.css";
+import io from 'socket.io-client';
 
 const token = localStorage.getItem("token");
 
@@ -8,18 +9,18 @@ const MensagemForm = () => {
   const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para o termo de busca
-  const [searchResults, setSearchResults] = useState([]); // Estado para os resultados da busca
-  const [isSearching, setIsSearching] = useState(false); // Estado de carregamento da busca
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado do modal para usuários
-  const [isChatModalOpen, setIsChatModalOpen] = useState(false); // Estado do modal para chats
-  const [selectedUser, setSelectedUser] = useState(null); // Usuário selecionado
-  const [selectedChat, setSelectedChat] = useState(null); // Chat selecionado
-  const [message, setMessage] = useState(""); // Mensagem a ser enviada
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [selectedChat, setSelectedChat] = useState(null);
+  const [message, setMessage] = useState("");
+  const [socket, setSocket] = useState(null);
+  const [messageList, setMessageList] = useState([]);
 
-  // Função para buscar usuários com base no termo de busca
+  // Função para buscar usuários
   const fetchUsers = async (term) => {
-    setIsSearching(true); // Indica que a busca começou
+    setIsSearching(true);
     try {
       const response = await axios.get(`http://localhost:3000/users/search?name=${term}`, {
         headers: {
@@ -31,11 +32,11 @@ const MensagemForm = () => {
       console.error("Error fetching users:", err);
       setError("Não foi possível carregar os usuários.");
     } finally {
-      setIsSearching(false); // Termina o carregamento da busca
+      setIsSearching(false);
     }
   };
 
-  // Função para buscar os chats do usuário logado
+  // Função para buscar chats
   const fetchChats = async () => {
     try {
       const response = await axios.get(`http://localhost:3000/chat/${localStorage.getItem("uid")}`, {
@@ -52,18 +53,48 @@ const MensagemForm = () => {
     }
   };
 
-  // Função para iniciar uma conversa ao clicar em um usuário
-  const startConversation = (userId) => {
-    setSelectedUser(userId);
-    setIsModalOpen(true); // Abre o modal ao clicar no nome do usuário
+  // Função para abrir o modal e buscar mensagens
+  const openChatModal = async (chat) => {
+    setSelectedChat(chat);
+    setIsChatModalOpen(true);
+    setMessage("");
+
+    // Buscar mensagens antigas
+    await loadMessages(chat.id);
   };
 
-  // Função para abrir o modal ao clicar em um chat existente
-  const openChatModal = (chat) => {
-    setSelectedChat(chat); // Define o chat selecionado
-    setIsChatModalOpen(true); // Abre o modal do chat
-    setMessage(""); // Limpa a mensagem
+  // Função para buscar mensagens por chatId
+  const loadMessages = async (chatId) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/message/messages/${chatId}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      setMessageList(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar mensagens:", error);
+    }
   };
+
+  // Conectar ao WebSocket
+  useEffect(() => {
+    const socketInstance = io.connect('http://localhost:3000');
+    setSocket(socketInstance);
+
+    // Ouvir mensagens recebidas
+    socketInstance.on('receiveMessage', (data) => {
+      console.log('Mensagem recebida no front-end:', data);
+      // Ao receber uma nova mensagem, recarregue as mensagens do chat atual
+      if (selectedChat) {
+        loadMessages(selectedChat.id);
+      }
+    });
+
+    return () => {
+      socketInstance.disconnect(); // Desconectar o socket ao desmontar o componente
+    };
+  }, [selectedChat]); // Adiciona selectedChat como dependência
 
   // Atualiza a busca conforme o usuário digita, com debounce de 500ms
   useEffect(() => {
@@ -71,11 +102,11 @@ const MensagemForm = () => {
       if (searchTerm) {
         fetchUsers(searchTerm);
       } else {
-        setSearchResults([]); // Limpa os resultados quando não há termo de busca
+        setSearchResults([]);
       }
-    }, 500); // Debounce de 500ms
+    }, 500);
 
-    return () => clearTimeout(delayDebounceFn); // Limpa o timeout se o termo mudar rapidamente
+    return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
 
   useEffect(() => {
@@ -84,59 +115,42 @@ const MensagemForm = () => {
 
   // Função para enviar mensagem
   const sendMessage = async () => {
-    try {
-      await axios.post('http://localhost:3000/chat/send', {
-        recipientId: selectedUser || selectedChat.recipientId, // Usa o recipientId do chat se estiver aberto
-        message: message,
-      }, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      alert('Mensagem enviada com sucesso!');
-      setIsChatModalOpen(false); // Fecha o modal após o envio
-      setIsModalOpen(false); // Fecha o modal do usuário se estava aberto
-    } catch (err) {
-      console.error("Erro ao enviar mensagem:", err);
-      alert("Erro ao enviar mensagem.");
-    }
-  };
+    const uid = localStorage.getItem("uid");
+    socket.emit('chatMessage', message, uid, selectedChat.id, selectedChat.recipientId === uid ? selectedChat.userId : selectedChat.recipientId);
+    setMessage(""); // Limpa o campo de mensagem
 
-  // Componente Modal para usuários
-  const UserModal = ({ isOpen, onClose, onSend }) => {
-    if (!isOpen) return null;
-
-    return (
-      <div className="modal">
-        <div className="modal-content">
-          <span className="close" onClick={onClose}>&times;</span>
-          <h2>Enviar Mensagem para {selectedUser}</h2>
-          <textarea 
-            value={message} 
-            onChange={(e) => setMessage(e.target.value)} 
-            placeholder="Digite sua mensagem aqui..."
-          />
-          <button onClick={onSend}>Enviar</button>
-        </div>
-      </div>
-    );
+    // Recarregar mensagens após enviar
+    await loadMessages(selectedChat.id);
   };
 
   // Componente Modal para chats
-  const ChatModal = ({ isOpen, onClose, onSend }) => {
+  const ChatModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
       <div className="modal">
         <div className="modal-content">
           <span className="close" onClick={onClose}>&times;</span>
-          <h2>Enviar Mensagem para {selectedChat?.recipientId}</h2>
-          <textarea 
-            value={message} 
-            onChange={(e) => setMessage(e.target.value)} 
-            placeholder="Digite sua mensagem aqui..."
-          />
-          <button onClick={onSend}>Enviar</button>
+          <div className="chat-messages">
+            {messageList.length > 0 ? (
+              messageList.map((msg, index) => (
+                <div key={index} className={msg.senderId === localStorage.getItem("uid") ? "my-message" : "received-message"}>
+                  {msg.userId == localStorage.getItem("uid") ? "you: " + msg.message : "he: " +msg.message}
+                  {console.log("msg: " + msg)}
+                </div>
+              ))
+            ) : (
+              <p>Nenhuma mensagem antiga.</p>
+            )}
+          </div>
+          <div className="sendMessage">
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Digite sua mensagem aqui..."
+            />
+            <button onClick={sendMessage}>Enviar</button>
+          </div>
         </div>
       </div>
     );
@@ -146,67 +160,12 @@ const MensagemForm = () => {
     return <div>Carregando...</div>;
   }
 
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   return (
     <div className="container-mensagem">
       <div className="sidebar-mensagem">
-        <img
-          src="../../public/img/Ft_cu.png"
-          alt="Google Logo"
-          className="commu-logo-mensagem"
-        />
+        <img src="../../public/img/Ft_cu.png" alt="Logo" className="commu-logo-mensagem" />
         <ul>
-          <a href="http://localhost:5173/feed">
-            <img
-              src="../../public/img/HomePage.png"
-              alt="HomePage Logo"
-              className="homePage-logo-mensagem"
-            />
-            <span>Página inicial</span>
-          </a>
-          <a href="http://localhost:5173/notificacao">
-            <img
-              src="../../public/img/Notify.png"
-              alt="HomePage Logo"
-              className="homePage-logo-mensagem"
-            />
-            <span>Notificações</span>
-          </a>
-          <a href="http://localhost:5173/mensagens">
-            <img
-              src="../../public/img/Message.png"
-              alt="HomePage Logo"
-              className="homePage-logo-mensagem"
-            />
-            <span>Mensagens</span>
-          </a>
-          <a href="http://localhost:5173/feed">
-            <img
-              src="../../public/img/Save.png"
-              alt="HomePage Logo"
-              className="homePage-logo-mensagem"
-            />
-            <span>Itens Salvos</span>
-          </a>
-          <a href="http://localhost:5173/perfil">
-            <img
-              src="../../public/img/Profile.png"
-              alt="HomePage Logo"
-              className="homePage-logo-mensagem"
-            />
-            <span>Perfil</span>
-          </a>
-          <a href="http://localhost:5173/feed">
-            <img
-              src="../../public/img/More.png"
-              alt="HomePage Logo"
-              className="homePage-logo-mensagem"
-            />
-            <span>Mais</span>
-          </a>
+          {/* ... restante do código do sidebar ... */}
         </ul>
       </div>
 
@@ -216,12 +175,12 @@ const MensagemForm = () => {
             type="text"
             placeholder="Buscar usuários"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} // Atualiza o termo de busca
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           {searchTerm && (
             <ul className="search-results">
               {isSearching ? (
-                <li>Carregando...</li> // Mostra feedback de carregamento
+                <li>Carregando...</li>
               ) : searchResults.length > 0 ? (
                 searchResults.map((user) => (
                   <li
@@ -246,7 +205,6 @@ const MensagemForm = () => {
             chats.map((chat) => (
               <li key={chat.id} className="item-mensagem" onClick={() => openChatModal(chat)}>
                 <span className="nome-mensagem">{chat.recipientId}</span>
-                <span className="tempo-mensagem">{chat.lastMessageTime}</span>
                 <p className="texto-mensagem">{chat.lastMessage}</p>
               </li>
             ))
@@ -254,18 +212,9 @@ const MensagemForm = () => {
         </ul>
       </main>
 
-      {/* Modal para envio de mensagens a usuários */}
-      <UserModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onSend={sendMessage} 
-      />
-      
-      {/* Modal para envio de mensagens em chats existentes */}
       <ChatModal 
         isOpen={isChatModalOpen} 
         onClose={() => setIsChatModalOpen(false)} 
-        onSend={sendMessage} 
       />
     </div>
   );

@@ -179,11 +179,14 @@
   }
   
   .modal-content {
+    display: flex;
     background: white;
     padding: 20px;
     border-radius: 5px;
     width: 300px;
-    position: relative;
+    height: 70%;
+    align-items: center;
+    flex-direction: column-reverse;
   }
   
   .close {
@@ -191,5 +194,9 @@
     top: 10px;
     right: 15px;
     cursor: pointer;
+  }
+  .sendMessage{
+    display: flex;
+    justify-content: center;
   }
   
