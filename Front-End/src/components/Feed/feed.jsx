@@ -150,7 +150,7 @@ function FeedIndex({ authService }) {
     <div className="container-feed">
       <div className="sidebar-feed">
         <img
-          src="../../public/img/Ft_cu.png"
+          src="../../public/img/logo.png"
           alt="Google Logo"
           className="commu-logo-feed"
         />
@@ -282,7 +282,6 @@ function FeedIndex({ authService }) {
                         : "Curso Desconhecido"}
                     </p>
                   </div>
-                  <div className="time-post-feed"></div>
                 </div>
               </div>
               <div className="content-feed">

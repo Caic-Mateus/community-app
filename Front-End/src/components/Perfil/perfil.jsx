@@ -121,7 +121,7 @@ function Profile({ authService }) {
     <div className="container-perfil">
       <div className="sidebar-perfil">
         <img
-          src="../../public/img/Ft_cu.png"
+          src="../../public/img/logo.png"
           alt="Logo"
           className="commu-logo-perfil"
         />

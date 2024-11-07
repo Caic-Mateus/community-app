@@ -27,7 +27,7 @@ function MaisOpcoesForm() {
     <div className="container-mais">
       <div className="sidebar-mais">
         <img
-          src="../../public/img/Ft_cu.png"
+          src="../../public/img/logo.png"
           alt="Google Logo"
           className="commu-logo-mais"
         />
@@ -94,15 +94,7 @@ function MaisOpcoesForm() {
         <header className="header-mais">
           <h2>Configurações</h2>
         </header>
-
         <section className="settings-mais">
-          <div className="settings-item-mais">
-            <button onClick={handleOpenPopup} className="icon-profile-mais">
-              <span>Editar perfil</span>
-            </button>
-            {showEditPerfil && <EditPerfil onClose={handleClosePopup} />}
-          </div>
-
           <div className="settings-item-mais">
             <i className="icon-security-mais"></i>
             <span>Privacidade e Segurança</span>

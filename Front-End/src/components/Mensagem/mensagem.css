@@ -6,22 +6,16 @@
 
 
 .sidebar-mensagem {
-    background-color: #cccccc3b;
-    border-right: solid;
-    width: 250px;
+    background-color: transparent;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+    width: 200px;
     padding: 20px;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 1000;
+    z-index: 5;
 }
-
-.sidebar-mensagem h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
 .sidebar-mensagem ul {
     list-style: none;
     padding: 0;
@@ -40,10 +34,6 @@
     margin-top: 30px;
 }
 
-.sidebar-mensagem i {
-    margin-right: 10px;
-}
-
 .sidebar-mensagem button {
     background-color: transparent;
     color: black;
@@ -58,10 +48,9 @@
 }
 
 .commu-logo-mensagem {
-    width: 100px;
-    margin-right: 0.5em;
-    margin-left: 2.5em;
-    margin-top: 25px;
+    width: 150px;
+    margin-left: 25px;
+    margin-top: 10px;
 }
 
 .homePage-logo-mensagem{
@@ -172,7 +161,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: gray;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,7 +169,7 @@
   
   .modal-content {
     display: flex;
-    background: white;
+    background: blue;
     padding: 20px;
     border-radius: 5px;
     width: 300px;
@@ -199,4 +188,8 @@
     display: flex;
     justify-content: center;
   }
+  .chat-messages{
+    background-color: yellow;
+  }
+  
   

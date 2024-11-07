@@ -5,7 +5,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:transparent;
+    background-color: whitesmoke;
     z-index: 1000;
 }
 .loading-screen {
@@ -19,15 +19,22 @@ body, html {
 }
 
 .loading-image {
-    width: 150px;
-    animation: rotate 1s linear infinite; 
+    width: 250px;
+    animation: pulse 1.5s infinite ease-in-out;
+
 }
 
-@keyframes rotate {
+@keyframes pulse {
     0% {
-        transform: rotate(0deg);
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.6;
     }
     100% {
-        transform: rotate(360deg);
+      transform: scale(1);
+      opacity: 1;
     }
 }

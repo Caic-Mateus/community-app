@@ -11,10 +11,9 @@ body {
 }
 
 .commu-logo-feed {
-    width: 100px;
-    margin-right: 0.5em;
-    margin-left: 2.5em;
-    margin-top: 25px;
+    width: 150px;
+    margin-left: 25px;
+    margin-top: 10px;
 }
 
 .homePage-logo-feed {
@@ -26,7 +25,7 @@ body {
 
 .sidebar-feed-amigos {
     right: 0;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     z-index: 5;
@@ -73,18 +72,12 @@ body {
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
     width: 200px;
     padding: 20px;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     z-index: 5;
 }
-
-.sidebar-feed h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
 .sidebar-feed ul {
     list-style: none;
     padding: 0;
@@ -101,10 +94,6 @@ body {
     align-items: center;
     font-size: larger;
     margin-top: 30px;
-}
-
-.sidebar-feed i {
-    margin-right: 10px;
 }
 
 .sidebar-feed button {
@@ -217,11 +206,6 @@ body {
 }
 .curso-user-feed p{
     margin-top: 0;
-}
-.time-post-feed {
-    display: flex;
-    justify-content: end;
-    font-size: 12px;
 }
 
 .content-feed {

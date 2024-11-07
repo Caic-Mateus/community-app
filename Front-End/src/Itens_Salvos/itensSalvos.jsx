@@ -23,7 +23,7 @@ function ItensSalvosForm({ authService }) {
 
   useEffect(() => {
     fetchPosts();
-  }, [updateFlag]); // Dependência adicionada aqui
+  }, [updateFlag]);
 
   ItensSalvosForm.propTypes = {
     authService: PropTypes.shape({
@@ -140,11 +140,12 @@ function ItensSalvosForm({ authService }) {
     return date ? date.toLocaleDateString() : "Data Desconhecida"; // Verifica se date está definido
   }
 
+  if (loading) return <Loading />;
   return (
     <div className="container-salvos">
       <div className="sidebar-salvos">
         <img
-          src="../../public/img/Ft_cu.png"
+          src="../../public/img/logo.png"
           alt="Google Logo"
           className="commu-logo-feed"
         />
@@ -214,7 +215,7 @@ function ItensSalvosForm({ authService }) {
 
         <div className="posts-salvos">
           {posts.map((post) => (
-            <div className="post-feed" key={post.uid}>
+            <div className="post-salvos" key={post.uid}>
               <div className="container-user-salvos">
                 <div className="image-user-salvos">
                   <img
@@ -229,6 +230,7 @@ function ItensSalvosForm({ authService }) {
                         ? "@" + post.user.user
                         : "Usuário Desconhecido"}
                     </p>
+                    <p>{formatDate(post.registrationDate)}</p>
                   </div>
                   <div className="curso-user-salvos">
                     <p>
@@ -238,9 +240,6 @@ function ItensSalvosForm({ authService }) {
                     </p>
                   </div>
                 </div>
-              </div>
-              <div className="time-post-salvos">
-                {formatDate(post.registrationDate)}
               </div>
               <div className="content-salvos">
                 <p>{post.context}</p>
@@ -285,7 +284,6 @@ function ItensSalvosForm({ authService }) {
           post={selectedPost}
         />
       </main>
-      <div className="loading-salvos">{loading ? <Loading /> : ""}</div>
     </div>
   );
 }

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./mensagem.css";
-import io from 'socket.io-client';
+import io from "socket.io-client";
+import Loading from "../loading/loading";
+import AuthService from "../services/AuthServices";
 
 const token = localStorage.getItem("token");
 
-const MensagemForm = () => {
+const MensagemForm = ({ authService }) => {
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [chats, setChats] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -22,11 +25,14 @@ const MensagemForm = () => {
   const fetchUsers = async (term) => {
     setIsSearching(true);
     try {
-      const response = await axios.get(`http://localhost:3000/users/search?name=${term}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:3000/users/search?name=${term}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
       setSearchResults(response.data);
     } catch (err) {
       console.error("Error fetching users:", err);
@@ -36,14 +42,30 @@ const MensagemForm = () => {
     }
   };
 
+  const logout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await authService.logout();
+      setIsLoggingOut(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      setIsLoggingOut(false);
+    }
+  };
+
   // Função para buscar chats
   const fetchChats = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/chat/${localStorage.getItem("uid")}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:3000/chat/${localStorage.getItem("uid")}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
       setChats(response.data);
       setLoading(false);
     } catch (err) {
@@ -66,11 +88,14 @@ const MensagemForm = () => {
   // Função para buscar mensagens por chatId
   const loadMessages = async (chatId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/message/messages/${chatId}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:3000/message/messages/${chatId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
       setMessageList(response.data);
     } catch (error) {
       console.error("Erro ao buscar mensagens:", error);
@@ -79,12 +104,12 @@ const MensagemForm = () => {
 
   // Conectar ao WebSocket
   useEffect(() => {
-    const socketInstance = io.connect('http://localhost:3000');
+    const socketInstance = io.connect("http://localhost:3000");
     setSocket(socketInstance);
 
     // Ouvir mensagens recebidas
-    socketInstance.on('receiveMessage', (data) => {
-      console.log('Mensagem recebida no front-end:', data);
+    socketInstance.on("receiveMessage", (data) => {
+      console.log("Mensagem recebida no front-end:", data);
       // Ao receber uma nova mensagem, recarregue as mensagens do chat atual
       if (selectedChat) {
         loadMessages(selectedChat.id);
@@ -116,7 +141,15 @@ const MensagemForm = () => {
   // Função para enviar mensagem
   const sendMessage = async () => {
     const uid = localStorage.getItem("uid");
-    socket.emit('chatMessage', message, uid, selectedChat.id, selectedChat.recipientId === uid ? selectedChat.userId : selectedChat.recipientId);
+    socket.emit(
+      "chatMessage",
+      message,
+      uid,
+      selectedChat.id,
+      selectedChat.recipientId === uid
+        ? selectedChat.userId
+        : selectedChat.recipientId
+    );
     setMessage(""); // Limpa o campo de mensagem
 
     // Recarregar mensagens após enviar
@@ -127,15 +160,28 @@ const MensagemForm = () => {
   const ChatModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
+    if (loading) return <Loading />;
+
     return (
       <div className="modal">
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
         <div className="modal-content">
-          <span className="close" onClick={onClose}>&times;</span>
           <div className="chat-messages">
             {messageList.length > 0 ? (
               messageList.map((msg, index) => (
-                <div key={index} className={msg.senderId === localStorage.getItem("uid") ? "my-message" : "received-message"}>
-                  {msg.userId == localStorage.getItem("uid") ? "you: " + msg.message : "he: " +msg.message}
+                <div
+                  key={index}
+                  className={
+                    msg.senderId === localStorage.getItem("uid")
+                      ? "my-message"
+                      : "received-message"
+                  }
+                >
+                  {msg.userId == localStorage.getItem("uid")
+                    ? "you: " + msg.message
+                    : "he: " + msg.message}
                   {console.log("msg: " + msg)}
                 </div>
               ))
@@ -156,20 +202,76 @@ const MensagemForm = () => {
     );
   };
 
-  if (loading) {
-    return <div>Carregando...</div>;
-  }
+  if (loading) return <Loading />;
 
   return (
     <div className="container-mensagem">
       <div className="sidebar-mensagem">
-        <img src="../../public/img/Ft_cu.png" alt="Logo" className="commu-logo-mensagem" />
+        <img
+          src="../../public/img/logo.png"
+          alt="Google Logo"
+          className="commu-logo-mensagem"
+        />
         <ul>
-          {/* ... restante do código do sidebar ... */}
+          <a href="http://localhost:5173/feed">
+            <img
+              src="../../public/img/HomePage.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Página inicial</span>
+          </a>
+          <a href="http://localhost:5173/notificacao">
+            <img
+              src="../../public/img/Notify.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Notificações</span>
+          </a>
+          <a href="http://localhost:5173/mensagens">
+            <img
+              src="../../public/img/Message.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Mensagens</span>
+          </a>
+          <a href="http://localhost:5173/itensSalvos">
+            <img
+              src="../../public/img/Save.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Itens Salvos</span>
+          </a>
+          <a href="http://localhost:5173/perfil">
+            <img
+              src="../../public/img/Profile.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Perfil</span>
+          </a>
+          <a href="http://localhost:5173/maisOpcoes">
+            <img
+              src="../../public/img/More.png"
+              alt="HomePage Logo"
+              className="homePage-logo-mensagem"
+            />
+            <span>Mais</span>
+          </a>
+          <button onClick={logout}>
+            <img
+              src="../../public/img/Logout.png"
+              className="homePage-logo-mensagem"
+            ></img>
+            Sair
+          </button>
         </ul>
       </div>
 
-      <main className="content-amensagem">
+      <main className="content-mensagem">
         <div className="search-mensagem">
           <input
             type="text"
@@ -203,7 +305,11 @@ const MensagemForm = () => {
             <li className="item-mensagem">Nenhum chat encontrado</li>
           ) : (
             chats.map((chat) => (
-              <li key={chat.id} className="item-mensagem" onClick={() => openChatModal(chat)}>
+              <li
+                key={chat.id}
+                className="item-mensagem"
+                onClick={() => openChatModal(chat)}
+              >
                 <span className="nome-mensagem">{chat.recipientId}</span>
                 <p className="texto-mensagem">{chat.lastMessage}</p>
               </li>
@@ -212,9 +318,9 @@ const MensagemForm = () => {
         </ul>
       </main>
 
-      <ChatModal 
-        isOpen={isChatModalOpen} 
-        onClose={() => setIsChatModalOpen(false)} 
+      <ChatModal
+        isOpen={isChatModalOpen}
+        onClose={() => setIsChatModalOpen(false)}
       />
     </div>
   );

@@ -17,7 +17,7 @@ function NotificacaoForm() {
     <div className="container-notificacao">
       <div className="sidebar-notificacao">
         <img
-          src="../../public/img/Ft_cu.png"
+          src="../../public/img/logo.png"
           alt="Logo"
           className="commu-logo-notificacao"
         />
