@@ -20,6 +20,7 @@ const MensagemForm = ({ authService }) => {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null); // Para armazenar o usuário selecionado para nova conversa
 
   // Função para buscar usuários
   const fetchUsers = async (term) => {
@@ -85,6 +86,29 @@ const MensagemForm = ({ authService }) => {
     await loadMessages(chat.id);
   };
 
+  // Função para iniciar uma conversa ao clicar em um usuário
+  const startConversation = async (userId) => {
+    setSelectedUser(userId); // Define o usuário selecionado
+    setIsChatModalOpen(true); // Abre o modal do chat
+    setMessage(""); // Limpa a mensagem
+
+    // Aqui, criamos ou buscamos um chat com o usuário
+    // try {
+    //   const response = await axios.post('http://localhost:3000/chat/start', {
+    //     userId: userId, // ID do usuário selecionado
+    //   }, {
+    //     headers: {
+    //       Authorization: token,
+    //     },
+    //   });
+
+    //   setSelectedChat(response.data); // Armazena o chat retornado
+    //   await loadMessages(response.data.id); // Carrega mensagens do novo chat
+    // } catch (error) {
+    //   console.error("Erro ao iniciar conversa:", error);
+    // }
+  };
+
   // Função para buscar mensagens por chatId
   const loadMessages = async (chatId) => {
     try {
@@ -119,7 +143,7 @@ const MensagemForm = ({ authService }) => {
     return () => {
       socketInstance.disconnect(); // Desconectar o socket ao desmontar o componente
     };
-  }, [selectedChat]); // Adiciona selectedChat como dependência
+  }, [selectedChat]);
 
   // Atualiza a busca conforme o usuário digita, com debounce de 500ms
   useEffect(() => {
@@ -156,6 +180,18 @@ const MensagemForm = ({ authService }) => {
     await loadMessages(selectedChat.id);
   };
 
+  const logout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await authService.logout();
+      setIsLoggingOut(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      setIsLoggingOut(false);
+    }
+  };
+
   // Componente Modal para chats
   const ChatModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
@@ -173,16 +209,9 @@ const MensagemForm = ({ authService }) => {
               messageList.map((msg, index) => (
                 <div
                   key={index}
-                  className={
-                    msg.senderId === localStorage.getItem("uid")
-                      ? "my-message"
-                      : "received-message"
-                  }
+                  className={msg.userId === localStorage.getItem("uid") ? "my-message" : "received-message"}
                 >
-                  {msg.userId == localStorage.getItem("uid")
-                    ? "you: " + msg.message
-                    : "he: " + msg.message}
-                  {console.log("msg: " + msg)}
+                  {msg.userId === localStorage.getItem("uid") ? msg.message : msg.recipientName + " :" + msg.message}
                 </div>
               ))
             ) : (
@@ -190,7 +219,7 @@ const MensagemForm = ({ authService }) => {
             )}
           </div>
           <div className="sendMessage">
-            <textarea
+            <input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Digite sua mensagem aqui..."
@@ -211,7 +240,6 @@ const MensagemForm = ({ authService }) => {
           src="../../public/img/logo.png"
           alt="Google Logo"
           className="commu-logo-mensagem"
-        />
         <ul>
           <a href="http://localhost:5173/feed">
             <img
@@ -305,12 +333,8 @@ const MensagemForm = ({ authService }) => {
             <li className="item-mensagem">Nenhum chat encontrado</li>
           ) : (
             chats.map((chat) => (
-              <li
-                key={chat.id}
-                className="item-mensagem"
-                onClick={() => openChatModal(chat)}
-              >
-                <span className="nome-mensagem">{chat.recipientId}</span>
+              <li key={chat.id} className="item-mensagem" onClick={() => openChatModal(chat)}>
+                <span className="nome-mensagem">{chat.nameRecipient}</span>
                 <p className="texto-mensagem">{chat.lastMessage}</p>
               </li>
             ))

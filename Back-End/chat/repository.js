@@ -58,29 +58,58 @@ export class ChatRepository {
 
     async findUserChats(userId) {
         try {
-            console.log("entrou repos")
-            // Buscando chats onde o userId é o remetente ou o destinatário
+            console.log("entrou repos");
+            
+            // Referência para a coleção "Chats"
             const chatsRef = admin.firestore().collection("Chats");
             
+            // Buscar chats onde o userId é o remetente
             const snapshot = await chatsRef
                 .where("userId", "==", userId)
                 .get();
-            console.log("schat:")
-            console.log(snapshot);
+            
             const chats = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     
+            // Buscar chats onde o userId é o destinatário
             const recipientChatsSnapshot = await chatsRef
                 .where("recipientId", "==", userId)
                 .get();
-    
+            
             const recipientChats = recipientChatsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     
-            // Unindo as mensagens de ambos os casos
-            return [...chats, ...recipientChats];
+            // Unir as mensagens de ambos os casos
+            const allChats = [...chats, ...recipientChats];
+    
+            // Referência para a coleção "Users"
+            const usersRef = admin.firestore().collection("Users");
+    
+            // Adicionando `nameRecipient` em cada chat com base no `recipientId`
+            const chatsWithRecipientNames = await Promise.all(
+                allChats.map(async chat => {
+                    const recipientId = chat.recipientId;
+                    
+                    // Busca o nome do destinatário somente se `recipientId` existir
+                    if (recipientId) {
+                        const userSnapshot = await usersRef.doc(recipientId).get();
+                        
+                        if (userSnapshot.exists) {
+                            const { name } = userSnapshot.data();
+                            // Retorna o chat com `nameRecipient` adicionado
+                            return { ...chat, nameRecipient: name };
+                        }
+                    }
+                    
+                    // Retorna o chat sem modificações se não encontrar `recipientId` ou `name`
+                    return chat;
+                })
+            );
+    
+            return chatsWithRecipientNames;
         } catch (error) {
             console.error('Erro ao buscar chats do usuário:', error);
             throw error;
         }
     }
+    
     
 }
