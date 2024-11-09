@@ -73,40 +73,40 @@
 .settings-mais {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px; 
 }
+.settings-mais button{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  }
 
-.settings-item-mais {
+.seguranca-mais {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 18px;
+  cursor: pointer;
 }
-
-.settings-item-mais i {
-  font-size: 24px;
+.denuncia-mais {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  cursor: pointer;
 }
-
-.icon-profile-mais::before {
-  content: "👤"; /* Icone de perfil */
+.ajuda-mais {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  cursor: pointer;
 }
-
-.icon-notifications-mais::before {
-  content: "🔔"; /* Icone de notificações */
-}
-
-.icon-security-mais::before {
-  content: "🔒"; /* Icone de segurança */
-}
-
-.icon-blocked-mais::before {
-  content: "🚫"; /* Icone de bloqueados */
-}
-
-.icon-help-mais::before {
-  content: "❓"; /* Icone de ajuda */
-}
-
-.icon-logout-mais::before {
-  content: "🚪"; /* Icone de sair */
+.sair-mais {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  cursor: pointer;
 }

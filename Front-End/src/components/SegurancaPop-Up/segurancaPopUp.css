@@ -1,0 +1,114 @@
+
+.modal-overlay-seguranca {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content-seguranca {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .close-button-seguranca {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .container-seguranca {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .privacidade-container-seguranca {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .label-privacidade-seguranca {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .toggle-privacidade-seguranca {
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkbox-seguranca {
+    margin-left: 10px;
+  }
+  
+  .seguranca-container-seguranca {
+    background-color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+  }
+  
+  .titulo-seguranca {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: black;
+  }
+  
+  .form-seguranca {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .form-seguranca label{
+    color: black;
+  }
+  
+  .input-group-seguranca {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .input-seguranca {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid;
+    margin-top: 5px;
+    background-color: white;
+    font-size: 16px;
+  }
+  
+  .botao-salvar-seguranca {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #35A5DA;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

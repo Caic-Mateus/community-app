@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import "./maisOpcoes.css";
+import SegurancaPopUp from "../components/SegurancaPop-Up/segurancaPopUp";
+import Perguntas_frequentes from "../components/Perguntas_frequentes/perguntas_frequentes";
+import Denuncia from "../components/DenunciaPopUp/denuncia";
 
 function MaisOpcoesForm() {
-  const [showEditPerfil, setShowEditPerfil] = useState(false);
+  const [isSegurancaOpen, setIsSegurancaOpen] = useState(false);
+  const [isPerguntasOpen, setIsPerguntasOpen] = useState(false);
+  const [isDenunciaOpen, setIsDenunciaOpen] = useState(false);
 
-  const handleOpenPopup = () => {
-    setShowEditPerfil(true);
-  };
+  const openSeguranca = () => setIsSegurancaOpen(true);
+  const closeSeguranca = () => setIsSegurancaOpen(false);
 
-  const handleClosePopup = () => {
-    setShowEditPerfil(false);
-  };
+  const openPerguntas = () => setIsPerguntasOpen(true);
+  const closePerguntas = () => setIsPerguntasOpen(false);
+
+  const openDenuncia = () => setIsDenunciaOpen(true);
+  const closeDenuncia = () => setIsDenunciaOpen(false);
 
   const logout = async () => {
     setIsLoggingOut(true);
@@ -95,20 +101,47 @@ function MaisOpcoesForm() {
           <h2>Configurações</h2>
         </header>
         <section className="settings-mais">
-          <div className="settings-item-mais">
-            <i className="icon-security-mais"></i>
-            <span>Privacidade e Segurança</span>
+          <div className="seguranca-mais">
+            <button onClick={openSeguranca}>
+              <img
+                src="../../public/img/seguranca.png"
+                className="homePage-logo-mais"
+              ></img>
+              <span>Privacidade e Segurança</span>
+            </button>
           </div>
-          <div className="settings-item-mais">
-            <i className="icon-help-mais"></i>
-            <span>Ajuda</span>
+          <div className="ajuda-mais">
+            <button onClick={openPerguntas}>
+              <img
+                src="../../public/img/ajuda.png"
+                className="homePage-logo-mais"
+              ></img>
+              <span>Ajuda</span>
+            </button>
           </div>
-          <div className="settings-item-mais">
-            <i className="icon-logout-mais"></i>
-            <span>Sair</span>
+          <div className="denuncia-mais">
+            <button onClick={openDenuncia}>
+              <img
+                src="../../public/img/denuncia.png"
+                className="homePage-logo-mais"
+              ></img>
+              <span>Denuncias</span>
+            </button>
+          </div>
+          <div className="sair-mais">
+            <button onClick={logout}>
+              <img
+                src="../../public/img/Logout.png"
+                className="homePage-logo-mais"
+              ></img>
+              <span>Sair</span>
+            </button>
           </div>
         </section>
       </main>
+      {isSegurancaOpen && <SegurancaPopUp closeModal={closeSeguranca} />}
+      {isPerguntasOpen && <Perguntas_frequentes closeModal={closePerguntas} />}
+      {isDenunciaOpen && <Denuncia closeModal={closeDenuncia} />}
     </div>
   );
 }

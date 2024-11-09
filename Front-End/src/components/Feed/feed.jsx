@@ -234,7 +234,6 @@ function FeedIndex({ authService }) {
       </div>
 
       <div className="main-feed">
-        <div>{loading ? <Loading /> : ""}</div>
         <div className="container-search-bar-feed">
           <form
             onSubmit={handleSubmit}
