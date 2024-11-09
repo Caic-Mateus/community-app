@@ -2,6 +2,8 @@
   text-align: center; /* Centraliza conteúdo horizontalmente */
   align-items: flex-start; /* Alinha itens ao topo */
   min-height: 100vh;
+  width: 700px;
+  overflow: hidden;
 }
 
 .header {
@@ -9,8 +11,11 @@
   flex-direction: column; /* Altera o fluxo dos itens para uma coluna */
   justify-content: center; /* Centraliza conteúdo horizontalmente */
   align-items: center; /* Centraliza conteúdo verticalmente */
-  margin-bottom: 20px; /* Espaçamento inferior */
-  margin-top: 50px;
+  margin-bottom: 10px; /* Espaçamento inferior */
+  margin-top: 20px;
+}
+img{
+  width: 250px;
 }
 
 .header img {

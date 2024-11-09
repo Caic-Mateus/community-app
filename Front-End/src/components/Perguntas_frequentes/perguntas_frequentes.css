@@ -1,0 +1,76 @@
+/* Estilo para o overlay do modal */
+.modal-overlay-perguntas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Estilo para o conteúdo do modal */
+  .modal-content-perguntas {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  /* Botão para fechar o modal */
+  .close-button-perguntas {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  /* Botão para abrir o modal */
+  .open-modal-button-perguntas {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .open-modal-button-perguntas:hover {
+    background-color: #0069d9;
+  }
+  
+  /* Estilos para título e itens de FAQ */
+  .titulo-perguntas {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0057b7;
+    margin-bottom: 20px;
+  }
+  
+  .faq-item-perguntas {
+    margin-bottom: 15px;
+  }
+  
+  .faq-pergunta-perguntas {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .faq-resposta-perguntas {
+    font-size: 16px;
+    color: #666;
+    margin-top: 5px;
+  }
+  

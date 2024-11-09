@@ -121,7 +121,7 @@ function Profile({ authService }) {
     <div className="container-perfil">
       <div className="sidebar-perfil">
         <img
-          src="../../public/img/Ft_cu.png"
+          src="../../public/img/logo.png"
           alt="Logo"
           className="commu-logo-perfil"
         />
@@ -174,7 +174,7 @@ function Profile({ authService }) {
             />
             <span>Mais</span>
           </a>
-          <button
+          <a
             className="botao-logout-perfil"
             onClick={() => {
               authService.logout();
@@ -187,7 +187,7 @@ function Profile({ authService }) {
               className="homePage-logo-perfil"
             />
             Sair
-          </button>
+          </a>
         </ul>
       </div>
       <div className="main-perfil">

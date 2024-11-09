@@ -58,7 +58,7 @@ function LoginForm({ authService }) {
   return (
     <div className="login-container-login">
       <div className="container-login">
-        <form action="#">
+        <form action="#" className="form-login">
           <input
             type="email"
             className="input-field-login"

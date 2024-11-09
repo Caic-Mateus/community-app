@@ -23,7 +23,7 @@ function FeedIndex({ authService }) {
 
   useEffect(() => {
     fetchPosts();
-  }, [updateFlag]); // Dependência adicionada aqui
+  }, [updateFlag]);
 
   FeedIndex.propTypes = {
     authService: PropTypes.shape({
@@ -144,11 +144,13 @@ function FeedIndex({ authService }) {
     return date ? date.toLocaleDateString() : "Data Desconhecida"; // Verifica se date está definido
   }
 
+  if (loading) return <Loading />;
+
   return (
     <div className="container-feed">
       <div className="sidebar-feed">
         <img
-          src="../../public/img/Ft_cu.png"
+          src="../../public/img/logo.png"
           alt="Google Logo"
           className="commu-logo-feed"
         />
@@ -201,14 +203,34 @@ function FeedIndex({ authService }) {
             />
             <span>Mais</span>
           </a>
-          <button onClick={logout}>
+          <a onClick={logout}>
             <img
               src="../../public/img/Logout.png"
               className="homePage-logo-feed"
             ></img>
             Sair
-          </button>
+          </a>
         </ul>
+      </div>
+
+      <div>
+        {posts.map((post) => (
+          <div className="sidebar-feed-amigos">
+            <h1>Seus Amigos</h1>
+            <div className="amigos">
+              <img
+                onClick={false} //Para clicar e abrir o perfil do amigo
+                src="https://via.placeholder.com/40"
+                alt={post.user ? post.user.name : "Usuário Desconhecido"}
+              />
+              <div className="name-feed">
+                <p>Lucas Borel</p>
+                <p>Analise e Desenvolvimento de Sistemas</p>
+                <button>Enviar Mensagem</button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="main-feed">
@@ -228,7 +250,7 @@ function FeedIndex({ authService }) {
               }}
             />
             <button type="submit" disabled={loading}>
-              {loading ? <Loading /> : "Postar"}
+              {"Postar"}
             </button>
           </form>
         </div>
@@ -259,7 +281,6 @@ function FeedIndex({ authService }) {
                         : "Curso Desconhecido"}
                     </p>
                   </div>
-                  <div className="time-post-feed"></div>
                 </div>
               </div>
               <div className="content-feed">
@@ -290,28 +311,13 @@ function FeedIndex({ authService }) {
                 </div>
                 <div className="salvar-feed">
                   <button>
-                    <img></img>
+                    <img
+                      src="../../public/img/Save.png"
+                      alt="HomePage Logo"
+                      className="homePage-logo-feed"
+                    ></img>
                     <span>Salvar</span>
                   </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div>
-          {posts.map((post) => (
-            <div className="sidebar-feed-amigos">
-              <h1>Seus Amigos</h1>
-              <div className="amigos">
-                <img
-                  onClick={false} //Para clicar e abrir o perfil do amigo
-                  src="https://via.placeholder.com/40"
-                  alt={post.user ? post.user.name : "Usuário Desconhecido"}
-                />
-                <div className="name-feed">
-                  <p>Lucas Borel</p>
-                  <p>Analise e Desenvolvimento de Sistemas</p>
-                  <button>Enviar Mensagem</button>
                 </div>
               </div>
             </div>

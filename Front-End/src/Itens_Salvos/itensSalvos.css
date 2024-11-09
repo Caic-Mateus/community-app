@@ -1,9 +1,22 @@
-
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
+    height: 100vh;          
+    margin: 0;               
+}
+.container-salvos{
+    background-color: transparent;
+    margin-left: 250px;
+    width: 140vh;       
+    height: 100%;  
+    box-sizing: border-box;
+    max-height: 80vh; 
+     
+}
 .commu-logo-salvos {
-    width: 100px;
-    margin-right: 0.5em;
-    margin-left: 2.5em;
-    margin-top: 25px;
+    width: 190px;
 }
 
 .homePage-logo-salvos {
@@ -15,9 +28,9 @@
 .sidebar-salvos {
     background-color: #cccccc3b;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-    width: 250px;
+    width: 200px;
     padding: 20px;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
@@ -66,18 +79,10 @@
 .main-salvos {
     display: flex;
     flex-direction: column;
-    background-color: whitesmoke;
-    flex: 1;
-    padding: 20px;
-    margin-left: 250px;
-    margin-right: 250px;
-    min-width: 800px;
 }
 .posts-salvos {
     background-color: whitesmoke;
     padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     max-width: 1000px;
 }
@@ -86,8 +91,8 @@
     background-color: white;
     padding: 5px;
     margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 2px 2px 25px rgba(0, 0, 0, 0.3);
 }
 
 .container-user-salvos {
@@ -106,24 +111,30 @@
 }
 .container-info-user-salvos {
     display: flex;
-    flex-direction: row; 
+    flex-direction: column; 
 }
 
 .name-user-salvos{
-    justify-content: center;
     font-size: 14px;
     margin-left: 5px;
     margin-right: 10px;
-    
+    display: flex;
+    flex-direction: row;
+    gap: 750px;
 } 
+.name-user-salvos p{
+    margin-bottom: 0;
+    
+}
 .curso-user-salvos{
     font-size: 14px;
-
-}
-.time-post-salvos {
     margin-left: 5px;
-    font-size: 12px;
+    margin-right: 10px;
 }
+.curso-user-salvos p{
+    margin-top: 0;
+}
+
 
 .content-salvos {
     display: flex;
@@ -131,8 +142,7 @@
     font-weight: bolder;
     margin-bottom: 5px;
     margin-top: 5px;
-    width: 8000px;
-    max-width: 800px;
+    width: 800px;
     margin-left: 5px;
 }
 
@@ -200,4 +210,11 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+.loading-salvos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }

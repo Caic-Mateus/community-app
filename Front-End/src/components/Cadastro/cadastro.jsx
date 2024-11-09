@@ -42,7 +42,6 @@ function CadastroForm() {
         {
           headers: {
             "Content-Type": "application/json",
-            //'Authorization': `Bearer ${token}`
           },
         }
       );

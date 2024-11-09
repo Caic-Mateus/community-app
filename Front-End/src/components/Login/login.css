@@ -1,19 +1,27 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: whitesmoke;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
+    width: 100%;
+}
+.form-login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
 }
 
+
 .login-container-login {
-    background-color: #022766;
-    padding: 5px;
+    background-color: white;
     border-radius: 0.5em;
-    box-shadow: 0px 0px 0.625em rgba(0, 0, 0, 0.381);
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
     width: 600px;
     height: 350px;
     margin-left: auto;
@@ -25,8 +33,6 @@ body {
     width: 500px;
     height: 30px;
     padding: 6px;
-    margin-top: px;
-    margin-bottom: 5px;
     border: 1px solid #ccc;
     border-radius: 15px;
 }
@@ -35,32 +41,34 @@ body {
     width: 400px;
     height: 40px;
     margin-top: 5px;
-    background-color: #02457A;
+    background-color: #35A5DA;
     color: #fff;
     cursor: pointer;
     border-radius: 20px;
-    transition: background-color 0.3s;
     font-size: 18px;
 }
 .signup-text-login {
     text-align: center;
     margin-top: 10px;
-    color: #fff;
     cursor: default;
 }
-
-.signup-text-login a{
+.signup-text-login a {
     font-size: 14px;
-    color: #fff;
+    color: black;
     text-decoration: none;
     padding: 0;
     cursor: pointer;
+    transition: color 0.5s ease; /* Transição suave */
+}
+
+.signup-text-login a:hover {
+    color: #35A5DA; /* Azul claro */
 }
 .signup-text-login p{
     font-size: 14px;
 }
 .container-login {
-    padding-top: 45px;
+    padding-top: 40px;
     width: 600px;
     display: flex;
     flex-direction: column;
@@ -69,7 +77,5 @@ body {
 
 .inputvalidation-login {
     font-size: 12px;
-    color: white;
-    padding: 1;
-    margin-bottom: 5px;
+    color: black;
 }

@@ -17,7 +17,7 @@ function NotificacaoForm() {
     <div className="container-notificacao">
       <div className="sidebar-notificacao">
         <img
-          src="../../public/img/Ft_cu.png"
+          src="../../public/img/logo.png"
           alt="Logo"
           className="commu-logo-notificacao"
         />
@@ -70,85 +70,79 @@ function NotificacaoForm() {
             />
             <span>Mais</span>
           </a>
-          <button onClick={logout} className="botao-logout-notificacao">
+          <a onClick={logout}>
             <img
               src="../../public/img/Logout.png"
               alt="Logout"
               className="homePage-logo-notificacao"
             />
             Sair
-          </button>
+          </a>
         </ul>
       </div>
-
-      <section className="nao-visto-notificacao">
-        <h3>Não visto</h3>
-        <ul className="lista-notificacao">
-          <li className="item-notificacao">
-            <span className="nome-notificacao">Calebe Silva Costa</span>
-            <span className="tempo-notificacao">30 min</span>
-            <span className="curso-notificacao">
-              Análise e Desenvolvimento de Sistemas
-            </span>
-            <p className="texto-notificacao">
-              Meu MySQL não está funcionando alguém pode me ajudar?? ERROR: Too
-              Many Conections
-            </p>
-          </li>
-          <li className="item-notificacao">
-            <span className="nome-notificacao">Melissa Nascimento</span>
-            <span className="tempo-notificacao">1 h</span>
-            <span className="curso-notificacao">
-              Análise e Desenvolvimento de Sistemas
-            </span>
-            <p className="texto-notificacao">
-              Até que enfim consegui entender 🙏. Quem precisar de ajuda é só me
-              chamar kkkkk.
-            </p>
-          </li>
-        </ul>
-      </section>
-      <section className="visto-notificacao">
-        <h3>Visto</h3>
-        <ul className="lista-notificacao">
-          <li className="item-notificacao">
-            <span className="nome-notificacao">
-              Diretoria | Fatec SCS - Antonio Russo
-            </span>
-            <span className="tempo-notificacao">2 h</span>
-            <p className="texto-notificacao">
-              Oportunidade de Estágio ~{" "}
-              <a href="https://99jobs.com/">https://99jobs.com/</a>
-            </p>
-          </li>
-          <li className="item-notificacao">
-            <span className="nome-notificacao">
-              Diretoria | Fatec SCS - Antonio Russo
-            </span>
-            <span className="tempo-notificacao">2 h</span>
-            <p className="texto-notificacao">
-              Oportunidade de Trainee ~{" "}
-              <a href="https://www.nube.com.br/estudantes/vagas">
-                https://www.nube.com.br/estudantes/vagas
-              </a>
-            </p>
-          </li>
-        </ul>
-      </section>
-      <section className="outras-turmas-notificacao">
-        <h3>Outras turmas comentaram</h3>
-        <ul className="lista-notificacao">
-          <li className="item-notificacao">
-            <span className="nome-notificacao">Guilherme Nunes</span>
-            <span className="tempo-notificacao">2 h</span>
-            <span className="curso-notificacao">Segurança da Informação</span>
-            <p className="texto-notificacao">
-              Gente fiz um resumo sobre “Cibersegurança”, espero que ajude:
-              consiste em evitar que os dados...
-            </p>
-          </li>
-        </ul>
-      </section>
+      <div className="notificacao">
+        <div className="header-notificacao">
+          <h1>Notificações</h1>
+          <div className="filtro-notificacao">
+            <button className="buttonAll-notificacao">Tudo</button>
+            <button className="buttonNoAll-notificacao">Não vistas</button>
+          </div>
+        </div>
+        <section className="nao-visto-notificacao">
+          <h3>Não visto</h3>
+          <ul className="lista-notificacao">
+            <li className="item-notificacao">
+              <span className="nome-notificacao">Calebe Silva Costa</span>
+              <span className="tempo-notificacao">30 min</span>
+              <span className="curso-notificacao">
+                Análise e Desenvolvimento de Sistemas
+              </span>
+              <p className="texto-notificacao">
+                Meu MySQL não está funcionando alguém pode me ajudar?? ERROR:
+                Too Many Conections
+              </p>
+            </li>
+            <li className="item-notificacao">
+              <span className="nome-notificacao">Melissa Nascimento</span>
+              <span className="tempo-notificacao">1 h</span>
+              <span className="curso-notificacao">
+                Análise e Desenvolvimento de Sistemas
+              </span>
+              <p className="texto-notificacao">
+                Até que enfim consegui entender 🙏. Quem precisar de ajuda é só
+                me chamar kkkkk.
+              </p>
+            </li>
+          </ul>
+        </section>
+        <section className="visto-notificacao">
+          <h3>Visto</h3>
+          <ul className="lista-notificacao">
+            <li className="item-notificacao">
+              <span className="nome-notificacao">
+                Diretoria | Fatec SCS - Antonio Russo
+              </span>
+              <span className="tempo-notificacao">2 h</span>
+              <p className="texto-notificacao">
+                Oportunidade de Estágio ~{" "}
+                <a href="https://99jobs.com/">https://99jobs.com/</a>
+              </p>
+            </li>
+            <li className="item-notificacao">
+              <span className="nome-notificacao">
+                Diretoria | Fatec SCS - Antonio Russo
+              </span>
+              <span className="tempo-notificacao">2 h</span>
+              <p className="texto-notificacao">
+                Oportunidade de Trainee ~{" "}
+                <a href="https://www.nube.com.br/estudantes/vagas">
+                  https://www.nube.com.br/estudantes/vagas
+                </a>
+              </p>
+            </li>
+          </ul>
+        </section>
+      </div>
     </div>
   );
 }

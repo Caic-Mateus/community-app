@@ -85,67 +85,67 @@ const CommentPopup = ({ isOpen, onClose, post, onSubmit }) => {
     <div className="popup-overlay-comentario">
       <div className="popup-comentario">
         <div className="postsPop-comentario">
+          <h2>Comentar na Publicação</h2>
           <div className="postPop-comentario">
             <div className="user-comentario">
               <img
                 src="https://via.placeholder.com/40"
                 alt={post.user ? post.user.name : "Usuário Desconhecido"}
               />
-              <div className="info-comentario">
+              <div className="info-user-comentario">
                 <div className="name-comentario">
                   {post.user ? "@" + post.user.user : "Usuário Desconhecido"}
                 </div>
-                <div className="name-comentario">
+                <div className="curso-comentario">
                   {post.user?.curso ? post.user.curso : "Curso Desconhecido"}
                 </div>
-                <div className="name-comentario">{post.context}</div>
-                <div className="time-comentario">
-                  {formatDate(post.registrationDate)}
-                </div>
+              </div>
+
+              <div className="time-comentario">
+                <p>{formatDate(post.registrationDate)}</p>
               </div>
             </div>
+            <div className="content-comentario">{post.context}</div>
             <div className="comments-comentario">
-              <div className="allcomments-comentario">
-                {loading ? (
-                  <p>Carregando comentários...</p>
-                ) : error ? (
-                  <p>Erro ao carregar comentários.</p>
-                ) : comments.length === 0 ? (
-                  <p>Não há comentários ainda.</p>
-                ) : (
-                  comments.map((comment, index) => (
-                    <div key={index} className="comment-comentario">
-                      <div className="user-comentario">
-                        <img
-                          src="https://via.placeholder.com/40"
-                          alt={
-                            comment.user
-                              ? comment.user.name
-                              : "Usuário Desconhecido"
-                          }
-                        />
-                        <div className="info-comentario">
-                          <div className="name-comentario">
-                            {comment.user
-                              ? "@" + comment.user.user
-                              : "Usuário Desconhecido"}
-                          </div>
-                          <div className="time-comentario">
-                            {formatDate(post.registrationDate)}
-                          </div>
+              {loading ? (
+                <p>Carregando comentários...</p>
+              ) : error ? (
+                <p>Erro ao carregar comentários.</p>
+              ) : comments.length === 0 ? (
+                <p>Não há comentários ainda.</p>
+              ) : (
+                comments.map((comment, index) => (
+                  <div key={index} className="comment-comentario">
+                    <div className="user-comentario">
+                      <img
+                        src="https://via.placeholder.com/40"
+                        alt={
+                          comment.user
+                            ? comment.user.name
+                            : "Usuário Desconhecido"
+                        }
+                      />
+                      <div className="info-comentario">
+                        <div className="name-comentario">
+                          {comment.user
+                            ? "@" + comment.user.user
+                            : "Usuário Desconhecido"}
+                        </div>
+                        <div className="time-comentario">
+                          {formatDate(post.registrationDate)}
                         </div>
                       </div>
-                      <div className="commentText-comentario">
-                        {comment.commentText}
-                      </div>
                     </div>
-                  ))
-                )}
-              </div>
+                    <div className="commentText-comentario">
+                      {comment.commentText}
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
-        <h2>Comentar na Publicação</h2>
+
         <textarea
           value={comment}
           onChange={handleCommentChange}

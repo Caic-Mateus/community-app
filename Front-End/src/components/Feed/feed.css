@@ -11,10 +11,7 @@ body {
 }
 
 .commu-logo-feed {
-    width: 100px;
-    margin-right: 0.5em;
-    margin-left: 2.5em;
-    margin-top: 25px;
+    width: 190px;
 }
 
 .homePage-logo-feed {
@@ -22,14 +19,12 @@ body {
     margin-right: 0.5em;
     align-items: center;
 }
-
-
 .sidebar-feed-amigos {
     right: 0;
     position: fixed;
     top: 0;
     bottom: 0;
-    z-index: 1000;
+    z-index: 5;
     background-color:whitesmoke;
     width: 250px;
     padding: 10px;
@@ -43,7 +38,7 @@ body {
     margin-top: 5px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-    background-color: white;
+    background-color:transparent;
 }
 .amigos button{
     text-align: center;
@@ -77,14 +72,8 @@ body {
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 1000;
+    z-index: 5;
 }
-
-.sidebar-feed h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
 .sidebar-feed ul {
     list-style: none;
     padding: 0;
@@ -101,10 +90,6 @@ body {
     align-items: center;
     font-size: larger;
     margin-top: 30px;
-}
-
-.sidebar-feed i {
-    margin-right: 10px;
 }
 
 .sidebar-feed button {
@@ -127,6 +112,7 @@ body {
     margin-left: 250px;
     margin-right: 250px;
     min-width: 800px;
+    z-index: 1;
 }
 .container-search-bar-feed {
     background-color: whitesmoke;
@@ -217,11 +203,6 @@ body {
 .curso-user-feed p{
     margin-top: 0;
 }
-.time-post-feed {
-    display: flex;
-    justify-content: end;
-    font-size: 12px;
-}
 
 .content-feed {
     display: flex;
@@ -282,13 +263,12 @@ body {
     border: none;
     cursor: pointer;
 }
-
 .salvar-feed{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-items: center;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .salvar-feed p{
     margin-right: 10px;
