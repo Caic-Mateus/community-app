@@ -180,56 +180,51 @@ const MensagemForm = ({ authService }) => {
     await loadMessages(selectedChat.id);
   };
 
-  const logout = async () => {
-    setIsLoggingOut(true);
-    try {
-      await authService.logout();
-      setIsLoggingOut(false);
-      navigate("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-      setIsLoggingOut(false);
-    }
-  };
-
   // Componente Modal para chats
-  const ChatModal = ({ isOpen, onClose }) => {
-    if (!isOpen) return null;
+const ChatModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
 
-    if (loading) return <Loading />;
+  if (loading) return <Loading />;
 
-    return (
+  return (
       <div className="modal">
-        <span className="close" onClick={onClose}>
-          &times;
-        </span>
-        <div className="modal-content">
-          <div className="chat-messages">
-            {messageList.length > 0 ? (
-              messageList.map((msg, index) => (
-                <div
-                  key={index}
-                  className={msg.userId === localStorage.getItem("uid") ? "my-message" : "received-message"}
-                >
-                  {msg.userId === localStorage.getItem("uid") ? msg.message : msg.recipientName + " :" + msg.message}
-                </div>
-              ))
-            ) : (
-              <p>Nenhuma mensagem antiga.</p>
-            )}
+          <span className="close" onClick={onClose}>
+              &times;
+          </span>
+          <div className="modal-content">
+              <div className="chat-messages">
+                  {messageList.length > 0 ? (
+                      messageList.map((msg, index) => (
+                          <div
+                              key={index}
+                              className={msg.userId === localStorage.getItem("uid") ? "my-message" : "received-message"}
+                              style={{
+                                  backgroundColor: msg.userId === localStorage.getItem("uid") ? "lightgreen" : "white",
+                              }}
+                          >
+                              {msg.userId !== localStorage.getItem("uid") ? (
+                                  <strong>{msg.userName || "Desconhecido"}: </strong>
+                              ) : null}
+                              {msg.message}
+                          </div>
+                      ))
+                  ) : (
+                      <p>Nenhuma mensagem antiga.</p>
+                  )}
+              </div>
+              <div className="sendMessage">
+                  <input
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Digite sua mensagem aqui..."
+                  />
+                  <button onClick={sendMessage}>Enviar</button>
+              </div>
           </div>
-          <div className="sendMessage">
-            <input
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Digite sua mensagem aqui..."
-            />
-            <button onClick={sendMessage}>Enviar</button>
-          </div>
-        </div>
       </div>
-    );
-  };
+  );
+};
+
 
   if (loading) return <Loading />;
 
@@ -240,6 +235,7 @@ const MensagemForm = ({ authService }) => {
           src="../../public/img/logo.png"
           alt="Google Logo"
           className="commu-logo-mensagem"
+        />
         <ul>
           <a href="http://localhost:5173/feed">
             <img
@@ -334,7 +330,7 @@ const MensagemForm = ({ authService }) => {
           ) : (
             chats.map((chat) => (
               <li key={chat.id} className="item-mensagem" onClick={() => openChatModal(chat)}>
-                <span className="nome-mensagem">{chat.nameRecipient}</span>
+                <span className="nome-mensagem">{chat.userId == localStorage.getItem("uid") ? chat.nameRecipient : chat.userName}</span>
                 <p className="texto-mensagem">{chat.lastMessage}</p>
               </li>
             ))

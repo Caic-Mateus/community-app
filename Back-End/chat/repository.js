@@ -77,39 +77,39 @@ export class ChatRepository {
             
             const recipientChats = recipientChatsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     
-            // Unir as mensagens de ambos os casos
+            // Unir os chats de ambos os casos
             const allChats = [...chats, ...recipientChats];
     
             // Referência para a coleção "Users"
             const usersRef = admin.firestore().collection("Users");
     
-            // Adicionando `nameRecipient` em cada chat com base no `recipientId`
-            const chatsWithRecipientNames = await Promise.all(
+            // Adicionando `nameRecipient` e `userName` em cada chat
+            const chatsWithUserNames = await Promise.all(
                 allChats.map(async chat => {
-                    const recipientId = chat.recipientId;
-                    
-                    // Busca o nome do destinatário somente se `recipientId` existir
-                    if (recipientId) {
-                        const userSnapshot = await usersRef.doc(recipientId).get();
-                        
-                        if (userSnapshot.exists) {
-                            const { name } = userSnapshot.data();
-                            // Retorna o chat com `nameRecipient` adicionado
-                            return { ...chat, nameRecipient: name };
-                        }
-                    }
-                    
-                    // Retorna o chat sem modificações se não encontrar `recipientId` ou `name`
-                    return chat;
+                    const { recipientId, userId } = chat;
+    
+                    // Buscar nome do destinatário
+                    const recipientName = recipientId 
+                        ? (await usersRef.doc(recipientId).get()).data()?.name 
+                        : null;
+    
+                    // Buscar nome do remetente
+                    const userName = userId 
+                        ? (await usersRef.doc(userId).get()).data()?.name 
+                        : null;
+    
+                    // Retornar o chat com os nomes adicionados
+                    return { ...chat, nameRecipient: recipientName, userName: userName };
                 })
             );
     
-            return chatsWithRecipientNames;
+            return chatsWithUserNames;
         } catch (error) {
             console.error('Erro ao buscar chats do usuário:', error);
             throw error;
         }
     }
+    
     
     
 }
