@@ -80,13 +80,13 @@ function MaisOpcoesForm() {
             />
             <span>Mais</span>
           </a>
-          <button onClick={logout}>
+          <a onClick={logout}>
             <img
               src="../../public/img/Logout.png"
               className="homePage-logo-mais"
             ></img>
             Sair
-          </button>
+          </a>
         </ul>
       </div>
 

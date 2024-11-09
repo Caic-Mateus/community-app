@@ -11,9 +11,7 @@ body {
 }
 
 .commu-logo-feed {
-    width: 150px;
-    margin-left: 25px;
-    margin-top: 10px;
+    width: 190px;
 }
 
 .homePage-logo-feed {
@@ -21,8 +19,6 @@ body {
     margin-right: 0.5em;
     align-items: center;
 }
-
-
 .sidebar-feed-amigos {
     right: 0;
     position: fixed;
@@ -267,13 +263,12 @@ body {
     border: none;
     cursor: pointer;
 }
-
 .salvar-feed{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-items: center;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .salvar-feed p{
     margin-right: 10px;

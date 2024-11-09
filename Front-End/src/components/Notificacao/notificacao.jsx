@@ -70,14 +70,14 @@ function NotificacaoForm() {
             />
             <span>Mais</span>
           </a>
-          <button onClick={logout} className="botao-logout-notificacao">
+          <a onClick={logout}>
             <img
               src="../../public/img/Logout.png"
               alt="Logout"
               className="homePage-logo-notificacao"
             />
             Sair
-          </button>
+          </a>
         </ul>
       </div>
       <div className="notificacao">

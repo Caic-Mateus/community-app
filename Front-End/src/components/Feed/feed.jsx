@@ -203,13 +203,13 @@ function FeedIndex({ authService }) {
             />
             <span>Mais</span>
           </a>
-          <button onClick={logout}>
+          <a onClick={logout}>
             <img
               src="../../public/img/Logout.png"
               className="homePage-logo-feed"
             ></img>
             Sair
-          </button>
+          </a>
         </ul>
       </div>
 
@@ -312,7 +312,11 @@ function FeedIndex({ authService }) {
                 </div>
                 <div className="salvar-feed">
                   <button>
-                    <img></img>
+                    <img
+                      src="../../public/img/Save.png"
+                      alt="HomePage Logo"
+                      className="homePage-logo-feed"
+                    ></img>
                     <span>Salvar</span>
                   </button>
                 </div>

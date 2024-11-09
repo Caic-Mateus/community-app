@@ -174,7 +174,7 @@ function Profile({ authService }) {
             />
             <span>Mais</span>
           </a>
-          <button
+          <a
             className="botao-logout-perfil"
             onClick={() => {
               authService.logout();
@@ -187,7 +187,7 @@ function Profile({ authService }) {
               className="homePage-logo-perfil"
             />
             Sair
-          </button>
+          </a>
         </ul>
       </div>
       <div className="main-perfil">

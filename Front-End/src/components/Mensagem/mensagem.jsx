@@ -261,13 +261,13 @@ const MensagemForm = ({ authService }) => {
             />
             <span>Mais</span>
           </a>
-          <button onClick={logout}>
+          <a onClick={logout}>
             <img
               src="../../public/img/Logout.png"
               className="homePage-logo-mensagem"
             ></img>
             Sair
-          </button>
+          </a>
         </ul>
       </div>
 
