@@ -17,6 +17,7 @@ const MensagemForm = () => {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null); // Para armazenar o usuário selecionado para nova conversa
 
   // Função para buscar usuários
   const fetchUsers = async (term) => {
@@ -63,6 +64,29 @@ const MensagemForm = () => {
     await loadMessages(chat.id);
   };
 
+  // Função para iniciar uma conversa ao clicar em um usuário
+  const startConversation = async (userId) => {
+    setSelectedUser(userId); // Define o usuário selecionado
+    setIsChatModalOpen(true); // Abre o modal do chat
+    setMessage(""); // Limpa a mensagem
+
+    // Aqui, criamos ou buscamos um chat com o usuário
+    // try {
+    //   const response = await axios.post('http://localhost:3000/chat/start', {
+    //     userId: userId, // ID do usuário selecionado
+    //   }, {
+    //     headers: {
+    //       Authorization: token,
+    //     },
+    //   });
+
+    //   setSelectedChat(response.data); // Armazena o chat retornado
+    //   await loadMessages(response.data.id); // Carrega mensagens do novo chat
+    // } catch (error) {
+    //   console.error("Erro ao iniciar conversa:", error);
+    // }
+  };
+
   // Função para buscar mensagens por chatId
   const loadMessages = async (chatId) => {
     try {
@@ -94,7 +118,7 @@ const MensagemForm = () => {
     return () => {
       socketInstance.disconnect(); // Desconectar o socket ao desmontar o componente
     };
-  }, [selectedChat]); // Adiciona selectedChat como dependência
+  }, [selectedChat]);
 
   // Atualiza a busca conforme o usuário digita, com debounce de 500ms
   useEffect(() => {
@@ -123,6 +147,18 @@ const MensagemForm = () => {
     await loadMessages(selectedChat.id);
   };
 
+  const logout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await authService.logout();
+      setIsLoggingOut(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      setIsLoggingOut(false);
+    }
+  };
+
   // Componente Modal para chats
   const ChatModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
@@ -134,9 +170,11 @@ const MensagemForm = () => {
           <div className="chat-messages">
             {messageList.length > 0 ? (
               messageList.map((msg, index) => (
-                <div key={index} className={msg.senderId === localStorage.getItem("uid") ? "my-message" : "received-message"}>
-                  {msg.userId == localStorage.getItem("uid") ? "you: " + msg.message : "he: " +msg.message}
-                  {console.log("msg: " + msg)}
+                <div
+                  key={index}
+                  className={msg.userId === localStorage.getItem("uid") ? "my-message" : "received-message"}
+                >
+                  {msg.userId === localStorage.getItem("uid") ? msg.message : msg.recipientName + " :" + msg.message}
                 </div>
               ))
             ) : (
@@ -144,7 +182,7 @@ const MensagemForm = () => {
             )}
           </div>
           <div className="sendMessage">
-            <textarea
+            <input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Digite sua mensagem aqui..."
@@ -163,9 +201,67 @@ const MensagemForm = () => {
   return (
     <div className="container-mensagem">
       <div className="sidebar-mensagem">
-        <img src="../../public/img/Ft_cu.png" alt="Logo" className="commu-logo-mensagem" />
+      <img
+          src="../../public/img/Ft_cu.png"
+          alt="Google Logo"
+          className="commu-logo-feed"
+        />
         <ul>
-          {/* ... restante do código do sidebar ... */}
+          <a href="http://localhost:5173/feed">
+            <img
+              src="../../public/img/HomePage.png"
+              alt="HomePage Logo"
+              className="homePage-logo-feed"
+            />
+            <span>Página inicial</span>
+          </a>
+          <a href="http://localhost:5173/notificacao">
+            <img
+              src="../../public/img/Notify.png"
+              alt="HomePage Logo"
+              className="homePage-logo-feed"
+            />
+            <span>Notificações</span>
+          </a>
+          <a href="http://localhost:5173/mensagens">
+            <img
+              src="../../public/img/Message.png"
+              alt="HomePage Logo"
+              className="homePage-logo-feed"
+            />
+            <span>Mensagens</span>
+          </a>
+          <a href="http://localhost:5173/itensSalvos">
+            <img
+              src="../../public/img/Save.png"
+              alt="HomePage Logo"
+              className="homePage-logo-feed"
+            />
+            <span>Itens Salvos</span>
+          </a>
+          <a href="http://localhost:5173/perfil">
+            <img
+              src="../../public/img/Profile.png"
+              alt="HomePage Logo"
+              className="homePage-logo-feed"
+            />
+            <span>Perfil</span>
+          </a>
+          <a href="http://localhost:5173/maisOpcoes">
+            <img
+              src="../../public/img/More.png"
+              alt="HomePage Logo"
+              className="homePage-logo-feed"
+            />
+            <span>Mais</span>
+          </a>
+          <button onClick={logout}>
+            <img
+              src="../../public/img/Logout.png"
+              className="homePage-logo-feed"
+            ></img>
+            Sair
+          </button>
         </ul>
       </div>
 
@@ -204,7 +300,7 @@ const MensagemForm = () => {
           ) : (
             chats.map((chat) => (
               <li key={chat.id} className="item-mensagem" onClick={() => openChatModal(chat)}>
-                <span className="nome-mensagem">{chat.recipientId}</span>
+                <span className="nome-mensagem">{chat.nameRecipient}</span>
                 <p className="texto-mensagem">{chat.lastMessage}</p>
               </li>
             ))
