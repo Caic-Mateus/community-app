@@ -61,6 +61,10 @@
     margin-bottom: 15px;
     border-radius: 5px;
     border: 1px solid #ddd;
+    overflow: hidden;
+    resize: none;
+    flex: 1;  /* Faz o textarea ocupar o espaço disponível */
+    box-sizing: border-box;
   }
   
   .submit-button-reportar {
