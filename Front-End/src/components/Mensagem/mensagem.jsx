@@ -21,7 +21,7 @@ const MensagemForm = ({ authService }) => {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
-  
+
   const fetchUsers = async (term) => {
     setIsSearching(true);
     try {
@@ -86,6 +86,7 @@ const MensagemForm = ({ authService }) => {
   const startConversation = (recipientId) => {
     setSelectedRecipientId(recipientId); // Salva o recipientId
     setIsChatModalOpen(true); // Abre o modal
+    setMessageList([])
   };
 
   const loadMessages = async (chatId) => {
@@ -103,6 +104,25 @@ const MensagemForm = ({ authService }) => {
       console.error("Erro ao buscar mensagens:", error);
     }
   };
+  const fetchChatId = async (recipientId) => {
+    try {
+      const uid = localStorage.getItem("uid");
+      const response = await axios.get(
+        `http://localhost:3000/chat/findChatId?userId=${uid}&recipientId=${selectedRecipientId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      setMessageList([])
+
+      return response.data.chatId; // Supondo que o endpoint retorne o chatId direto
+    } catch (error) {
+      console.error("Erro ao buscar chatId:", error);
+      setError("Não foi possível iniciar o chat.");
+    }
+  };
 
   const sendMessage = async () => {
     const uid = localStorage.getItem("uid");
@@ -117,6 +137,10 @@ const MensagemForm = ({ authService }) => {
       null,
       selectedRecipientId,
       );
+      
+      //FAZER LOADING PARA BUSCAR CHAT
+      const chatId = await fetchChatId(selectedRecipientId);
+selectedChat.chatId = chatId;
         setSelectedRecipientId(null); // Limpa o recipientId
       } catch (error) {
         console.error("Erro ao iniciar conversa:", error);
@@ -173,10 +197,16 @@ const MensagemForm = ({ authService }) => {
   const ChatModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
     if (loading) return <Loading />;
-
+  
     return (
       <div className="modal">
-        <span className="close" onClick={onClose}>
+        <span
+          className="close"
+          onClick={() => {
+            onClose();
+            setMessageList([]); // Limpa a lista de mensagens ao fechar o modal
+          }}
+        >
           &times;
         </span>
         <div className="modal-content">
@@ -219,6 +249,7 @@ const MensagemForm = ({ authService }) => {
       </div>
     );
   };
+  
 
   if (loading) return <Loading />;
 
@@ -277,7 +308,7 @@ const MensagemForm = ({ authService }) => {
         </ul>
       </main>
       <ChatModal isOpen={isChatModalOpen} onClose={() => setIsChatModalOpen(false)} />
-    </div>
+      </div>
   );
 };
 

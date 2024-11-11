@@ -12,6 +12,27 @@ export class Chat {
     constructor() {
         this.#repository = new ChatRepository();
     }
+    async findChatByParticipants() {
+        if (!this.userId || !this.recipientId) {
+            throw {
+                code: 400,
+                message: 'IDs dos participantes não foram fornecidos!'
+            };
+        }
+
+        try {
+            const chatSnapshot = await this.#repository.findChatByParticipants(this.userId, this.recipientId);
+            if (!chatSnapshot.empty) {
+                const chatData = chatSnapshot.docs[0].data();
+                return { id: chatSnapshot.docs[0].id, ...chatData };
+            } else {
+                return null;  // Nenhum chat encontrado
+            }
+        } catch (error) {
+            console.error('Erro ao buscar chat pelos participantes:', error);
+            throw error;
+        }
+    }
 
     async findUserChats() {
         if (!this.userId) {
