@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
       recipientid : recipientId
     });
     console.log('Mensagem recebida:', msg, socket.data.chatid);
-    
+    console.log("Enviando: " + userId)
     axios.post('http://localhost:3000/chat/send',  {
       recipientId : recipientId,
       message : msg,
