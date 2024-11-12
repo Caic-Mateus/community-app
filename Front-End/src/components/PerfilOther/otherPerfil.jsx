@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import "./perfil.css";
+import "./otherPerfil.css";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Loading from "../loading/loading";
 import AuthService from "../services/AuthServices";
 import CommentPopup from "../ComentarioPop-Up/comentarioPopUp";
 import Edit_perfilPopUp from "../Edit_Perfil_Pop-Up/edit_perfilPop-Up";
 
-function Profile({ authService }) {
-  const { userId } = useParams();
+function PerfilOtherForm({ authService }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
@@ -22,24 +21,29 @@ function Profile({ authService }) {
 
   const token = localStorage.getItem("token");
   const uid = localStorage.getItem("uid");
+  const perfilUserId = localStorage.getItem("otherUserId");
 
   useEffect(() => {
     fetchUser();
     fetchPosts();
     fetchFollowersCount();
     fetchFollowingCount();
-  }, [userId]);
+  }, [perfilUserId]);
 
   const fetchUser = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/users/${uid}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:3000/users/${perfilUserId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
       setUser(response.data);
+      console.log("Texto: " + user);
       setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar o usuário:", error);
@@ -51,7 +55,7 @@ function Profile({ authService }) {
   const fetchFollowersCount = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/followers/${uid}/followers`,
+        `http://localhost:3000/followers/${perfilUserId}/followers`,
         {
           headers: {
             Authorization: token,
@@ -67,7 +71,7 @@ function Profile({ authService }) {
   const fetchFollowingCount = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/followers/${uid}/following`,
+        `http://localhost:3000/followers/${perfilUserId}/following`,
         {
           headers: {
             Authorization: token,
@@ -89,7 +93,7 @@ function Profile({ authService }) {
           Authorization: token,
         },
         body: {
-          userid: uid,
+          userid: perfilUserId,
         },
       });
       setPosts(response.data);
@@ -104,7 +108,7 @@ function Profile({ authService }) {
   const handleLike = async (postId) => {
     try {
       const newLike = {
-        userId: uid,
+        perfilUserId: perfilUserId,
         postId: postId,
       };
       const response = await axios.post(
@@ -318,7 +322,7 @@ function Profile({ authService }) {
   );
 }
 
-Profile.propTypes = {
+PerfilOtherForm.propTypes = {
   authService: PropTypes.shape({
     login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
@@ -326,4 +330,4 @@ Profile.propTypes = {
   }).isRequired,
 };
 
-export default Profile;
+export default PerfilOtherForm;

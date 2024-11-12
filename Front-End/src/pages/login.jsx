@@ -9,12 +9,7 @@ const authService = new AuthService();
 export function Login() {
   return (
     <>
-      <div className="app-container">
-        <div className="header">
-          <img src="../../public/img/logo.png" alt="Imagem 1" />
-        </div>
-        <LoginForm authService={authService} />
-      </div>
+      <LoginForm authService={authService} />
     </>
   );
 }
