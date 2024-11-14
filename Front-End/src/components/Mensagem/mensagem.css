@@ -200,6 +200,8 @@
     flex-direction: column;
     flex: 1;
     overflow-y: auto;
+    scroll-behavior: smooth;
+    
     width: 100%;
     padding: 10px;
 }
@@ -207,7 +209,7 @@
 /* Mensagem enviada */
 .my-message {
     align-self: flex-end;
-    background-color: #005C4B; /* Verde claro como no WhatsApp */
+    background-color: azure;
     color: #000;
     padding: 8px;
     border-radius: 10px;
@@ -215,13 +217,13 @@
     margin: 5px 0;
     text-align: right;
     word-wrap: break-word;
-    border: 1px solid #333;
+    border: 1px solid #33333317;
 }
 
 /* Mensagem recebida */
 .received-message {
     align-self: flex-start;
-    border: 1px solid #333;
+    border: 1px solid #33333317;
     color: black;
     padding: 8px;
     border-radius: 10px;
@@ -244,7 +246,7 @@
     background-color: white;
     padding: 10px;
     font-size: 12px;
-    border-radius: 15px;
+    border-radius: 20px;
     border: 1px solid #333;
     overflow: hidden;
     resize: none;

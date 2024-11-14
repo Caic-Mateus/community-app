@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./mensagem.css";
 import io from "socket.io-client";
@@ -21,6 +21,8 @@ const MensagemForm = ({ authService }) => {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
+
+  const messagesEndRef = useRef(null);
 
   const fetchUsers = async (term) => {
     setIsSearching(true);
@@ -186,6 +188,20 @@ const MensagemForm = ({ authService }) => {
     fetchChats();
   }, []);
 
+  //Logica para Deixar o scroll do modal sempre no fim da pagina
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  };
+  useEffect(() => {
+    // Sempre que a lista de mensagens for atualizada, rolar para o final
+    if (messageList.length > 0) {
+      scrollToBottom();
+    }
+  }, [messageList]);
+
   const ChatModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
     if (loading) return <Loading />;
@@ -193,7 +209,7 @@ const MensagemForm = ({ authService }) => {
     return (
       <div className="modal">
         <div className="modal-content">
-          <button
+          <span
             className="close"
             onClick={() => {
               onClose();
@@ -201,7 +217,7 @@ const MensagemForm = ({ authService }) => {
             }}
           >
             &times;
-          </button>
+          </span>
           <div className="chat-messages">
             {messageList.length > 0 ? (
               messageList.map((msg, index) => (
@@ -212,12 +228,6 @@ const MensagemForm = ({ authService }) => {
                       ? "my-message"
                       : "received-message"
                   }
-                  style={{
-                    backgroundColor:
-                      msg.userId === localStorage.getItem("uid")
-                        ? "lightgreen"
-                        : "white",
-                  }}
                 >
                   {msg.userId !== localStorage.getItem("uid") ? (
                     <strong>{msg.userName || "Desconhecido"}: </strong>
@@ -228,12 +238,13 @@ const MensagemForm = ({ authService }) => {
             ) : (
               <p>Nenhuma mensagem antiga.</p>
             )}
+            <div ref={messagesEndRef} />
           </div>
           <div className="sendMessage">
             <textarea
+              placeholder="Digite sua mensagem aqui..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Digite sua mensagem aqui..."
             />
             <button onClick={sendMessage}>Enviar</button>
           </div>
