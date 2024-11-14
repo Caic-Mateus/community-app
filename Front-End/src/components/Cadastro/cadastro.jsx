@@ -61,7 +61,10 @@ function CadastroForm() {
 
   return (
     <div className="Cadastro-container">
-      <form onSubmit={handleSubmit}>
+      <div className="header">
+        <img src="../../public/img/logo.png" alt="Imagem 1" />
+      </div>
+      <form onSubmit={handleSubmit} className="form-cadastro">
         <div className="Input-Text-cadastro">
           <input
             type="text"
@@ -179,13 +182,18 @@ function CadastroForm() {
             onChange={(event) =>
               setForm({
                 ...form,
-                confirmarSenha: { hasChanged: true, value: event.target.value },
+                confirmarSenha: {
+                  hasChanged: true,
+                  value: event.target.value,
+                },
               })
             }
             required
           />
         </div>
-        <input type="submit" className="Button-Cadastro" value="Cadastrar" />
+        <button type="submit" className="Button-Cadastro" value="Cadastrar">
+          Cadastrar
+        </button>
       </form>
       {error && <div className="inputvalidation-cadastro">{error}</div>}
       <div className="signup-text-cadastro">

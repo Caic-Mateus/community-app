@@ -1,89 +1,129 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: whitesmoke;
-    margin: 0;
-    padding: 0;
+
+html, body {
+   
+    margin: 0; 
+    padding: 0; 
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    background-color: whitesmoke;
+    overflow: auto; 
 }
 
+.header {
+    margin-bottom: 1em;
+}
+
+.header img {
+    width: 80%;
+    max-width: 100px;
+    margin-bottom: 10px;
+}
 .Cadastro-container {
     background-color: white;
     border-radius: 0.5em;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
-    width: 41em;
-    height: 28em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 150px;
+    width: 100%;
+    max-width: 550px;
+    padding: 2em 1em;
+    box-sizing: border-box; /* Garante que padding seja incluído nas dimensões */
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    overflow-y: hidden; /* Permite rolagem caso o conteúdo seja maior que a tela */
 }
 
+/* Entrada de texto */
 .Input-Text-cadastro {
     display: flex;
     width: 100%;
-    height: 20%;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
 }
 
-.TextBlock1-cadastro {
-    margin-top: 20px;
-    width: 21em;
-    height: 2em;
+/* Campos de texto */
+.TextBlock1-cadastro, .TextBlock2-cadastro {
+    flex: 1 1 48%; /* Ocupa 48% da largura para ficar lado a lado */
+    height: 2.5em;
     padding: 0.625em;
     margin-bottom: 0.9375em;
     border: 1px solid #ccc;
     border-radius: 0.7em;
+    box-sizing: border-box;
 }
 
-.TextBlock2-cadastro {
-    margin-top: 10px;
-    width: 21em;
-    height: 2em;
-    padding: 0.625em;
-    margin-bottom: 0.9375em;
-    border: 1px solid #ccc;
-    border-radius: 0.7em;
+.form-cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
+/* Botão de cadastro */
 .Button-Cadastro {
-    width: 80%;
+    width: 100%;
+    max-width: 21em;
     height: 45px;
     background-color: #35A5DA;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
     padding: 0.625em;
-    margin-bottom: 0.9375em;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 0.7em;
-    margin-top: 0.9em;
+    margin-top: 1em;
 }
 
+/* Texto de cadastro */
 .signup-text-cadastro {
     display: grid;
     place-content: center;
     color: black;
+    text-align: center;
 }
 
+/* Link de cadastro */
 .signup-text-cadastro a {
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    width: 200px;
-    transition: color 0.5s ease; /* Transição suave */
-}
-.signup-text-cadastro a:hover{
-    color: #35A5DA; /* Azul claro */
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s;
 }
 
-.signup-text-cadastro p {
-    cursor: default;
+.signup-text-cadastro a:hover {
+    color: #35A5DA;
 }
 
+/* Validação de entrada */
 .inputvalidation-cadastro {
     color: black;
     font-size: 12px;
+}
+
+
+
+@media (max-width: 900px) and (max-height: 90vh){
+    .Cadastro-container {
+        width: 100%;
+        height: 100vh;
+        margin: 0; 
+        border-radius: 0;
+        justify-content: flex-start;
+        overflow-y: auto;
+    }
+
+    .Input-Text-cadastro {
+        flex-direction: column;
+        gap: 1em; 
+    }
+
+    .TextBlock1-cadastro, .TextBlock2-cadastro {
+        width: 100%; 
+        margin-bottom: 1em; 
+    }
+
+    .Button-Cadastro {
+        width: 100%;
+    }
 }

@@ -58,6 +58,9 @@ function LoginForm({ authService }) {
   return (
     <div className="login-container-login">
       <div className="container-login">
+        <div className="header">
+          <img src="../../public/img/logo.png" alt="Imagem 1" />
+        </div>
         <form action="#" className="form-login">
           <input
             type="email"

@@ -1,3 +1,4 @@
+/* Estilos gerais */
 body {
     font-family: Arial, sans-serif;
     background-color: whitesmoke;
@@ -6,39 +7,46 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    min-height: 100vh;
     width: 100%;
 }
-.form-login{
+
+/* Container principal de login */
+.login-container-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 0.5em;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
+    width: 80vh; /* Largura maior para se ajustar melhor */
+    max-width: 700px;
+    padding: 20px;
+}
+
+/* Formulário de login */
+.form-login {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap:10px;
+    gap: 10px;
 }
 
-
-.login-container-login {
-    background-color: white;
-    border-radius: 0.5em;
-    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
-    width: 600px;
-    height: 350px;
-    margin-left: auto;
-    margin-right: auto;
-    align-items: center;
-}
-
+/* Campos de entrada */
 .input-field-login {
-    width: 500px;
+    width: 70vh;
+    max-width: 550px;
     height: 30px;
     padding: 6px;
     border: 1px solid #ccc;
     border-radius: 15px;
 }
 
+/* Botão de submit */
 .submit-button-login {
-    width: 400px;
+    width: 70vh;
+    max-width: 450px;
     height: 40px;
     margin-top: 5px;
     background-color: #35A5DA;
@@ -47,35 +55,84 @@ body {
     border-radius: 20px;
     font-size: 18px;
 }
+
+/* Texto de inscrição */
 .signup-text-login {
     text-align: center;
     margin-top: 10px;
-    cursor: default;
 }
+
 .signup-text-login a {
     font-size: 14px;
     color: black;
     text-decoration: none;
     padding: 0;
     cursor: pointer;
-    transition: color 0.5s ease; /* Transição suave */
+    transition: color 0.5s ease;
 }
 
 .signup-text-login a:hover {
-    color: #35A5DA; /* Azul claro */
+    color: #35A5DA;
 }
-.signup-text-login p{
+
+.signup-text-login p {
     font-size: 14px;
 }
+
 .container-login {
-    padding-top: 40px;
-    width: 600px;
+    padding-top: 20px;
+    width: 85%;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* Texto de validação */
 .inputvalidation-login {
     font-size: 12px;
     color: black;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+    .login-container-login {
+        width: 90vh; /* Mais espaço para tablets */
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .input-field-login,
+    .submit-button-login {
+        width: 50vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container-login {
+        background-color: transparent;
+        width: 90vh; 
+        padding: 10px;
+    }
+
+    .submit-button-login {
+        width: 80%;
+        font-size: 16px;
+        height: 35px;
+    }
+    
+    .input-field-login {
+        width: 150%;
+        font-size: 14px;
+        height: 25px;
+    }
+
+    .signup-text-login p,
+    .signup-text-login a {
+        font-size: 12px;
+    }
 }

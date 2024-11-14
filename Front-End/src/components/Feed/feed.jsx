@@ -15,6 +15,7 @@ function FeedIndex({ authService }) {
   const [posts, setPosts] = useState([]);
   const [updateFlag, setUpdateFlag] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [otherUserId, setOtherUserId] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -138,6 +139,11 @@ function FeedIndex({ authService }) {
     console.log("Comentário enviado:", comment);
     // Você pode adicionar a lógica para enviar o comentário aqui
   };
+  const navegarParaPerfil = (otherUserId) => {
+    setOtherUserId(otherUserId);
+    localStorage.setItem("otherUserId", otherUserId);
+    navigate(`/perfilOther/${otherUserId}`);
+  };
 
   function formatDate(timestamp) {
     const date = timestamp ? new Date(timestamp._seconds * 1000) : null; // Verifica se timestamp está definido
@@ -187,7 +193,7 @@ function FeedIndex({ authService }) {
             />
             <span>Itens Salvos</span>
           </a>
-          <a href="http://localhost:5173/perfil">
+          <a href="http://localhost:5173/perfil/:userId">
             <img
               src="../../public/img/Profile.png"
               alt="HomePage Logo"
@@ -211,26 +217,6 @@ function FeedIndex({ authService }) {
             Sair
           </a>
         </ul>
-      </div>
-
-      <div>
-        {posts.map((post) => (
-          <div className="sidebar-feed-amigos">
-            <h1>Seus Amigos</h1>
-            <div className="amigos">
-              <img
-                onClick={false} //Para clicar e abrir o perfil do amigo
-                src="https://via.placeholder.com/40"
-                alt={post.user ? post.user.name : "Usuário Desconhecido"}
-              />
-              <div className="name-feed">
-                <p>Lucas Borel</p>
-                <p>Analise e Desenvolvimento de Sistemas</p>
-                <button>Enviar Mensagem</button>
-              </div>
-            </div>
-          </div>
-        ))}
       </div>
 
       <div className="main-feed">
@@ -266,7 +252,10 @@ function FeedIndex({ authService }) {
                   />
                 </div>
                 <div className="container-info-user-feed">
-                  <div className="name-user-feed">
+                  <div
+                    className="name-user-feed"
+                    onClick={() => navegarParaPerfil(post.userId)}
+                  >
                     <p>
                       {post.user
                         ? "@" + post.user.user

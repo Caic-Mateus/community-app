@@ -11,6 +11,10 @@
     width: 200px;
     padding: 20px;
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     top: 0;
     left: 0;
     bottom: 0;
@@ -32,6 +36,7 @@
     align-items: center;
     font-size: larger;
     margin-top: 30px;
+    cursor: pointer;
 }
 
 .sidebar-mensagem button {
@@ -48,7 +53,7 @@
 }
 
 .commu-logo-mensagem {
-    width: 190px;
+    width: 120px;
 }
 
 .homePage-logo-mensagem{
@@ -86,48 +91,42 @@
 }
 
 .content-mensagem {
-    width: 80%;
+    background-color: transparent;
+    margin-top: 10px;
+    width: 100%;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.search-mensagem input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-}
 
 .lista-mensagem {
+    background-color: transparent;
     list-style: none;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
 }
 
 .item-mensagem {
-    background-color: #5a5959;
-    padding: 15px;
+    width: 50vh;
+    padding: 10px;
     border-radius: 10px;
     margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
+    cursor: pointer;
 }
 
-.item-mensagem.active-mensagem {
+.lista-mensagem :hover {
     background-color: #e6f7ff;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+    
 }
 
 .nome-mensagem {
     font-weight: bold;
-}
-
-.curso-mensagem, .tempo-mensagem {
-    color: gray;
-    font-size: 12px;
-}
-
-.tempo-mensagem {
-    margin-left: auto;
+    color: black ; 
 }
 
 .texto-mensagem {
@@ -135,22 +134,39 @@
     font-size: 14px;
 }
 
+.search-mensagem{
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.search-mensagem input {
+    width: 60vh;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
 .search-results {
     list-style: none;
     padding: 0;
     margin-top: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    background-color: transparent;
     border-radius: 5px;
   }
   
   .user-item {
+    width: 95%;
+    border-radius: 10px;
     padding: 10px;
     cursor: pointer;
+    
   }
   
   .user-item:hover {
     background-color: #e6f7ff;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   }
   
   .modal {
@@ -167,7 +183,7 @@
   
   .modal-content {
     display: flex;
-    background: blue;
+    background: white;
     padding: 20px;
     border-radius: 5px;
     width: 300px;
@@ -175,10 +191,13 @@
     align-items: center;
     flex-direction: column; /* Alterado de column-reverse para column */
     position: relative;
+    border-radius: 20px;
 }
 
 /* Mensagens */
 .chat-messages {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     overflow-y: auto;
     width: 100%;
@@ -188,7 +207,7 @@
 /* Mensagem enviada */
 .my-message {
     align-self: flex-end;
-    background-color: #DCF8C6; /* Verde claro como no WhatsApp */
+    background-color: #005C4B; /* Verde claro como no WhatsApp */
     color: #000;
     padding: 8px;
     border-radius: 10px;
@@ -196,13 +215,14 @@
     margin: 5px 0;
     text-align: right;
     word-wrap: break-word;
+    border: 1px solid #333;
 }
 
 /* Mensagem recebida */
 .received-message {
     align-self: flex-start;
-    background-color: #FFFFFF; /* Branco para mensagens recebidas */
-    color: #000;
+    border: 1px solid #333;
+    color: black;
     padding: 8px;
     border-radius: 10px;
     max-width: 70%;
@@ -210,21 +230,55 @@
     text-align: left;
     word-wrap: break-word;
 }
-
-
 .sendMessage {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: auto; /* Garante que a área de envio fique na parte inferior */
+    margin-top: 15px; /* Garante que a área de envio fique na parte inferior */
+}
+.sendMessage textarea{
+    display: flex;
+    justify-content: center;
+    width: 30vh;
+    height: 5vh;
+    background-color: white;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 15px;
+    border: 1px solid #333;
+    overflow: hidden;
+    resize: none;
+     /* Faz o textarea ocupar o espaço disponível */
+    box-sizing: border-box;
+}
+.sendMessage button{
+    background-color: transparent;
+    margin-left: 20px;
+    border-radius: 10px;
+    width: 20%;
+    border: 1px solid #333;
+    cursor: pointer;
+}
+
+.sendMessage button:hover{
+    background-color: #e6f7ff;
 }
 
   
   .close {
+    width: 15px;
+    display: flex;
+    justify-content: center;
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 1px;
+    right: 10px;
     cursor: pointer;
+    border: none;
+    background-color: transparent;
+  }
+
+  .close:hover{
+    background-color: red;
   }
 
 
