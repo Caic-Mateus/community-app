@@ -1,6 +1,20 @@
 import admin from 'firebase-admin';
 
 export class ChatRepository {
+
+    async findChatByParticipants(userId, recipientId) {
+        try {
+            const participants = [userId, recipientId].sort();
+            const chatSnapshot = await admin.firestore()
+                .collection('Chats')
+                .where('participants', '==', participants)
+                .get();
+            return chatSnapshot;
+        } catch (error) {
+            console.error('Erro ao buscar chat pelos participantes:', error);
+            throw error;
+        }
+    }
     // Salvar mensagem no Firestore
     async saveMessage(messageData) {
         try {

@@ -4,8 +4,7 @@
   height: 100vh;
 }
 .commu-logo-mais {
-  width: 190px;
-}
+  width: 120px;}
 
 .homePage-logo-mais {
     width: 15px;
@@ -19,6 +18,10 @@
   width: 200px;
   padding: 20px;
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
   bottom: 0;

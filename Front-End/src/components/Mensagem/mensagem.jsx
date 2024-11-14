@@ -17,12 +17,11 @@ const MensagemForm = ({ authService }) => {
   const [isSearching, setIsSearching] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
+  const [selectedRecipientId, setSelectedRecipientId] = useState(null); // Novo estado para o recipientId
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null); // Para armazenar o usuário selecionado para nova conversa
 
-  // Função para buscar usuários
   const fetchUsers = async (term) => {
     setIsSearching(true);
     try {
@@ -55,7 +54,6 @@ const MensagemForm = ({ authService }) => {
     }
   };
 
-  // Função para buscar chats
   const fetchChats = async () => {
     setLoading(true);
     try {
@@ -76,40 +74,21 @@ const MensagemForm = ({ authService }) => {
     }
   };
 
-  // Função para abrir o modal e buscar mensagens
   const openChatModal = async (chat) => {
     setSelectedChat(chat);
+    setSelectedRecipientId(null); // Limpa o recipientId quando abre um chat existente
     setIsChatModalOpen(true);
     setMessage("");
-
-    // Buscar mensagens antigas
     await loadMessages(chat.id);
   };
 
   // Função para iniciar uma conversa ao clicar em um usuário
-  const startConversation = async (userId) => {
-    setSelectedUser(userId); // Define o usuário selecionado
-    setIsChatModalOpen(true); // Abre o modal do chat
-    setMessage(""); // Limpa a mensagem
-
-    // Aqui, criamos ou buscamos um chat com o usuário
-    // try {
-    //   const response = await axios.post('http://localhost:3000/chat/start', {
-    //     userId: userId, // ID do usuário selecionado
-    //   }, {
-    //     headers: {
-    //       Authorization: token,
-    //     },
-    //   });
-
-    //   setSelectedChat(response.data); // Armazena o chat retornado
-    //   await loadMessages(response.data.id); // Carrega mensagens do novo chat
-    // } catch (error) {
-    //   console.error("Erro ao iniciar conversa:", error);
-    // }
+  const startConversation = (recipientId) => {
+    setSelectedRecipientId(recipientId); // Salva o recipientId
+    setIsChatModalOpen(true); // Abre o modal
+    setMessageList([]);
   };
 
-  // Função para buscar mensagens por chatId
   const loadMessages = async (chatId) => {
     try {
       const response = await axios.get(
@@ -120,32 +99,77 @@ const MensagemForm = ({ authService }) => {
           },
         }
       );
-      setMessageList(response.data);
+      setMessageList(response.data || []); // Garante que seja um array
     } catch (error) {
       console.error("Erro ao buscar mensagens:", error);
     }
   };
+  const fetchChatId = async (recipientId) => {
+    try {
+      const uid = localStorage.getItem("uid");
+      const response = await axios.get(
+        `http://localhost:3000/chat/findChatId?userId=${uid}&recipientId=${selectedRecipientId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      setMessageList([]);
 
-  // Conectar ao WebSocket
+      return response.data.chatId; // Supondo que o endpoint retorne o chatId direto
+    } catch (error) {
+      console.error("Erro ao buscar chatId:", error);
+      setError("Não foi possível iniciar o chat.");
+    }
+  };
+
+  const sendMessage = async () => {
+    const uid = localStorage.getItem("uid");
+
+    if (selectedRecipientId && selectedChat == null) {
+      // Se há um recipientId selecionado (novo chat)
+      try {
+        socket.emit("chatMessage", message, uid, null, selectedRecipientId);
+
+        //FAZER LOADING PARA BUSCAR CHAT
+        const chatId = await fetchChatId(selectedRecipientId);
+        selectedChat.chatId = chatId;
+        setSelectedRecipientId(null); // Limpa o recipientId
+      } catch (error) {
+        console.error("Erro ao iniciar conversa:", error);
+        return;
+      }
+    } else {
+      //Envia a mensagem pelo WebSocket
+      socket.emit(
+        "chatMessage",
+        message,
+        uid,
+        selectedChat.id,
+        selectedChat.recipientId === uid
+          ? selectedChat.userId
+          : selectedChat.recipientId
+      );
+    }
+    setMessage("");
+  };
+
   useEffect(() => {
     const socketInstance = io.connect("http://localhost:3000");
     setSocket(socketInstance);
 
-    // Ouvir mensagens recebidas
     socketInstance.on("receiveMessage", (data) => {
-      console.log("Mensagem recebida no front-end:", data);
-      // Ao receber uma nova mensagem, recarregue as mensagens do chat atual
       if (selectedChat) {
         loadMessages(selectedChat.id);
       }
     });
 
     return () => {
-      socketInstance.disconnect(); // Desconectar o socket ao desmontar o componente
+      socketInstance.disconnect();
     };
   }, [selectedChat]);
 
-  // Atualiza a busca conforme o usuário digita, com debounce de 500ms
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (searchTerm) {
@@ -162,69 +186,61 @@ const MensagemForm = ({ authService }) => {
     fetchChats();
   }, []);
 
-  // Função para enviar mensagem
-  const sendMessage = async () => {
-    const uid = localStorage.getItem("uid");
-    socket.emit(
-      "chatMessage",
-      message,
-      uid,
-      selectedChat.id,
-      selectedChat.recipientId === uid
-        ? selectedChat.userId
-        : selectedChat.recipientId
-    );
-    setMessage(""); // Limpa o campo de mensagem
+  const ChatModal = ({ isOpen, onClose }) => {
+    if (!isOpen) return null;
+    if (loading) return <Loading />;
 
-    // Recarregar mensagens após enviar
-    await loadMessages(selectedChat.id);
-  };
-
-  // Componente Modal para chats
-const ChatModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-
-  if (loading) return <Loading />;
-
-  return (
+    return (
       <div className="modal">
-          <span className="close" onClick={onClose}>
-              &times;
-          </span>
-          <div className="modal-content">
-              <div className="chat-messages">
-                  {messageList.length > 0 ? (
-                      messageList.map((msg, index) => (
-                          <div
-                              key={index}
-                              className={msg.userId === localStorage.getItem("uid") ? "my-message" : "received-message"}
-                              style={{
-                                  backgroundColor: msg.userId === localStorage.getItem("uid") ? "lightgreen" : "white",
-                              }}
-                          >
-                              {msg.userId !== localStorage.getItem("uid") ? (
-                                  <strong>{msg.userName || "Desconhecido"}: </strong>
-                              ) : null}
-                              {msg.message}
-                          </div>
-                      ))
-                  ) : (
-                      <p>Nenhuma mensagem antiga.</p>
-                  )}
-              </div>
-              <div className="sendMessage">
-                  <input
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Digite sua mensagem aqui..."
-                  />
-                  <button onClick={sendMessage}>Enviar</button>
-              </div>
+        <div className="modal-content">
+          <button
+            className="close"
+            onClick={() => {
+              onClose();
+              setMessageList([]); // Limpa a lista de mensagens ao fechar o modal
+            }}
+          >
+            &times;
+          </button>
+          <div className="chat-messages">
+            {messageList.length > 0 ? (
+              messageList.map((msg, index) => (
+                <div
+                  key={index}
+                  className={
+                    msg.userId === localStorage.getItem("uid")
+                      ? "my-message"
+                      : "received-message"
+                  }
+                  style={{
+                    backgroundColor:
+                      msg.userId === localStorage.getItem("uid")
+                        ? "lightgreen"
+                        : "white",
+                  }}
+                >
+                  {msg.userId !== localStorage.getItem("uid") ? (
+                    <strong>{msg.userName || "Desconhecido"}: </strong>
+                  ) : null}
+                  {msg.message}
+                </div>
+              ))
+            ) : (
+              <p>Nenhuma mensagem antiga.</p>
+            )}
           </div>
+          <div className="sendMessage">
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Digite sua mensagem aqui..."
+            />
+            <button onClick={sendMessage}>Enviar</button>
+          </div>
+        </div>
       </div>
-  );
-};
-
+    );
+  };
 
   if (loading) return <Loading />;
 
@@ -269,7 +285,7 @@ const ChatModal = ({ isOpen, onClose }) => {
             />
             <span>Itens Salvos</span>
           </a>
-          <a href="http://localhost:5173/perfil">
+          <a href="http://localhost:5173/perfil/:userId">
             <img
               src="../../public/img/Profile.png"
               alt="HomePage Logo"
@@ -294,7 +310,6 @@ const ChatModal = ({ isOpen, onClose }) => {
           </a>
         </ul>
       </div>
-
       <main className="content-mensagem">
         <div className="search-mensagem">
           <input
@@ -312,7 +327,7 @@ const ChatModal = ({ isOpen, onClose }) => {
                   <li
                     key={user.uid}
                     className="user-item"
-                    onClick={() => startConversation(user.uid)} // Inicia a conversa ao clicar
+                    onClick={() => startConversation(user.uid)}
                   >
                     {user.name}
                   </li>
@@ -323,21 +338,27 @@ const ChatModal = ({ isOpen, onClose }) => {
             </ul>
           )}
         </div>
-
         <ul className="lista-mensagem">
           {chats.length === 0 ? (
             <li className="item-mensagem">Nenhum chat encontrado</li>
           ) : (
             chats.map((chat) => (
-              <li key={chat.id} className="item-mensagem" onClick={() => openChatModal(chat)}>
-                <span className="nome-mensagem">{chat.userId == localStorage.getItem("uid") ? chat.nameRecipient : chat.userName}</span>
+              <li
+                key={chat.id}
+                className="item-mensagem"
+                onClick={() => openChatModal(chat)}
+              >
+                <span className="nome-mensagem">
+                  {chat.userId == localStorage.getItem("uid")
+                    ? chat.nameRecipient
+                    : chat.userName}
+                </span>
                 <p className="texto-mensagem">{chat.lastMessage}</p>
               </li>
             ))
           )}
         </ul>
       </main>
-
       <ChatModal
         isOpen={isChatModalOpen}
         onClose={() => setIsChatModalOpen(false)}

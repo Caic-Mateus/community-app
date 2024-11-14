@@ -23,10 +23,14 @@ body {
     width: 200px;
     padding: 20px;
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 1000;
+    z-index: 5;
 }
 
 .sidebar-perfil h1 {
@@ -76,8 +80,7 @@ body {
 }
 
 .commu-logo-perfil {
-    width: 190px;
-}
+    width: 120px;}
 
 .botao-logout-perfil {
     margin-top: 250px;

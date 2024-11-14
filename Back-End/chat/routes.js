@@ -13,4 +13,6 @@ router.post('/send', chatController.sendMessage);
 
 router.get('/:userId', autheticateToken, chatController.getUserChats);
 
+router.post('/find-chat', chatController.findChatByParticipants);
+
 export const chatRouter = router;

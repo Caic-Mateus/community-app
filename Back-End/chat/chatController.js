@@ -1,6 +1,24 @@
 import { Chat } from './model.js';
 
 export class ChatController {
+
+    findChatByParticipants = async (req, res) => {
+        const chat = new Chat();
+        chat.userId = req.body.userId;
+        chat.recipientId = req.body.recipientId;
+
+        try {
+            const chatData = await chat.findChatByParticipants();
+            if (chatData) {
+                res.status(200).json(chatData);
+            } else {
+                res.status(404).json({ message: 'Chat não encontrado entre esses participantes.' });
+            }
+        } catch (error) {
+            res.status(500).json({ message: 'Erro ao buscar chat', error: error.message });
+        }
+    };
+    
     // Enviar mensagem entre dois usuários
     sendMessage = async (req, res) => {
         const chat = new Chat();

@@ -16,8 +16,7 @@ body{
      
 }
 .commu-logo-salvos {
-    width: 190px;
-}
+    width: 120px;}
 
 .homePage-logo-salvos {
     width: 15px;
@@ -26,15 +25,19 @@ body{
 }
 
 .sidebar-salvos {
-    background-color: #cccccc3b;
+    background-color: transparent;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
     width: 200px;
     padding: 20px;
-    position: absolute;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 1000;
+    z-index: 5;
 }
 
 .sidebar-salvos h1 {
