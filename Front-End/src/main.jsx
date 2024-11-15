@@ -7,11 +7,13 @@ import { Login } from "./pages/login.jsx";
 import { Cadastro } from "./pages/cadastro.jsx";
 import { Feed } from "./pages/feed.jsx";
 import { Perfil } from "./pages/perfil.jsx";
+import { Administrador } from "./pages/adm.jsx";
 import { Notificacao } from "./pages/notificacao.jsx";
 import { Mensagem } from "./pages/mensagem.jsx";
 import { ItensSalvos } from "./pages/itensSalvos.jsx";
 import { MaisOpcoes } from "./pages/maisOpcoes.jsx";
 import { PerfilOther } from "./pages/otherPerfil.jsx";
+import { AdministradorRelat } from "./pages/adm-relat.jsx";
 const authService = new AuthService();
 
 const router = createBrowserRouter([
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
   {
     path: "/perfil",
     element: <Perfil />,
+  },
+  {
+    path: "/adm",
+    element: <Administrador />,
+  },
+  {
+    path: "/admRelat",
+    element: <AdministradorRelat />,
   },
   {
     path: "/notificacao",
