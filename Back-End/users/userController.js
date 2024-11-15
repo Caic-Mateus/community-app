@@ -13,6 +13,30 @@ export class UserController {
         }
     }
 
+    async updateUser(request, response) {
+        const { userId } = request.params;
+        const userData = request.body;
+    
+        if (!userId) {
+            return response.status(400).json({ message: "O ID do usuário é obrigatório." });
+        }
+    
+        try {
+            const userModel = new User();
+            const updatedUser = await userModel.updateUser(userId, userData);
+            response.status(200).json({
+                message: "Usuário atualizado com sucesso!",
+                user: updatedUser,
+            });
+        } catch (error) {
+            console.error("Erro ao atualizar o usuário:", error);
+            response.status(500).json({ 
+                message: "Erro ao atualizar usuário", 
+                error: error.message 
+            });
+        }
+    }
+    
     async findUsersByName(request, response) {
         const { name } = request.query;
         if (!name) {

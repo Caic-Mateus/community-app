@@ -193,7 +193,7 @@ function FeedIndex({ authService }) {
             />
             <span>Itens Salvos</span>
           </a>
-          <a href="http://localhost:5173/perfil/:userId">
+          <a href="http://localhost:5173/perfil">
             <img
               src="../../public/img/Profile.png"
               alt="HomePage Logo"

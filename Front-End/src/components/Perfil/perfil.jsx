@@ -4,7 +4,6 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Loading from "../loading/loading";
-import AuthService from "../services/AuthServices";
 import CommentPopup from "../ComentarioPop-Up/comentarioPopUp";
 import Edit_perfilPopUp from "../Edit_Perfil_Pop-Up/edit_perfilPop-Up";
 
@@ -14,10 +13,9 @@ function Profile({ authService }) {
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
-  const [followersCount, setFollowersCount] = useState(0); // Novo estado para seguidores
-  const [followingCount, setFollowingCount] = useState(0); // Novo estado para seguidos
   const [selectedPost, setSelectedPost] = useState(null);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isCommentPopupOpen, setIsCommentPopupOpen] = useState(false);
+  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -26,8 +24,6 @@ function Profile({ authService }) {
   useEffect(() => {
     fetchUser();
     fetchPosts();
-    fetchFollowersCount();
-    fetchFollowingCount();
   }, [userId]);
 
   const fetchUser = async () => {
@@ -45,38 +41,6 @@ function Profile({ authService }) {
       console.error("Erro ao buscar o usuário:", error);
       setError(error.message);
       setLoading(false);
-    }
-  };
-
-  const fetchFollowersCount = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/followers/${uid}/followers`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      setFollowersCount(response.data.length);
-    } catch (error) {
-      console.error("Erro ao buscar seguidores:", error);
-    }
-  };
-
-  const fetchFollowingCount = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/followers/${uid}/following`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      setFollowingCount(response.data.length);
-    } catch (error) {
-      console.error("Erro ao buscar usuários seguidos:", error);
     }
   };
 
@@ -118,32 +82,71 @@ function Profile({ authService }) {
         }
       );
       console.log("Like adicionado:", response.data);
-      setUpdateFlag(!updateFlag); // Atualizar a flag aqui
     } catch (error) {
       console.error("Erro ao adicionar like:", error);
     }
   };
 
   const openEditPopup = () => {
-    setIsPopupOpen(true);
+    setIsEditPopupOpen(true);
   };
 
   const closeEditPopup = () => {
-    setIsPopupOpen(false);
+    setIsEditPopupOpen(false);
   };
 
   const openCommentPopup = (post) => {
     setSelectedPost(post);
-    setIsPopupOpen(true);
+    setIsCommentPopupOpen(true);
   };
 
   const closeCommentPopup = () => {
     setSelectedPost(null);
-    setIsPopupOpen(false);
+    setIsCommentPopupOpen(false);
   };
 
-  const handleCommentSubmit = (comment) => {
-    console.log("Comentário enviado:", comment);
+  // No Profile.js
+const handleSaveProfile = async (updatedUserData) => {
+  try {
+    // Enviar dados atualizados para o backend
+    const response = await axios.put(
+      `http://localhost:3000/users/${uid}`,
+      updatedUserData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      }
+    );
+    console.log("Usuário atualizado com sucesso:", response.data);
+    // Atualizar o estado do usuário
+    setUser(response.data);
+    fetchUser(); // Recarregar as informações atualizadas
+  } catch (error) {
+    console.error("Erro ao atualizar o usuário:", error);
+  }
+};
+
+
+  const handleEditSave = async (updatedData) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/users/${uid}`,
+        updatedData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      console.log("Usuário atualizado:", response.data);
+      setUser(response.data); // Atualizar o estado com os novos dados
+      closeEditPopup();
+    } catch (error) {
+      console.error("Erro ao atualizar usuário:", error);
+    }
   };
 
   function formatDate(timestamp) {
@@ -229,22 +232,21 @@ function Profile({ authService }) {
       <div className="main-perfil">
         <div className="perfil-header">
           <img
-            src="https://via.placeholder.com/40"
+            src={user.avatarUrl != null ? user.avatarUrl : "https://via.placeholder.com/40" }
             className="foto-perfil"
             alt={user.name || "Usuário Desconhecido"}
           />
           <div className="perfil-info">
             <h1>{user.name}</h1>
-            <p>Seguidores: {followersCount}</p>
-            <p>Seguindo: {followingCount}</p>
+            <p>{user.email}</p>
           </div>
           <div className="edit-perfil">
-            <button onClick={() => openEditPopup()}>
+            <button onClick={openEditPopup}>
               <img
                 src="../../public/img/Edit.png"
                 alt="Edit Perfil"
                 className="edit-perfil-img"
-              ></img>
+              />
               <p>Editar Perfil</p>
             </button>
           </div>
@@ -256,7 +258,7 @@ function Profile({ authService }) {
               <div className="container-user-perfil">
                 <div className="image-user-perfil">
                   <img
-                    src="https://via.placeholder.com/40"
+                    src={user.avatarUrl != null ? user.avatarUrl : "https://via.placeholder.com/40" }
                     alt={user.name || "Usuário Desconhecido 1"}
                   />
                 </div>
@@ -306,13 +308,19 @@ function Profile({ authService }) {
             </div>
           ))}
         </div>
+
         <CommentPopup
-          isOpen={isPopupOpen}
+          isOpen={isCommentPopupOpen}
           onClose={closeCommentPopup}
-          onSubmit={handleCommentSubmit}
+          onSubmit={(comment) => console.log("Comentário:", comment)}
           post={selectedPost}
         />
-        <Edit_perfilPopUp isOpen={isPopupOpen} onClose={closeEditPopup} />
+        <Edit_perfilPopUp
+          isOpen={isEditPopupOpen}
+          onClose={closeEditPopup}
+          userData={user}
+          onSave={handleSaveProfile}
+        />
       </div>
     </div>
   );
@@ -320,9 +328,7 @@ function Profile({ authService }) {
 
 Profile.propTypes = {
   authService: PropTypes.shape({
-    login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
-    recoverPassword: PropTypes.func.isRequired,
   }).isRequired,
 };
 
