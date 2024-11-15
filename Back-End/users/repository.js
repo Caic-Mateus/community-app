@@ -12,7 +12,27 @@ export class UserRepository {
                 }));
             });
     }
-
+    async updateUser(userId, userData) {
+        try {
+            const userRef = admin.firestore().collection("Users").doc(userId);
+    
+            // Verifica se o usuário existe
+            const userDoc = await userRef.get();
+            if (!userDoc.exists) {
+                throw new Error("Usuário não encontrado");
+            }
+    
+            // Atualiza os dados do usuário
+            await userRef.update(userData);
+    
+            // Retorna os dados atualizados
+            const updatedUser = await userRef.get();
+            return updatedUser.data();
+        } catch (error) {
+            throw new Error(`Erro ao atualizar o usuário: ${error.message}`);
+        }
+    }
+    
     async findUsersByName(name) {
         return admin.firestore()
             .collection('Users')

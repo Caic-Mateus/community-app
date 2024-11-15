@@ -19,6 +19,15 @@ export class User {
         this.#repository = new UserRepository();
     }
 
+    async updateUser(userId, userData) {
+        try {
+            return await this.#repository.updateUser(userId, userData);
+        } catch (error) {
+            console.error("Erro ao atualizar o usuário:", error);
+            throw error;
+        }
+    }
+    
     async findUsers() {
         return this.#repository.findUsers();
     }
