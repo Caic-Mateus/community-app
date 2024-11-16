@@ -6,7 +6,6 @@ import Loading from "../loading/loading";
 import AuthService from "../services/AuthServices";
 
 const token = localStorage.getItem("token");
-
 const ChatModal = React.memo(
   ({ isOpen, onClose, messageList, message, setMessage, sendMessage }) => {
     if (!isOpen) return null;
@@ -29,20 +28,9 @@ const ChatModal = React.memo(
     return (
       <div className="modal">
         <div className="modal-content">
-          {/* Exibir nome do usuário no topo da página */}
-          <div className="header-modal">
-            <div className="user-info">
-              <strong>
-                {messageList.find(
-                  (msg) => msg.userId !== localStorage.getItem("uid")
-                )?.userName || "Desconhecido"}
-              </strong>
-            </div>
-            <button className="close" onClick={onClose}>
-              &times;
-            </button>
-          </div>
-
+          <button className="close" onClick={onClose}>
+            &times;
+          </button>
           <div className="chat-messages">
             {messageList.length > 0 ? (
               messageList.map((msg, index) => (
@@ -53,17 +41,24 @@ const ChatModal = React.memo(
                       ? "my-message"
                       : "received-message"
                   }
+                  style={{
+                    backgroundColor:
+                      msg.userId === localStorage.getItem("uid")
+                        ? "lightgreen"
+                        : "white",
+                  }}
                 >
-                  {/* Exibir mensagem */}
+                  {msg.userId !== localStorage.getItem("uid") ? (
+                    <strong>{msg.userName || "Desconhecido"}: </strong>
+                  ) : null}
                   {msg.message}
                 </div>
               ))
             ) : (
               <p>Nenhuma mensagem antiga.</p>
             )}
-            <div ref={messagesEndRef} />
           </div>
-
+          <div ref={messagesEndRef} />
           <div className="sendMessage">
             <textarea
               value={message}
@@ -161,6 +156,11 @@ const MensagemForm = ({ authService }) => {
 
   const loadMessages = async (chatId) => {
     try {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        // Processar os dados
+      }, 2000);
       const response = await axios.get(
         `http://localhost:3000/message/messages/${chatId}`,
         {
@@ -194,18 +194,31 @@ const MensagemForm = ({ authService }) => {
     }
   };
 
+  //Logica para iniciar chat aqui
+
   const sendMessage = useCallback(async () => {
     const uid = localStorage.getItem("uid");
 
     if (selectedRecipientId && selectedChat == null) {
       try {
+        // Iniciar o loading
+        setLoading(true);
+        closeModal();
+
+        // Emitir a primeira mensagem
         socket.emit("chatMessage", message, uid, null, selectedRecipientId);
+
         const chatId = await fetchChatId(selectedRecipientId);
         selectedChat.chatId = chatId;
+        openModal(selectedChat);
+
         setSelectedRecipientId(null);
       } catch (error) {
         console.error("Erro ao iniciar conversa:", error);
         return;
+      } finally {
+        // Finalizar o loading
+        setLoading(false);
       }
     } else {
       socket.emit(
@@ -220,12 +233,6 @@ const MensagemForm = ({ authService }) => {
     }
     setMessage("");
   }, [message, selectedRecipientId, selectedChat, socket]);
-
-  const handleSendMessageWithLoading = async () => {
-    setIsLoading(true);
-    await sendMessage();
-    setIsLoading(false);
-  };
 
   useEffect(() => {
     const socketInstance = io.connect("http://localhost:3000");
