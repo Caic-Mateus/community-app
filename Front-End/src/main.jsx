@@ -8,7 +8,6 @@ import { Cadastro } from "./pages/cadastro.jsx";
 import { Feed } from "./pages/feed.jsx";
 import { Perfil } from "./pages/perfil.jsx";
 import { Administrador } from "./pages/adm.jsx";
-import { Notificacao } from "./pages/notificacao.jsx";
 import { Mensagem } from "./pages/mensagem.jsx";
 import { ItensSalvos } from "./pages/itensSalvos.jsx";
 import { MaisOpcoes } from "./pages/maisOpcoes.jsx";
@@ -40,10 +39,6 @@ const router = createBrowserRouter([
   {
     path: "/admRelat",
     element: <AdministradorRelat />,
-  },
-  {
-    path: "/notificacao",
-    element: <Notificacao />,
   },
   {
     path: "/mensagens",

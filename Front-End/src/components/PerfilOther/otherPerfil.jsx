@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import "./otherPerfil.css";
 import axios from "axios";
@@ -88,13 +87,16 @@ function PerfilOtherForm({ authService }) {
   const fetchPostsOther = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/posts/user/${perfilUserId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
-      setPosts(response.data);  // Armazena os posts retornados
+      const response = await axios.get(
+        `http://localhost:3000/posts/user/${perfilUserId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      setPosts(response.data); // Armazena os posts retornados
       setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar os posts do usuário:", error);
@@ -172,14 +174,7 @@ function PerfilOtherForm({ authService }) {
             />
             <span>Página inicial</span>
           </a>
-          <a href="http://localhost:5173/notificacao">
-            <img
-              src="../../public/img/Notify.png"
-              alt="Notificações"
-              className="homePage-logo-perfil"
-            />
-            <span>Notificações</span>
-          </a>
+
           <a href="http://localhost:5173/mensagens">
             <img
               src="../../public/img/Message.png"
@@ -328,4 +323,3 @@ PerfilOtherForm.propTypes = {
 };
 
 export default PerfilOtherForm;
-

@@ -4,10 +4,11 @@ import SegurancaPopUp from "../components/SegurancaPop-Up/segurancaPopUp";
 import Perguntas_frequentes from "../components/Perguntas_frequentes/perguntas_frequentes";
 import Denuncia from "../components/DenunciaPopUp/denuncia";
 
-function MaisOpcoesForm() {
+function MaisOpcoesForm({ authService }) {
   const [isSegurancaOpen, setIsSegurancaOpen] = useState(false);
   const [isPerguntasOpen, setIsPerguntasOpen] = useState(false);
   const [isDenunciaOpen, setIsDenunciaOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const openSeguranca = () => setIsSegurancaOpen(true);
   const closeSeguranca = () => setIsSegurancaOpen(false);
@@ -46,14 +47,7 @@ function MaisOpcoesForm() {
             />
             <span>Página inicial</span>
           </a>
-          <a href="http://localhost:5173/notificacao">
-            <img
-              src="../../public/img/Notify.png"
-              alt="HomePage Logo"
-              className="homePage-logo-mais"
-            />
-            <span>Notificações</span>
-          </a>
+
           <a href="http://localhost:5173/mensagens">
             <img
               src="../../public/img/Message.png"

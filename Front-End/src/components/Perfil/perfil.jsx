@@ -106,28 +106,27 @@ function Profile({ authService }) {
   };
 
   // No Profile.js
-const handleSaveProfile = async (updatedUserData) => {
-  try {
-    // Enviar dados atualizados para o backend
-    const response = await axios.put(
-      `http://localhost:3000/users/${uid}`,
-      updatedUserData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      }
-    );
-    console.log("Usuário atualizado com sucesso:", response.data);
-    // Atualizar o estado do usuário
-    setUser(response.data);
-    fetchUser(); // Recarregar as informações atualizadas
-  } catch (error) {
-    console.error("Erro ao atualizar o usuário:", error);
-  }
-};
-
+  const handleSaveProfile = async (updatedUserData) => {
+    try {
+      // Enviar dados atualizados para o backend
+      const response = await axios.put(
+        `http://localhost:3000/users/${uid}`,
+        updatedUserData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      console.log("Usuário atualizado com sucesso:", response.data);
+      // Atualizar o estado do usuário
+      setUser(response.data);
+      fetchUser(); // Recarregar as informações atualizadas
+    } catch (error) {
+      console.error("Erro ao atualizar o usuário:", error);
+    }
+  };
 
   const handleEditSave = async (updatedData) => {
     try {
@@ -173,14 +172,7 @@ const handleSaveProfile = async (updatedUserData) => {
             />
             <span>Página inicial</span>
           </a>
-          <a href="http://localhost:5173/notificacao">
-            <img
-              src="../../public/img/Notify.png"
-              alt="Notificações"
-              className="homePage-logo-perfil"
-            />
-            <span>Notificações</span>
-          </a>
+
           <a href="http://localhost:5173/mensagens">
             <img
               src="../../public/img/Message.png"
@@ -232,7 +224,11 @@ const handleSaveProfile = async (updatedUserData) => {
       <div className="main-perfil">
         <div className="perfil-header">
           <img
-            src={user.avatarUrl != null ? user.avatarUrl : "https://via.placeholder.com/40" }
+            src={
+              user.avatarUrl != null
+                ? user.avatarUrl
+                : "https://via.placeholder.com/40"
+            }
             className="foto-perfil"
             alt={user.name || "Usuário Desconhecido"}
           />
@@ -258,7 +254,11 @@ const handleSaveProfile = async (updatedUserData) => {
               <div className="container-user-perfil">
                 <div className="image-user-perfil">
                   <img
-                    src={user.avatarUrl != null ? user.avatarUrl : "https://via.placeholder.com/40" }
+                    src={
+                      user.avatarUrl != null
+                        ? user.avatarUrl
+                        : "https://via.placeholder.com/40"
+                    }
                     alt={user.name || "Usuário Desconhecido 1"}
                   />
                 </div>
