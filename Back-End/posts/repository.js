@@ -98,4 +98,37 @@ export class PostRepository {
             throw new Error(`Erro ao criar post: ${error.message}`);
         }
     }
+
+// repository.js
+async savePost(userId, postId) {
+    try {
+        // Verifica duplicidade e salva o post
+        const snapshot = await admin.firestore()
+            .collection('PostsSaves')
+            .where('userId', '==', userId)
+            .where('postId', '==', postId)
+            .get();
+
+        if (!snapshot.empty) {
+            snapshot.forEach(async (doc) => {
+                await doc.ref.delete();
+            });
+            throw new Error('Este post já foi salvo.');
+        }
+
+        // Adiciona o post salvo no Firestore
+        await admin.firestore().collection('PostsSaves').add({
+            userId: userId,
+            postId: postId,
+            savedAt: admin.firestore.FieldValue.serverTimestamp(),
+        });
+    } catch (error) {
+        console.error('Erro ao salvar post na repository:', error);
+        throw error;
+    }
+}
+
+
+
+
 }

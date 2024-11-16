@@ -14,5 +14,8 @@ app.get("/", autheticateToken, postController.findPostsById);
 app.get("/allposts", autheticateToken, postController.findPosts);
 app.get("/:postId", autheticateToken, postController.findPostsByPostId);
 app.post('/', autheticateToken, postController.createPost);
+app.post('/save', autheticateToken, postController.savePost);
+// Rota para buscar posts salvos por um usuário específico
+app.get("/saved/:userId", autheticateToken, postController.findSavedPostsByUserId);
 
 export const postsRouter = app;

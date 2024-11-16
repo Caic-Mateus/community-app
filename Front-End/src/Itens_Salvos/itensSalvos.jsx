@@ -36,7 +36,8 @@ function ItensSalvosForm({ authService }) {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:3000/posts/allposts", {
+      // Modificar a URL para buscar apenas os posts salvos do usuário
+      const response = await axios.get(`http://localhost:3000/posts/saved/${uid}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
@@ -45,7 +46,7 @@ function ItensSalvosForm({ authService }) {
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         navigate("/");
       }
       console.error("Erro ao buscar os posts:", error);
@@ -53,6 +54,7 @@ function ItensSalvosForm({ authService }) {
       setLoading(false);
     }
   };
+  
 
   const logout = async () => {
     setIsLoggingOut(true);

@@ -89,7 +89,30 @@ function FeedIndex({ authService }) {
       console.error("Erro ao adicionar like:", error);
     }
   };
-
+  const handleSave = async (postId) => {
+    try {
+      const saveData = {
+        userId: uid,
+        postId: postId,
+      };
+  
+      const response = await axios.post(
+        "http://localhost:3000/posts/save",  // Endpoint que irá salvar o post
+        saveData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      console.log("Post salvo com sucesso:", response.data);
+      setUpdateFlag(!updateFlag);  // Atualiza a lista de posts
+    } catch (error) {
+      console.error("Erro ao salvar o post:", error);
+    }
+  };
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -299,7 +322,7 @@ function FeedIndex({ authService }) {
                   </button>
                 </div>
                 <div className="salvar-feed">
-                  <button>
+                  <button onClick={() => handleSave(post.postId)}>
                     <img
                       src="../../public/img/Save.png"
                       alt="HomePage Logo"

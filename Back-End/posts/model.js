@@ -97,4 +97,70 @@ export class Post {
             throw error;
         }
     }
+    // model.js
+async savePost(userId, postId) {
+    if (!userId || !postId) {
+        throw {
+            code: 400,
+            message: 'UserId ou PostId não informados!',
+        };
+    }
+
+    try {
+        // Chama o método correspondente na Repository
+        await this.#repository.savePost(userId, postId);
+    } catch (error) {
+        console.error('Erro no model ao salvar post:', error);
+        throw error;
+    }
+}
+
+// Novo método para buscar os IDs dos posts salvos
+async findSavedPostsByUserId(userId) {
+    if (!userId) {
+        throw {
+            code: 500,
+            message: 'Usuário não informado!'
+        };
+    }
+
+    try {
+        const snapshot = await admin.firestore()
+            .collection('PostsSaves')
+            .where('userId', '==', userId)
+            .get();
+
+        return snapshot.docs.map(doc => doc.data().postId); // Retorna os postIds salvos
+    } catch (error) {
+        console.error('Erro ao buscar posts salvos:', error);
+        throw error;
+    }
+}
+
+// Novo método para buscar os posts a partir dos postIds
+async findPostsByIds(postIds) {
+    if (!Array.isArray(postIds) || postIds.length === 0) {
+        throw {
+            code: 400,
+            message: 'Post IDs não encontrados!'
+        };
+    }
+
+    try {
+        const snapshot = await admin.firestore()
+            .collection('Posts')
+            .where('postId', 'in', postIds) // Faz a busca pelos postIds
+            .get();
+
+        return snapshot.docs.map(doc => ({
+            ...doc.data(),
+            uid: doc.id
+        }));
+    } catch (error) {
+        console.error('Erro ao buscar posts por IDs:', error);
+        throw error;
+    }
+}
+
+
 }
