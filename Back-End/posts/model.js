@@ -26,7 +26,7 @@ export class Post {
         try {
             return await this.#repository.findMyPosts(this.userId);
         } catch (error) {
-            console.error('Error fetching posts:', error);
+            console.error('Erro ao buscar posts:', error);
             throw error;
         }
     }
@@ -42,7 +42,24 @@ export class Post {
         try {
             return await this.#repository.findPostsByPostId(postId);
         } catch (error) {
-            console.error('Error fetching posts:', error);
+            console.error('Erro ao buscar posts:', error);
+            throw error;
+        }
+    }
+
+    // Novo método para buscar posts por userId
+    async findPostByUserId() {
+        if (!this.userId) {
+            throw {
+                code: 500,
+                message: 'Usuário não informado!'
+            };
+        }
+
+        try {
+            return await this.#repository.findPostsByUserId(this.userId); // Método da repository
+        } catch (error) {
+            console.error('Erro ao buscar posts:', error);
             throw error;
         }
     }
@@ -58,7 +75,7 @@ export class Post {
         try {
             return await this.#repository.findPosts();
         } catch (error) {
-            console.error('Error fetching posts:', error);
+            console.error('Erro ao buscar posts:', error);
             throw error;
         }
     }
@@ -70,13 +87,13 @@ export class Post {
                 message: 'Usuário não informado!'
             };
         }
+
         try {
-            // Adiciona o ID do post aos dados do post
             postData.postId = this.postId;
             postData.registrationDate = admin.firestore.Timestamp.now();
             return await this.#repository.createPost(postData);
         } catch (error) {
-            console.error('Error creating post:', error);
+            console.error('Erro ao criar post:', error);
             throw error;
         }
     }
