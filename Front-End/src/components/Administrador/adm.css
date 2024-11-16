@@ -1,0 +1,168 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
+    height: 100vh;          
+    margin: 0;      
+    overflow: auto;
+}/* Estilo geral do container do perfil */
+.container-perfil {
+    padding: 30px;
+    background-color: #f9f9f9;
+  }
+  
+  .dashboard-title {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  /* Estilos para os cards */
+  .dashboard-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+  
+  .card-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 30px;
+    text-align: center;
+  }
+  
+  .card-number {
+    font-size: 3em;
+    font-weight: bold;
+    color: #4caf50;
+  }
+  
+  .card-text {
+    font-size: 1em;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  /* Estilos gerais */
+.dashboard-container {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: blue;
+    padding: 20px;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  
+  .sidebar-welcome {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+  
+  .sidebar-links ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar-links li {
+    margin: 10px 0;
+  }
+  
+  .sidebar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+  }
+  
+  .sidebar-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .main-content {
+    margin-left: 250px; /* Desloca o conteúdo para a direita */
+    padding: 30px;
+    background-color: #f9f9f9;
+    width: 100%;
+  }
+  
+  .dashboard-title {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  /* Estilos para os cards */
+  .dashboard-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+  
+  .card-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 30px;
+    text-align: center;
+  }
+  
+  .card-number {
+    font-size: 3em;
+    font-weight: bold;
+    color: #4caf50;
+  }
+  
+  .card-text {
+    font-size: 1em;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  /* Adicionando responsividade */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+  
+    .main-content {
+      margin-left: 0;
+    }
+  
+    .card-group {
+      flex-direction: column;
+    }
+  }
+  

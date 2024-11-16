@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import "./otherPerfil.css";
 import axios from "axios";
@@ -25,7 +26,7 @@ function PerfilOtherForm({ authService }) {
 
   useEffect(() => {
     fetchUser();
-    fetchPosts();
+    fetchPostsOther();
     fetchFollowersCount();
     fetchFollowingCount();
   }, [perfilUserId]);
@@ -84,19 +85,16 @@ function PerfilOtherForm({ authService }) {
     }
   };
 
-  const fetchPosts = async () => {
+  const fetchPostsOther = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/posts/`, {
+      const response = await axios.get(`http://localhost:3000/posts/user/${perfilUserId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
         },
-        body: {
-          userid: perfilUserId,
-        },
       });
-      setPosts(response.data);
+      setPosts(response.data);  // Armazena os posts retornados
       setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar os posts do usuário:", error);
@@ -316,7 +314,6 @@ function PerfilOtherForm({ authService }) {
           onSubmit={handleCommentSubmit}
           post={selectedPost}
         />
-        <Edit_perfilPopUp isOpen={isPopupOpen} onClose={closeEditPopup} />
       </div>
     </div>
   );
@@ -331,3 +328,4 @@ PerfilOtherForm.propTypes = {
 };
 
 export default PerfilOtherForm;
+

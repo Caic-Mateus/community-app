@@ -17,6 +17,8 @@ import { chatRouter } from './chat/routes.js'; // Adicionar as rotas de chat
 import { messageRouter } from './message/routes.js';
 import { denunciasRouter } from './report/routes.js'
 import { bugsRouter } from './bug/routes.js';
+import { dashboardRouter } from './dashboard/routes.js';
+
 const app = express();
 const server = createServer(app); // Criar o servidor HTTP com base no Express
 const io = new Server(server, {   // Configurar o socket.io para usar o servidor HTTP
@@ -52,6 +54,8 @@ app.use('/chat', chatRouter);  // Adicionar rotas de chat
 app.use('/message', messageRouter);
 app.use('/report', denunciasRouter);
 app.use('/bug', bugsRouter);
+app.use('/admin', dashboardRouter);
+
 
 
 // Adicionar a funcionalidade de socket.io

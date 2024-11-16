@@ -19,6 +19,16 @@ export class User {
         this.#repository = new UserRepository();
     }
 
+    async countUsers() {
+        try {
+            return await this.#repository.countUsers();
+        } catch (error) {
+            console.error('Erro ao contar usuários:', error);
+            throw error;
+        }
+    }
+
+    
     async updateUser(userId, userData) {
         try {
             return await this.#repository.updateUser(userId, userData);

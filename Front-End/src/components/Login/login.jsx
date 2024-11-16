@@ -46,9 +46,15 @@ function LoginForm({ authService }) {
   const navigate = useNavigate();
 
   const login = () => {
+    // Verificando se o email e a senha são os dados do admin
+  if (form.email.value === "admin@admin.com" && form.password.value === "123456") {
+    navigate("/adm"); // Redireciona para a página de administrador
+  } else {
+    // Caso contrário, continua o fluxo normal de login
     authService.login(form.email.value, form.password.value).then(() => {
-      navigate("/feed");
+      navigate("/feed"); // Redireciona para a página de feed
     });
+  }
   };
 
   const isEmailValid = (email) => {
