@@ -10,8 +10,7 @@ app.get("/", autheticateToken, userController.findUsers)
 
 app.post("/create", userController.createUser);
 app.put('/:userId', autheticateToken, userController.updateUser);
-
-
+app.get('/count', autheticateToken, userController.countUsers);
 app.get('/search', autheticateToken, userController.findUsersByName);
 app.get('/:userId', autheticateToken,userController.getUserById);
 export const usersRouter = app;

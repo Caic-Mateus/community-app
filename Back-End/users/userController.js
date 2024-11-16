@@ -13,6 +13,21 @@ export class UserController {
         }
     }
 
+    async countUsers(request, response) {
+        try {
+            const user = new User();
+            const count = await user.countUsers();
+            response.status(200).json({ totalUsers: count });
+        } catch (error) {
+            console.error('Erro ao contar usuários:', error);
+            response.status(500).json({
+                message: 'Erro ao contar usuários',
+                error: error.message,
+            });
+        }
+    }
+
+    
     async updateUser(request, response) {
         const { userId } = request.params;
         const userData = request.body;

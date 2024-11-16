@@ -33,6 +33,15 @@ export class UserRepository {
         }
     }
     
+    async countUsers() {
+        try {
+            const snapshot = await admin.firestore().collection('Users').get();
+            return snapshot.size; // Retorna o número de documentos na coleção
+        } catch (error) {
+            throw new Error(`Erro ao contar os usuários: ${error.message}`);
+        }
+    }
+    
     async findUsersByName(name) {
         return admin.firestore()
             .collection('Users')

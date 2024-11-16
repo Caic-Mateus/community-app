@@ -1,32 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./adm.css";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import Loading from "../loading/loading";
-import CommentPopup from "../ComentarioPop-Up/comentarioPopUp";
-import Edit_perfilPopUp from "../Edit_Perfil_Pop-Up/edit_perfilPop-Up";
 
 function Administrador({ authService }) {
-  const { userId } = useParams();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [user, setUser] = useState({});
-  const [posts, setPosts] = useState([]);
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [isCommentPopupOpen, setIsCommentPopupOpen] = useState(false);
-  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
-  const navigate = useNavigate();
+  const [isBugsModalOpen, setIsBugsModalOpen] = useState(false);
+  const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
+  const [bugs, setBugs] = useState([]); // Estado para armazenar os bugs
+  const [reports, setReports] = useState([]); // Estado para armazenar as denúncias
+  const [loadingBugs, setLoadingBugs] = useState(false); // Estado de carregamento de bugs
+  const [loadingReports, setLoadingReports] = useState(false); // Estado de carregamento de denúncias
+  const [errorBugs, setErrorBugs] = useState(null); // Estado de erro de bugs
+  const [errorReports, setErrorReports] = useState(null); // Estado de erro de denúncias
 
-  const token = localStorage.getItem("token");
-  const uid = localStorage.getItem("uid");
+  const toggleBugsModal = async () => {
+    if (!isBugsModalOpen) {
+      // Buscar os bugs ao abrir o modal
+      setLoadingBugs(true);
+      setErrorBugs(null);
+      try {
+        const response = await axios.get("http://localhost:3000/bug/list");
+        setBugs(response.data); // Salva os bugs no estado
+      } catch (err) {
+        setErrorBugs("Erro ao carregar os bugs");
+      } finally {
+        setLoadingBugs(false);
+      }
+    }
+    setIsBugsModalOpen(!isBugsModalOpen);
+  };
 
-  function formatDate(timestamp) {
-    const date = timestamp ? new Date(timestamp._seconds * 1000) : null;
-    return date ? date.toLocaleDateString() : "Data Desconhecida";
-  }
-
-  if (loading) return <Loading />;
+  const toggleReportsModal = async () => {
+    if (!isReportsModalOpen) {
+      // Buscar as denúncias ao abrir o modal
+      setLoadingReports(true);
+      setErrorReports(null);
+      try {
+        const response = await axios.get("http://localhost:3000/report/list");
+        setReports(response.data); // Salva as denúncias no estado
+      } catch (err) {
+        setErrorReports("Erro ao carregar as denúncias");
+      } finally {
+        setLoadingReports(false);
+      }
+    }
+    setIsReportsModalOpen(!isReportsModalOpen);
+  };
 
   return (
     <div className="dashboard-container">
@@ -35,7 +54,7 @@ function Administrador({ authService }) {
         <p className="sidebar-welcome">Bem-vindo, Administrador!</p>
         <div className="sidebar-links">
           <ul>
-            <li><a href="adm">Dashboard</a></li>
+            <li><a href="/adm">Dashboard</a></li>
             <li><a href="/users">Usuários</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a href="#" onClick={() => authService.logout()}>Sair</a></li>
@@ -45,9 +64,67 @@ function Administrador({ authService }) {
 
       {/* Main Content */}
       <div className="main-content">
-        <p className="dashboard-title">Dashboard de Administrador</p>
+        <p className="dashboard-title">Relatórios do Adm</p>
 
-       
+        {/* Cards */}
+        <div className="dashboard-cards-center">
+          <div className="card" onClick={toggleBugsModal}>
+            <p className="card-text">BUGS</p>
+          </div>
+          <div className="card" onClick={toggleReportsModal}>
+            <p className="card-text">DENÚNCIAS</p>
+          </div>
+        </div>
+
+        {/* Bugs Modal */}
+        {isBugsModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Lista de BUGS</h2>
+              {loadingBugs ? (
+                <p>Carregando...</p>
+              ) : errorBugs ? (
+                <p className="error-text">{errorBugs}</p>
+              ) : (
+                <ul className="bugs-list">
+                  {bugs.map((bug) => (
+                    <li key={bug.id}>
+                      <strong>Bug</strong>: {bug.bugDescription}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <button className="close-button" onClick={toggleBugsModal}>
+                Fechar
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Reports Modal */}
+        {isReportsModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Lista de DENÚNCIAS</h2>
+              {loadingReports ? (
+                <p>Carregando...</p>
+              ) : errorReports ? (
+                <p className="error-text">{errorReports}</p>
+              ) : (
+                <ul className="reports-list">
+                  {reports.map((report) => (
+                    <li key={report.id}>
+                      <strong>Denuncia: {report.denunciaText}</strong> Usuário denunciado: {report.denouncedUserName}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <button className="close-button" onClick={toggleReportsModal}>
+                Fechar
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

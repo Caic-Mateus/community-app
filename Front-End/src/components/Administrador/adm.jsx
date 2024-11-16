@@ -1,30 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "./adm.css";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Loading from "../loading/loading";
-import CommentPopup from "../ComentarioPop-Up/comentarioPopUp";
-import Edit_perfilPopUp from "../Edit_Perfil_Pop-Up/edit_perfilPop-Up";
 
 function Administrador({ authService }) {
-  const { userId } = useParams();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [user, setUser] = useState({});
-  const [posts, setPosts] = useState([]);
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [isCommentPopupOpen, setIsCommentPopupOpen] = useState(false);
-  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
-  const navigate = useNavigate();
+  const [data, setData] = useState({
+    users: 0,
+    posts: 0,
+    comments: 0,
+    likes: 0,
+    bugs: 0,
+    reports: 0,
+  });
 
-  const token = localStorage.getItem("token");
-  const uid = localStorage.getItem("uid");
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://localhost:3000/admin/dashboard", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setData(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar os dados do dashboard:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  function formatDate(timestamp) {
-    const date = timestamp ? new Date(timestamp._seconds * 1000) : null;
-    return date ? date.toLocaleDateString() : "Data Desconhecida";
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   if (loading) return <Loading />;
 
@@ -50,30 +58,30 @@ function Administrador({ authService }) {
         <div className="dashboard-cards">
           <div className="card-group">
             <div className="card">
-              <div className="card-number">120</div>
+              <div className="card-number">{data.totalUsers}</div>
               <p className="card-text">Usuários Cadastrados</p>
             </div>
             <div className="card">
-              <div className="card-number">45</div>
+              <div className="card-number">{data.totalPosts}</div>
               <p className="card-text">Posts Recentes</p>
             </div>
             <div className="card">
-              <div className="card-number">8</div>
+              <div className="card-number">{data.totalDenuncias}</div>
               <p className="card-text">Denúncias Pendentes</p>
             </div>
           </div>
 
           <div className="card-group">
             <div className="card">
-              <div className="card-number">200</div>
+              <div className="card-number">{data.totalComments}</div>
               <p className="card-text">Comentários Feitos</p>
             </div>
             <div className="card">
-              <div className="card-number">300</div>
+              <div className="card-number">{data.totalLikes}</div>
               <p className="card-text">Interações Recentes</p>
             </div>
             <div className="card">
-              <div className="card-number">15</div>
+              <div className="card-number">{data.totalBugs}</div>
               <p className="card-text">Erros Reportados</p>
             </div>
           </div>
