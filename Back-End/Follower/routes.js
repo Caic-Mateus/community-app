@@ -5,7 +5,7 @@ const router = express.Router();
 const followerController = new FollowerController();
 
 // Rota para seguir um usuário
-router.post('/:userId/follow', followerController.followUser);
+router.post('/:userId/follow', autheticateToken, followerController.followUser);
 
 // Rota para deixar de seguir um usuário
 router.delete('/:userId/unfollow', followerController.unfollowUser);

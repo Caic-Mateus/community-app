@@ -179,6 +179,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
   }
   
   .modal-content {
@@ -186,13 +187,36 @@
     background: white;
     padding: 20px;
     border-radius: 5px;
-    width: 300px;
+    width: 60vh;
     height: 70%;
     align-items: center;
     flex-direction: column; /* Alterado de column-reverse para column */
     position: relative;
     border-radius: 20px;
 }
+.header-modal{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    gap: 30vh;
+}
+.user-info{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.close {
+    width: 20px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+  }
+
+  .close:hover{
+    background-color: red;
+  }
 
 /* Mensagens */
 .chat-messages {
@@ -201,7 +225,8 @@
     flex: 1;
     overflow-y: auto;
     scroll-behavior: smooth;
-    
+    scrollbar-width: thin; /* Pode ser 'auto', 'thin', ou 'none' */
+    scrollbar-color: #888 #f1f1f1; /* Cor da parte deslizando e da trilha */
     width: 100%;
     padding: 10px;
 }
@@ -217,13 +242,13 @@
     margin: 5px 0;
     text-align: right;
     word-wrap: break-word;
-    border: 1px solid #33333317;
+    border: 1px solid #3333332f;
 }
 
 /* Mensagem recebida */
 .received-message {
     align-self: flex-start;
-    border: 1px solid #33333317;
+    border: 1px solid #3333332f;
     color: black;
     padding: 8px;
     border-radius: 10px;
@@ -246,7 +271,7 @@
     background-color: white;
     padding: 10px;
     font-size: 12px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1px solid #333;
     overflow: hidden;
     resize: none;
@@ -265,23 +290,6 @@
 .sendMessage button:hover{
     background-color: #e6f7ff;
 }
-
-  
-  .close {
-    width: 15px;
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    top: 1px;
-    right: 10px;
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-  }
-
-  .close:hover{
-    background-color: red;
-  }
 
 
   

@@ -6,46 +6,72 @@ import Loading from "../loading/loading";
 import AuthService from "../services/AuthServices";
 
 const token = localStorage.getItem("token");
+const ChatModal = React.memo(
+  ({ isOpen, onClose, messageList, message, setMessage, sendMessage }) => {
+    if (!isOpen) return null;
 
-const ChatModal = React.memo(({ isOpen, onClose, messageList, message, setMessage, sendMessage }) => {
-  if (!isOpen) return null;
+    const messagesEndRef = useRef(null);
 
-  return (
-    <div className="modal">
-      <div className="modal-content">
-        <button className="close" onClick={onClose}>
-          &times;
-        </button>
-        <div className="chat-messages">
-          {messageList.length > 0 ? (
-            messageList.map((msg, index) => (
-              <div
-                key={index}
-                className={msg.userId === localStorage.getItem("uid") ? "my-message" : "received-message"}
-                style={{
-                  backgroundColor: msg.userId === localStorage.getItem("uid") ? "lightgreen" : "white",
-                }}
-              >
-                {msg.userId !== localStorage.getItem("uid") ? <strong>{msg.userName || "Desconhecido"}: </strong> : null}
-                {msg.message}
-              </div>
-            ))
-          ) : (
-            <p>Nenhuma mensagem antiga.</p>
-          )}
-        </div>
-        <div className="sendMessage">
-          <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Digite sua mensagem aqui..."
-          />
-          <button onClick={sendMessage}>Enviar</button>
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    };
+
+    useEffect(() => {
+      if (messageList.length > 0) {
+        scrollToBottom();
+      }
+    }, [messageList]);
+
+    return (
+      <div className="modal">
+        <div className="modal-content">
+          <button className="close" onClick={onClose}>
+            &times;
+          </button>
+          <div className="chat-messages">
+            {messageList.length > 0 ? (
+              messageList.map((msg, index) => (
+                <div
+                  key={index}
+                  className={
+                    msg.userId === localStorage.getItem("uid")
+                      ? "my-message"
+                      : "received-message"
+                  }
+                  style={{
+                    backgroundColor:
+                      msg.userId === localStorage.getItem("uid")
+                        ? "lightgreen"
+                        : "white",
+                  }}
+                >
+                  {msg.userId !== localStorage.getItem("uid") ? (
+                    <strong>{msg.userName || "Desconhecido"}: </strong>
+                  ) : null}
+                  {msg.message}
+                </div>
+              ))
+            ) : (
+              <p>Nenhuma mensagem antiga.</p>
+            )}
+          </div>
+          <div ref={messagesEndRef} />
+          <div className="sendMessage">
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Digite sua mensagem aqui..."
+            />
+            <button onClick={sendMessage}>Enviar</button>
+          </div>
         </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 const MensagemForm = ({ authService }) => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -61,8 +87,6 @@ const MensagemForm = ({ authService }) => {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
-
-  const messagesEndRef = useRef(null);
 
   const fetchUsers = async (term) => {
     setIsSearching(true);
@@ -132,6 +156,11 @@ const MensagemForm = ({ authService }) => {
 
   const loadMessages = async (chatId) => {
     try {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        // Processar os dados
+      }, 2000);
       const response = await axios.get(
         `http://localhost:3000/message/messages/${chatId}`,
         {
@@ -165,18 +194,31 @@ const MensagemForm = ({ authService }) => {
     }
   };
 
+  //Logica para iniciar chat aqui
+
   const sendMessage = useCallback(async () => {
     const uid = localStorage.getItem("uid");
 
     if (selectedRecipientId && selectedChat == null) {
       try {
+        // Iniciar o loading
+        setLoading(true);
+        closeModal();
+
+        // Emitir a primeira mensagem
         socket.emit("chatMessage", message, uid, null, selectedRecipientId);
+
         const chatId = await fetchChatId(selectedRecipientId);
         selectedChat.chatId = chatId;
+        openModal(selectedChat);
+
         setSelectedRecipientId(null);
       } catch (error) {
         console.error("Erro ao iniciar conversa:", error);
         return;
+      } finally {
+        // Finalizar o loading
+        setLoading(false);
       }
     } else {
       socket.emit(
@@ -184,7 +226,9 @@ const MensagemForm = ({ authService }) => {
         message,
         uid,
         selectedChat.id,
-        selectedChat.recipientId === uid ? selectedChat.userId : selectedChat.recipientId
+        selectedChat.recipientId === uid
+          ? selectedChat.userId
+          : selectedChat.recipientId
       );
     }
     setMessage("");
@@ -220,18 +264,6 @@ const MensagemForm = ({ authService }) => {
   useEffect(() => {
     fetchChats();
   }, []);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-    });
-  };
-  useEffect(() => {
-    if (messageList.length > 0) {
-      scrollToBottom();
-    }
-  }, [messageList]);
 
   if (loading) return <Loading />;
 
