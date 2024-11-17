@@ -146,8 +146,9 @@ body {
   }
   
   /* Adicionando responsividade */
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     .dashboard-container {
+      margin-top: 0;
       flex-direction: column;
     }
   
@@ -164,6 +165,7 @@ body {
     .card-group {
       flex-direction: column;
     }
+    
   }
   /* Cards centralizados */
 .dashboard-cards-center {
@@ -171,6 +173,32 @@ body {
   gap: 20px;
   justify-content: center;
   margin-top: 50px;
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    margin-top: 0;
+    flex-direction: column;
+  }
+  .sidebar {
+    padding: 10px;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+
+  .card {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .dashboard-title {
+    font-size: 1.5em;
+  }
+  .modal-content{
+    width: 10vh;
+  }
 }
 
 .card {
@@ -216,7 +244,7 @@ body {
   padding: 20px;
   border-radius: 10px;
   text-align: center;
-  width: 300px;
+  width: 50vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .header-modal{
