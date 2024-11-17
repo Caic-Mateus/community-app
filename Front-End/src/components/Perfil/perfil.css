@@ -172,7 +172,7 @@ a {
     background-color: whitesmoke;
     padding: 15px;
     margin-bottom: 20px;
-    max-width: 1000px;
+    max-width: 100%;
 }
 
 .post-perfil {
@@ -208,7 +208,7 @@ a {
     margin-right: 10px;
     display: flex;
     flex-direction: row;
-    gap: 750px;
+    gap: 730px;
 } 
 .name-user-perfil p{
     margin-bottom: 0;
@@ -222,11 +222,7 @@ a {
 .curso-user-perfil p{
     margin-top: 0;
 }
-.time-post-perfil {
-    display: flex;
-    justify-content: end;
-    font-size: 12px;
-}
+
 
 .content-perfil {
     display: flex;
