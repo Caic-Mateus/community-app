@@ -12,6 +12,7 @@ function PerfilOtherForm({ authService }) {
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
+  const [isFollowing, setIsFollowing] = useState(false);
   const [followersCount, setFollowersCount] = useState(0); // Novo estado para seguidores
   const [followingCount, setFollowingCount] = useState(0); // Novo estado para seguidos
   const [selectedPost, setSelectedPost] = useState(null);
@@ -27,7 +28,62 @@ function PerfilOtherForm({ authService }) {
     fetchPostsOther();
     fetchFollowersCount();
     fetchFollowingCount();
+    checkIfFollowing();
   }, [perfilUserId]);
+
+  const checkIfFollowing = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/followers/${perfilUserId}/following`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      const isUserFollowing = response.data.some(
+        (following) => following.uid === uid
+      );
+      setIsFollowing(isUserFollowing);
+    } catch (error) {
+      console.error("Erro ao verificar se segue o usuário:", error);
+    }
+  };
+
+  const handleFollow = async () => {
+    try {
+      if (isFollowing) {
+        // Deixar de seguir
+        await axios.delete(
+          `http://localhost:3000/followers/${perfilUserId}/unfollow`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        setIsFollowing(false);
+        setFollowersCount(followersCount - 1); // Decrementa o contador de seguidores
+      } else {
+        // Seguir
+        await axios.post(
+          `http://localhost:3000/followers/${perfilUserId}/follow`,
+          {},
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        setIsFollowing(true);
+        setFollowersCount(followersCount + 1); // Incrementa o contador de seguidores
+      }
+    } catch (error) {
+      console.error("Erro ao seguir/deixar de seguir:", error);
+      console.log("Perfil User ID:", perfilUserId);
+      console.log("Token:", token);
+    }
+  };
 
   const fetchUser = async () => {
     setLoading(true);
@@ -227,8 +283,8 @@ function PerfilOtherForm({ authService }) {
             <p>Seguindo: {followingCount}</p>
           </div>
           <div className="edit-otherPerfil">
-            <button>
-              <p>Seguir</p>
+            <button onClick={handleFollow}>
+              <p>{isFollowing ? "Seguindo" : "Seguir"}</p>
             </button>
           </div>
         </div>

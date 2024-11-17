@@ -18,6 +18,7 @@ import { messageRouter } from './message/routes.js';
 import { denunciasRouter } from './report/routes.js'
 import { bugsRouter } from './bug/routes.js';
 import { dashboardRouter } from './dashboard/routes.js';
+import { followersRouter } from './Follower/routes.js';
 
 const app = express();
 const server = createServer(app); // Criar o servidor HTTP com base no Express
@@ -48,6 +49,13 @@ admin.initializeApp({
 // Adicionar rotas
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
+
+//Rotas de seguidores
+app.use('/follow', followersRouter);
+app.use('/unfollow', followersRouter);
+app.use('followers', followersRouter);
+app.use('following', followersRouter);
+
 app.use('/comments', commentsRouter);
 app.use('/likes', likeRouter);
 app.use('/chat', chatRouter);  // Adicionar rotas de chat
