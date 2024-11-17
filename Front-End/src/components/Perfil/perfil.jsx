@@ -51,32 +51,33 @@ function Profile({ authService }) {
   const fetchFollowersCount = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/followers/${uid}/followers`,
+        `http://localhost:3000/followers/followers/${uid}/count`, // Endpoint atualizado
         {
           headers: {
-            Authorization: token,
+            Authorization: token, // Mantém a autenticação
           },
         }
       );
-      setFollowersCount(response.data.length);
+      setFollowersCount(response.data.followers); // Atualiza o estado com a contagem de seguidores
     } catch (error) {
-      console.error("Erro ao buscar seguidores:", error);
+      console.error("Erro ao buscar contagem de seguidores:", error);
     }
   };
+  
 
   const fetchFollowingCount = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/followers/${uid}/following`,
+        `http://localhost:3000/followers/following/${uid}/count`, // Endpoint atualizado
         {
           headers: {
             Authorization: token,
           },
         }
       );
-      setFollowingCount(response.data.length);
+      setFollowingCount(response.data.following); // Usando o campo retornado pelo backend
     } catch (error) {
-      console.error("Erro ao buscar usuários seguidos:", error);
+      console.error("Erro ao buscar contagem de seguidos:", error);
     }
   };
 
