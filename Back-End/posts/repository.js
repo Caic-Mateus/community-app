@@ -7,12 +7,19 @@ export class PostRepository {
             const snapshot = await admin.firestore()
                 .collection('Posts')
                 .where('userId', '==', userId)
-                .get();
+                .get()
+                .then(async snapshot => {
+                    const postsData = [];
+                    for (const doc of snapshot.docs) {
+                        const postData = { ...doc.data(), uid: doc.id };
+                        const userData = await this.findUserById(postData.userId);
+                        postData.user = userData; // Adicionar dados do usuário ao objeto de postagem
+                        postsData.push(postData);
+                    }
+                    return postsData;
+                });
 
-            return snapshot.docs.map(doc => ({
-                ...doc.data(),
-                uid: doc.id
-            }));
+            return snapshot;
         } catch (error) {
             console.error('Erro ao buscar posts do usuário:', error);
             throw error;
