@@ -191,9 +191,11 @@ function CadastroForm() {
             required
           />
         </div>
-        <button type="submit" className="Button-Cadastro" value="Cadastrar">
-          Cadastrar
-        </button>
+        <div className="buttonCadastro">
+          <button type="submit" className="Button-Cadastro" value="Cadastrar">
+            Cadastrar
+          </button>
+        </div>
       </form>
       {error && <div className="inputvalidation-cadastro">{error}</div>}
       <div className="signup-text-cadastro">
