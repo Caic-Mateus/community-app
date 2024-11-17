@@ -234,7 +234,7 @@
 /* Mensagem enviada */
 .my-message {
     align-self: flex-end;
-    background-color: azure;
+    background-color: #35a6da58 ;
     color: #000;
     padding: 8px;
     border-radius: 10px;

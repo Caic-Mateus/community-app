@@ -37,12 +37,15 @@ function ItensSalvosForm({ authService }) {
     setLoading(true);
     try {
       // Modificar a URL para buscar apenas os posts salvos do usuário
-      const response = await axios.get(`http://localhost:3000/posts/saved/${uid}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:3000/posts/saved/${uid}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
@@ -54,7 +57,6 @@ function ItensSalvosForm({ authService }) {
       setLoading(false);
     }
   };
-  
 
   const logout = async () => {
     setIsLoggingOut(true);
@@ -221,8 +223,11 @@ function ItensSalvosForm({ authService }) {
               <div className="container-user-salvos">
                 <div className="image-user-salvos">
                   <img
-                    src="https://via.placeholder.com/40"
-                    alt={post.user ? post.user.name : "Usuário Desconhecido"}
+                    src={
+                      post.user.avatarUrl != null
+                        ? post.user.avatarUrl
+                        : "https://via.placeholder.com/40"
+                    }
                   />
                 </div>
                 <div className="container-info-user-salvos">

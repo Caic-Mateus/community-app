@@ -44,17 +44,16 @@ function PerfilOtherForm({ authService }) {
           },
         }
       );
-      
+
       // A resposta será um objeto { isFollowing: true/false }
       const isUserFollowing = response.data.isFollowing;
-      
+
       // Atualiza o estado de acordo com a resposta
       setIsFollowing(isUserFollowing);
     } catch (error) {
       console.error("Erro ao verificar se segue o usuário:", error);
     }
-};
-
+  };
 
   const handleFollow = async () => {
     try {
@@ -72,10 +71,10 @@ function PerfilOtherForm({ authService }) {
           },
         }
       );
-  
+
       // Atualiza o estado local com base na resposta do backend
       const { success, message } = response.data;
-  
+
       if (success) {
         if (message.includes("Seguiu")) {
           setIsFollowing(true); // Atualiza para "seguindo"
@@ -91,10 +90,10 @@ function PerfilOtherForm({ authService }) {
       console.log("Token:", token);
     }
   };
-  
-  useEffect(() =>{
+
+  useEffect(() => {
     fetchPostsOther();
-  }, [updateFlag])
+  }, [updateFlag]);
 
   const fetchUser = async () => {
     setLoading(true);
@@ -133,7 +132,6 @@ function PerfilOtherForm({ authService }) {
       console.error("Erro ao buscar contagem de seguidores:", error);
     }
   };
-  
 
   const fetchFollowingCount = async () => {
     try {
@@ -178,7 +176,7 @@ function PerfilOtherForm({ authService }) {
         userId: perfilUserId,
         postId: postId,
       };
-      console.log(newLike)
+      console.log(newLike);
       const response = await axios.post(
         `http://localhost:3000/likes`,
         newLike,
@@ -286,9 +284,12 @@ function PerfilOtherForm({ authService }) {
       <div className="main-otherPerfil">
         <div className="otherPerfil-header">
           <img
-            src="https://via.placeholder.com/40"
             className="foto-otherPerfil"
-            alt={user.name || "Usuário Desconhecido"}
+            src={
+              user.avatarUrl != null
+                ? user.avatarUrl
+                : "https://via.placeholder.com/40"
+            }
           />
           <div className="otherPerfil-info">
             <h1>{user.name}</h1>
@@ -308,8 +309,11 @@ function PerfilOtherForm({ authService }) {
               <div className="container-user-otherPerfil">
                 <div className="image-user-otherPerfil">
                   <img
-                    src="https://via.placeholder.com/40"
-                    alt={user.name || "Usuário Desconhecido 1"}
+                    src={
+                      user.avatarUrl != null
+                        ? user.avatarUrl
+                        : "https://via.placeholder.com/40"
+                    }
                   />
                 </div>
                 <div className="container-info-user-otherPerfil">

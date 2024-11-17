@@ -95,9 +95,9 @@ function FeedIndex({ authService }) {
         userId: uid,
         postId: postId,
       };
-  
+
       const response = await axios.post(
-        "http://localhost:3000/posts/save",  // Endpoint que irá salvar o post
+        "http://localhost:3000/posts/save", // Endpoint que irá salvar o post
         saveData,
         {
           headers: {
@@ -107,12 +107,12 @@ function FeedIndex({ authService }) {
         }
       );
       console.log("Post salvo com sucesso:", response.data);
-      setUpdateFlag(!updateFlag);  // Atualiza a lista de posts
+      setUpdateFlag(!updateFlag); // Atualiza a lista de posts
     } catch (error) {
       console.error("Erro ao salvar o post:", error);
     }
   };
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -262,8 +262,11 @@ function FeedIndex({ authService }) {
               <div className="container-user-feed">
                 <div className="image-user-feed">
                   <img
-                    src="https://via.placeholder.com/40"
-                    alt={post.user ? post.user.name : "Usuário Desconhecido"}
+                    src={
+                      post.user.avatarUrl != null
+                        ? post.user.avatarUrl
+                        : "https://via.placeholder.com/40"
+                    }
                   />
                 </div>
                 <div className="container-info-user-feed">

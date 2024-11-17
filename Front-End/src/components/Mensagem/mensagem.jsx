@@ -44,9 +44,7 @@ const ChatModal = React.memo(
                   }
                   style={{
                     backgroundColor:
-                      msg.userId === localStorage.getItem("uid")
-                        ? "lightgreen"
-                        : "white",
+                      msg.userId === localStorage.getItem("uid") ? "" : "white",
                   }}
                 >
                   {msg.userId !== localStorage.getItem("uid") ? (
@@ -293,7 +291,7 @@ const MensagemForm = ({ authService }) => {
             />
             <span>Itens Salvos</span>
           </a>
-          <a href="http://localhost:5173/perfil/:userId">
+          <a href="http://localhost:5173/perfil">
             <img
               src="../../public/img/Profile.png"
               alt="HomePage Logo"
