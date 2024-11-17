@@ -30,7 +30,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/perfil",
-    element: <Perfil />,
+    element: <Perfil authService={authService} />,
   },
   {
     path: "/adm",
@@ -42,15 +42,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/mensagens",
-    element: <Mensagem />,
+    element: <Mensagem authService={authService} />,
   },
   {
     path: "/itensSalvos",
-    element: <ItensSalvos />,
+    element: <ItensSalvos authService={authService} />,
   },
   {
     path: "/maisOpcoes",
-    element: <MaisOpcoes />,
+    element: <MaisOpcoes authService={authService} />,
   },
   {
     path: "/perfilOther/:otherUserId",

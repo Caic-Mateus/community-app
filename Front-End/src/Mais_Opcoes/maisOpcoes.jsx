@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./maisOpcoes.css";
 import Perguntas_frequentes from "../components/Perguntas_frequentes/perguntas_frequentes";
 import Denuncia from "../components/DenunciaPopUp/denuncia";
+import AuthService from "../components/services/AuthServices";
 
 function MaisOpcoesForm({ authService }) {
   const [isSegurancaOpen, setIsSegurancaOpen] = useState(false);
   const [isPerguntasOpen, setIsPerguntasOpen] = useState(false);
   const [isDenunciaOpen, setIsDenunciaOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const navigate = useNavigate();
 
   const openSeguranca = () => setIsSegurancaOpen(true);
   const closeSeguranca = () => setIsSegurancaOpen(false);
@@ -113,13 +116,13 @@ function MaisOpcoesForm({ authService }) {
             </button>
           </div>
           <div className="sair-mais">
-            <button onClick={logout}>
+            <a onClick={logout}>
               <img
                 src="../../public/img/Logout.png"
                 className="homePage-logo-mais"
               ></img>
               <span>Sair</span>
-            </button>
+            </a>
           </div>
         </section>
       </main>

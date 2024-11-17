@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./mensagem.css";
 import io from "socket.io-client";
@@ -87,6 +88,7 @@ const MensagemForm = ({ authService }) => {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
+  const navigate = useNavigate();
 
   const logout = async () => {
     setIsLoggingOut(true);
