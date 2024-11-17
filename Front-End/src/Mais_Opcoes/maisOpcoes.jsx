@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./maisOpcoes.css";
-import SegurancaPopUp from "../components/SegurancaPop-Up/segurancaPopUp";
 import Perguntas_frequentes from "../components/Perguntas_frequentes/perguntas_frequentes";
 import Denuncia from "../components/DenunciaPopUp/denuncia";
 
@@ -95,15 +94,6 @@ function MaisOpcoesForm({ authService }) {
           <h2>Configurações</h2>
         </header>
         <section className="settings-mais">
-          <div className="seguranca-mais">
-            <button onClick={openSeguranca}>
-              <img
-                src="../../public/img/seguranca.png"
-                className="homePage-logo-mais"
-              ></img>
-              <span>Privacidade e Segurança</span>
-            </button>
-          </div>
           <div className="ajuda-mais">
             <button onClick={openPerguntas}>
               <img

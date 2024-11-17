@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import Loading from "../loading/loading";
 import AuthService from "../services/AuthServices";
 import CommentPopup from "../ComentarioPop-Up/comentarioPopUp";
-import Edit_perfilPopUp from "../Edit_Perfil_Pop-Up/edit_perfilPop-Up";
 
 function PerfilOtherForm({ authService }) {
   const [loading, setLoading] = useState(false);
@@ -136,8 +135,8 @@ function PerfilOtherForm({ authService }) {
     setIsPopupOpen(false);
   };
 
-  const openCommentPopup = (post) => {
-    setSelectedPost(post);
+  const openCommentPopup = (otherPost) => {
+    setSelectedPost(otherPost);
     setIsPopupOpen(true);
   };
 
@@ -248,8 +247,8 @@ function PerfilOtherForm({ authService }) {
         </div>
 
         <div className="posts-perfil">
-          {posts.map((post) => (
-            <div className="post-perfil" key={post.id}>
+          {posts.map((otherPost) => (
+            <div className="post-perfil" key={otherPost.id}>
               <div className="container-user-perfil">
                 <div className="image-user-perfil">
                   <img
@@ -260,7 +259,7 @@ function PerfilOtherForm({ authService }) {
                 <div className="container-info-user-perfil">
                   <div className="name-user-perfil">
                     <p>{user ? "@" + user.user : "Usuário Desconhecido 2"}</p>
-                    <p>{formatDate(post.registrationDate)}</p>
+                    <p>{formatDate(otherPost.registrationDate)}</p>
                   </div>
                   <div className="curso-user-perfil">
                     <p>{user.curso || "Curso Desconhecido 1"}</p>
@@ -269,12 +268,12 @@ function PerfilOtherForm({ authService }) {
                 </div>
               </div>
               <div className="content-perfil">
-                <p>{post.context}</p>
+                <p>{otherPost.context}</p>
               </div>
               <div className="actions-perfil">
                 <div className="curtir-perfil">
-                  <p>{post.likesCount}</p>
-                  <button onClick={() => handleLike(post.postId)}>
+                  <p>{otherPost.likesCount}</p>
+                  <button onClick={() => handleLike(otherPost.postId)}>
                     <img
                       src="../../public/img/Like.png"
                       alt="HomePage Logo"
@@ -284,7 +283,7 @@ function PerfilOtherForm({ authService }) {
                   </button>
                 </div>
                 <div className="comentar-perfil">
-                  <button onClick={() => openCommentPopup(post)}>
+                  <button onClick={() => openCommentPopup(otherPost)}>
                     <img
                       src="../../public/img/Comment.png"
                       alt="HomePage Logo"

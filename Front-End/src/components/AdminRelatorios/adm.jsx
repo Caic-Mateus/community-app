@@ -47,6 +47,18 @@ function Administrador({ authService }) {
     setIsReportsModalOpen(!isReportsModalOpen);
   };
 
+  const logout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await authService.logout();
+      setIsLoggingOut(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      setIsLoggingOut(false);
+    }
+  };
+
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
@@ -54,10 +66,18 @@ function Administrador({ authService }) {
         <p className="sidebar-welcome">Bem-vindo, Administrador!</p>
         <div className="sidebar-links">
           <ul>
-            <li><a href="/adm">Dashboard</a></li>
-            <li><a href="/users">Usuários</a></li>
-            <li><a href="#">Relatórios</a></li>
-            <li><a href="#" onClick={() => authService.logout()}>Sair</a></li>
+            <li>
+              <a href="/adm">Dashboard</a>
+            </li>
+
+            <li>
+              <a href="#">Relatórios</a>
+            </li>
+            <li>
+              <a href="/" onClick={logout}>
+                Sair
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -69,7 +89,7 @@ function Administrador({ authService }) {
         {/* Cards */}
         <div className="dashboard-cards-center">
           <div className="card" onClick={toggleBugsModal}>
-            <p className="card-text">BUGS</p>
+            <p className="card-text">ERROS</p>
           </div>
           <div className="card" onClick={toggleReportsModal}>
             <p className="card-text">DENÚNCIAS</p>
@@ -80,7 +100,12 @@ function Administrador({ authService }) {
         {isBugsModalOpen && (
           <div className="modal">
             <div className="modal-content">
-              <h2>Lista de BUGS</h2>
+              <div className="header-modal">
+                <button className="close-button" onClick={toggleBugsModal}>
+                  X
+                </button>
+              </div>
+              <p>Lista de Erros</p>
               {loadingBugs ? (
                 <p>Carregando...</p>
               ) : errorBugs ? (
@@ -89,23 +114,25 @@ function Administrador({ authService }) {
                 <ul className="bugs-list">
                   {bugs.map((bug) => (
                     <li key={bug.id}>
-                      <strong>Bug</strong>: {bug.bugDescription}
+                      <h3>Reporte:</h3> <p>{bug.bugDescription}</p>
                     </li>
                   ))}
                 </ul>
               )}
-              <button className="close-button" onClick={toggleBugsModal}>
-                Fechar
-              </button>
             </div>
           </div>
         )}
 
-        {/* Reports Modal */}
+        {/* Denuncia Modal */}
         {isReportsModalOpen && (
           <div className="modal">
             <div className="modal-content">
-              <h2>Lista de DENÚNCIAS</h2>
+              <div className="header-modal">
+                <button className="close-button" onClick={toggleReportsModal}>
+                  X
+                </button>
+              </div>
+              <p>Lista de Denuncias</p>
               {loadingReports ? (
                 <p>Carregando...</p>
               ) : errorReports ? (
@@ -114,14 +141,13 @@ function Administrador({ authService }) {
                 <ul className="reports-list">
                   {reports.map((report) => (
                     <li key={report.id}>
-                      <strong>Denuncia: {report.denunciaText}</strong> Usuário denunciado: {report.denouncedUserName}
+                      <h3>Denuncia:</h3> <p>{report.denunciaText}</p>{" "}
+                      <h3>Usuário denunciado:</h3>
+                      <p> {report.denouncedUserName}</p>
                     </li>
                   ))}
                 </ul>
               )}
-              <button className="close-button" onClick={toggleReportsModal}>
-                Fechar
-              </button>
             </div>
           </div>
         )}
