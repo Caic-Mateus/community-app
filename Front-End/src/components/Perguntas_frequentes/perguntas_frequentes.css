@@ -18,8 +18,10 @@
     padding: 20px;
     border-radius: 10px;
     width: 90%;
+    max-height: 90vh;
     max-width: 500px;
     position: relative;
+    overflow-y: auto;
   }
   
   /* Botão para fechar o modal */

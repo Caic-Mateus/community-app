@@ -16,6 +16,8 @@ function Profile({ authService }) {
   const [selectedPost, setSelectedPost] = useState(null);
   const [isCommentPopupOpen, setIsCommentPopupOpen] = useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
+  const [followersCount, setFollowersCount] = useState(0); // Novo estado para seguidores
+  const [followingCount, setFollowingCount] = useState(0); // Novo estado para seguidos
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -41,6 +43,38 @@ function Profile({ authService }) {
       console.error("Erro ao buscar o usuário:", error);
       setError(error.message);
       setLoading(false);
+    }
+  };
+
+  const fetchFollowersCount = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/followers/${perfilUserId}/followers`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      setFollowersCount(response.data.length);
+    } catch (error) {
+      console.error("Erro ao buscar seguidores:", error);
+    }
+  };
+
+  const fetchFollowingCount = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/followers/${perfilUserId}/following`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      setFollowingCount(response.data.length);
+    } catch (error) {
+      console.error("Erro ao buscar usuários seguidos:", error);
     }
   };
 
@@ -233,7 +267,8 @@ function Profile({ authService }) {
           />
           <div className="perfil-info">
             <h1>{user.name}</h1>
-            <p>{user.email}</p>
+            <p>Seguidores: {followersCount}</p>
+            <p>Seguindo: {followingCount}</p>
           </div>
           <div className="edit-perfil">
             <button onClick={openEditPopup}>

@@ -13,8 +13,8 @@ function PerfilOtherForm({ authService }) {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [followersCount, setFollowersCount] = useState(0); // Novo estado para seguidores
-  const [followingCount, setFollowingCount] = useState(0); // Novo estado para seguidos
+  const [followersCount, setFollowersCount] = useState(""); // Novo estado para seguidores
+  const [followingCount, setFollowingCount] = useState(""); // Novo estado para seguidos
   const [selectedPost, setSelectedPost] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
