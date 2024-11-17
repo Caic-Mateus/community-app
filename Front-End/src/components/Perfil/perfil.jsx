@@ -230,7 +230,6 @@ function Profile({ authService }) {
                 : "https://via.placeholder.com/40"
             }
             className="foto-perfil"
-            alt={user.name || "Usuário Desconhecido"}
           />
           <div className="perfil-info">
             <h1>{user.name}</h1>
@@ -259,18 +258,17 @@ function Profile({ authService }) {
                         ? user.avatarUrl
                         : "https://via.placeholder.com/40"
                     }
-                    alt={user.name || "Usuário Desconhecido 1"}
                   />
                 </div>
                 <div className="container-info-user-perfil">
                   <div className="name-user-perfil">
-                    <p>{user ? "@" + user.user : "Usuário Desconhecido 2"}</p>
+                    <p>{user ? "@" + user.user : "Usuário Desconhecido"}</p>
                     <p>{formatDate(post.registrationDate)}</p>
                   </div>
+
                   <div className="curso-user-perfil">
-                    <p>{user.curso || "Curso Desconhecido 1"}</p>
+                    <p>{user.curso || "Curso Desconhecido"}</p>
                   </div>
-                  <div className="time-post-perfil"></div>
                 </div>
               </div>
               <div className="content-perfil">

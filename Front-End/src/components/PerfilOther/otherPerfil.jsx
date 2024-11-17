@@ -127,14 +127,6 @@ function PerfilOtherForm({ authService }) {
     }
   };
 
-  const openEditPopup = () => {
-    setIsPopupOpen(true);
-  };
-
-  const closeEditPopup = () => {
-    setIsPopupOpen(false);
-  };
-
   const openCommentPopup = (otherPost) => {
     setSelectedPost(otherPost);
     setIsPopupOpen(true);
@@ -157,19 +149,19 @@ function PerfilOtherForm({ authService }) {
   if (loading) return <Loading />;
 
   return (
-    <div className="container-perfil">
-      <div className="sidebar-perfil">
+    <div className="container-otherPerfil">
+      <div className="sidebar-otherPerfil">
         <img
           src="../../public/img/logo.png"
           alt="Logo"
-          className="commu-logo-perfil"
+          className="commu-logo-otherPerfil"
         />
         <ul>
           <a href="http://localhost:5173/feed">
             <img
               src="../../public/img/HomePage.png"
               alt="HomePage Logo"
-              className="homePage-logo-perfil"
+              className="homePage-logo-otherPerfil"
             />
             <span>Página inicial</span>
           </a>
@@ -178,7 +170,7 @@ function PerfilOtherForm({ authService }) {
             <img
               src="../../public/img/Message.png"
               alt="Mensagens"
-              className="homePage-logo-perfil"
+              className="homePage-logo-otherPerfil"
             />
             <span>Mensagens</span>
           </a>
@@ -186,15 +178,15 @@ function PerfilOtherForm({ authService }) {
             <img
               src="../../public/img/Save.png"
               alt="Itens Salvos"
-              className="homePage-logo-perfil"
+              className="homePage-logo-otherPerfil"
             />
             <span>Itens Salvos</span>
           </a>
           <a href="http://localhost:5173/feed">
             <img
               src="../../public/img/Profile.png"
-              alt="Perfil"
-              className="homePage-logo-perfil"
+              alt="otherPerfil"
+              className="homePage-logo-otherPerfil"
             />
             <span>Perfil</span>
           </a>
@@ -202,12 +194,12 @@ function PerfilOtherForm({ authService }) {
             <img
               src="../../public/img/More.png"
               alt="Mais"
-              className="homePage-logo-perfil"
+              className="homePage-logo-otherPerfil"
             />
             <span>Mais</span>
           </a>
           <a
-            className="botao-logout-perfil"
+            className="botao-logout-otherPerfil"
             onClick={() => {
               authService.logout();
               navigate("/");
@@ -216,83 +208,77 @@ function PerfilOtherForm({ authService }) {
             <img
               src="../../public/img/Logout.png"
               alt="Logout"
-              className="homePage-logo-perfil"
+              className="homePage-logo-otherPerfil"
             />
             Sair
           </a>
         </ul>
       </div>
-      <div className="main-perfil">
-        <div className="perfil-header">
+      <div className="main-otherPerfil">
+        <div className="otherPerfil-header">
           <img
             src="https://via.placeholder.com/40"
-            className="foto-perfil"
+            className="foto-otherPerfil"
             alt={user.name || "Usuário Desconhecido"}
           />
-          <div className="perfil-info">
+          <div className="otherPerfil-info">
             <h1>{user.name}</h1>
             <p>Seguidores: {followersCount}</p>
             <p>Seguindo: {followingCount}</p>
           </div>
-          <div className="edit-perfil">
-            <button onClick={() => openEditPopup()}>
-              <img
-                src="../../public/img/Edit.png"
-                alt="Edit Perfil"
-                className="edit-perfil-img"
-              ></img>
-              <p>Editar Perfil</p>
+          <div className="edit-otherPerfil">
+            <button>
+              <p>Seguir</p>
             </button>
           </div>
         </div>
 
-        <div className="posts-perfil">
+        <div className="posts-otherPerfil">
           {posts.map((otherPost) => (
-            <div className="post-perfil" key={otherPost.id}>
-              <div className="container-user-perfil">
-                <div className="image-user-perfil">
+            <div className="post-otherPerfil" key={otherPost.id}>
+              <div className="container-user-otherPerfil">
+                <div className="image-user-otherPerfil">
                   <img
                     src="https://via.placeholder.com/40"
                     alt={user.name || "Usuário Desconhecido 1"}
                   />
                 </div>
-                <div className="container-info-user-perfil">
-                  <div className="name-user-perfil">
+                <div className="container-info-user-otherPerfil">
+                  <div className="name-user-otherPerfil">
                     <p>{user ? "@" + user.user : "Usuário Desconhecido 2"}</p>
                     <p>{formatDate(otherPost.registrationDate)}</p>
                   </div>
-                  <div className="curso-user-perfil">
+                  <div className="curso-user-otherPerfil">
                     <p>{user.curso || "Curso Desconhecido 1"}</p>
                   </div>
-                  <div className="time-post-perfil"></div>
                 </div>
               </div>
-              <div className="content-perfil">
+              <div className="content-otherPerfil">
                 <p>{otherPost.context}</p>
               </div>
-              <div className="actions-perfil">
-                <div className="curtir-perfil">
+              <div className="actions-otherPerfil">
+                <div className="curtir-otherPerfil">
                   <p>{otherPost.likesCount}</p>
                   <button onClick={() => handleLike(otherPost.postId)}>
                     <img
                       src="../../public/img/Like.png"
                       alt="HomePage Logo"
-                      className="homePage-logo-perfil"
+                      className="homePage-logo-otherPerfil"
                     />
                     <span>Curtir</span>
                   </button>
                 </div>
-                <div className="comentar-perfil">
+                <div className="comentar-otherPerfil">
                   <button onClick={() => openCommentPopup(otherPost)}>
                     <img
                       src="../../public/img/Comment.png"
                       alt="HomePage Logo"
-                      className="homePage-logo-perfil"
+                      className="homePage-logo-otherPerfil"
                     />
                     <span>Comentar</span>
                   </button>
                 </div>
-                <div className="salvar-perfil">
+                <div className="salvar-otherPerfil">
                   <button>
                     <img src="../../public/img/Save.png" />
                     <span>Salvar</span>

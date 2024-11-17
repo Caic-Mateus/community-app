@@ -8,7 +8,7 @@ body {
     margin: 0;      
     overflow: auto;
 }
-.container-perfil {
+.container-otherPerfil {
     background-color: transparent;
     margin-left: 230px;
     width: 140vh;       
@@ -17,7 +17,7 @@ body {
     max-height: 80vh; 
 }
 
-.sidebar-perfil {
+.sidebar-otherPerfil {
     background-color: transparent;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
     width: 200px;
@@ -33,21 +33,21 @@ body {
     z-index: 5;
 }
 
-.sidebar-perfil h1 {
+.sidebar-otherPerfil h1 {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.sidebar-perfil ul {
+.sidebar-otherPerfil ul {
     list-style: none;
     padding: 0;
 }
 
-.sidebar-perfil li {
+.sidebar-otherPerfil li {
     margin-bottom: 10px;
 }
 
-.sidebar-perfil a {
+.sidebar-otherPerfil a {
     text-decoration: none;
     color: #333;
     display: flex;
@@ -56,11 +56,11 @@ body {
     margin-top: 30px;
 }
 
-.sidebar-perfil i {
+.sidebar-otherPerfil i {
     margin-right: 10px;
 }
 
-.sidebar-perfil button {
+.sidebar-otherPerfil button {
     background-color: transparent;
     color: black;
     border: none;
@@ -73,16 +73,16 @@ body {
     margin-bottom: 1%;
 }
 
-.homePage-logo-perfil {
+.homePage-logo-otherPerfil {
     width: 15px;
     margin-right: 0.5em;
     align-items: center;
 }
 
-.commu-logo-perfil {
+.commu-logo-otherPerfil {
     width: 120px;}
 
-.botao-logout-perfil {
+.botao-logout-otherPerfil {
     margin-top: 250px;
     border: none;
 }
@@ -110,13 +110,13 @@ a {
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
-.main-perfil {
+.main-otherPerfil {
     align-items: flex-start;
     width: 100%;
     padding: 20px;
 }
 
-.perfil-header {
+.otherPerfil-header {
     background-color: transparent;
     border-radius: 10px;
     padding: 10px;
@@ -126,7 +126,7 @@ a {
     margin-bottom: 20px;
     width: 1000px;
 }
-.foto-perfil{
+.foto-otherPerfil{
     width: 100px;
     height: 100px;
     object-fit: cover;
@@ -135,18 +135,18 @@ a {
     margin-right: 20px;
     border: 1px solid;
 }
-.perfil-info{
+.otherPerfil-info{
     display: flex;
     flex-direction: column;
 }
-.edit-perfil{
+.edit-otherPerfil{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-left: 120px;
 }
-.edit-perfil button{
+.edit-otherPerfil button{
     width: 120px;
     height: 40px;
     display: flex;
@@ -159,23 +159,23 @@ a {
     cursor: pointer;
 }
 
-.edit-perfil p{
+.edit-otherPerfil p{
     margin-left: 10px;
 }
-.edit-perfil-img{
+.edit-otherPerfil-img{
     width: 25px;
     height: 25px;
 }
 
 
-.posts-perfil {
+.posts-otherPerfil {
     background-color: whitesmoke;
     padding: 15px;
     margin-bottom: 20px;
-    max-width: 1000px;
+    max-width: 100%;
 }
 
-.post-perfil {
+.post-otherPerfil {
     background-color: white;
     padding: 5px;
     margin-bottom: 20px;
@@ -183,12 +183,12 @@ a {
     box-shadow: 2px 2px 25px rgba(0, 0, 0, 0.3);
 }
 
-.container-user-perfil {
+.container-user-otherPerfil {
     display: flex;
     width: 700px;
     height: 50px;
 }
-.image-user-perfil img{
+.image-user-otherPerfil img{
     margin-top: 5px;
     margin-left: 5px;
     width: 40px;
@@ -197,38 +197,34 @@ a {
     border:1px solid;
    
 }
-.container-info-user-perfil {
+.container-info-user-otherPerfil {
     display: flex;
     flex-direction: column; 
 }
 
-.name-user-perfil{
+.name-user-otherPerfil{
     font-size: 14px;
     margin-left: 5px;
     margin-right: 10px;
     display: flex;
     flex-direction: row;
-    gap: 750px;
+    gap: 730px;
 } 
-.name-user-perfil p{
+.name-user-otherPerfil p{
     margin-bottom: 0;
     
 }
-.curso-user-perfil{
+.curso-user-otherPerfil{
     font-size: 14px;
     margin-left: 5px;
     margin-right: 10px;
 }
-.curso-user-perfil p{
+.curso-user-otherPerfil p{
     margin-top: 0;
 }
-.time-post-perfil {
-    display: flex;
-    justify-content: end;
-    font-size: 12px;
-}
 
-.content-perfil {
+
+.content-otherPerfil {
     display: flex;
     font-size: 18px;
     font-weight: bolder;
@@ -239,7 +235,7 @@ a {
     margin-left: 5px;
 }
 
-.content-perfil p {
+.content-otherPerfil p {
     font-size: 15px;
     font-weight: bold;
     overflow-wrap: break-word;
@@ -248,63 +244,63 @@ a {
     margin-left: 5px;
 }
 
-.actions-perfil {
+.actions-otherPerfil {
     display: flex;
     flex-direction: row;
     justify-content: center;
     cursor: pointer;
 }
-.curtir-perfil{
+.curtir-otherPerfil{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-items: center;
     margin-right: 10px;
 }
-.curtir-perfil p{
+.curtir-otherPerfil p{
     margin-right: 10px;
     font-size: 14px;
 }
-.curtir-perfil button{
+.curtir-otherPerfil button{
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
 
-.comentar-perfil{
+.comentar-otherPerfil{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-items: center;
     margin-right: 10px;
 }
-.comentar-perfil p{
+.comentar-otherPerfil p{
     margin-right: 10px;
     font-size: 14px;
 }
-.comentar-perfil button{
+.comentar-otherPerfil button{
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
 
-.salvar-perfil{
+.salvar-otherPerfil{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-items: center;
     margin-right: 10px;
 }
-.salvar-perfil p{
+.salvar-otherPerfil p{
     margin-right: 10px;
     font-size: 14px;
 }
-.salvar-perfil button{
+.salvar-otherPerfil button{
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
-.salvar-perfil img{
+.salvar-otherPerfil img{
     width: 20px;
     height: 20px;
 }
