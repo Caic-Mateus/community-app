@@ -26,6 +26,8 @@ function Profile({ authService }) {
   useEffect(() => {
     fetchUser();
     fetchPosts();
+    fetchFollowersCount();
+    fetchFollowingCount();
   }, [userId]);
 
   const fetchUser = async () => {
@@ -49,7 +51,7 @@ function Profile({ authService }) {
   const fetchFollowersCount = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/followers/${perfilUserId}/followers`,
+        `http://localhost:3000/followers/${uid}/followers`,
         {
           headers: {
             Authorization: token,
@@ -65,7 +67,7 @@ function Profile({ authService }) {
   const fetchFollowingCount = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/followers/${perfilUserId}/following`,
+        `http://localhost:3000/followers/${uid}/following`,
         {
           headers: {
             Authorization: token,

@@ -1,59 +1,62 @@
-import { FollowersRepository } from './repository.js';
+import { Follower } from './model.js';
 
 export class FollowerController {
-    async followUser(req, res) {
-        const { userId } = req.params; // Usuário que será seguido
-        const followerId = req.user.uid; // ID do usuário logado
+    toggleFollow = async (request, response) => {
+        console.log('POST /toggleFollow');
+        const follower = new Follower();
 
-        if (userId === followerId) {
-            return res.status(400).json({ message: 'Não é possível seguir a si mesmo!' });
-        }
+        // Recupera os dados do corpo da requisição
+        const { userId, targetUserId } = request.body;
+
+        const followData = {
+            userId: userId,           // Quem está seguindo
+            targetUserId: targetUserId // Quem está sendo seguido
+        };
 
         try {
-            const result = await FollowersRepository.followUser(userId, followerId);
-            res.status(201).json({ message: 'Seguindo usuário com sucesso!', result });
+            const result = await follower.toggleFollow(followData);
+            response.status(200).json(result);
         } catch (error) {
-            console.error('Erro ao seguir o usuário:', error);
-            res.status(500).json({ message: 'Erro ao seguir usuário', error });
+            console.error('Error toggling follow:', error);
+            response.status(500).json({ message: error.message });
         }
     }
-
-    async unfollowUser(req, res) {
+    async getFollowerCount(req, res) {
         const { userId } = req.params;
-        const followerId = req.user.uid;
-
-        if (userId === followerId) {
-            return res.status(400).json({ message: 'Não é possível deixar de seguir a si mesmo!' });
-        }
-
+        const follower = new Follower();
+    
         try {
-            await FollowersRepository.unfollowUser(userId, followerId);
-            res.status(200).json({ message: 'Deixou de seguir o usuário com sucesso!' });
+          const count = await follower.getFollowerCount(userId);
+          res.status(200).json({ followers: count });
         } catch (error) {
-            console.error('Erro ao deixar de seguir o usuário:', error);
-            res.status(500).json({ message: 'Erro ao deixar de seguir usuário', error });
+          console.error('Erro ao obter contagem de seguidores:', error);
+          res.status(500).json({ message: 'Erro ao obter contagem de seguidores.' });
         }
-    }
-
-    async getFollowers(req, res) {
+      }
+    
+      async getFollowingCount(req, res) {
         const { userId } = req.params;
+        const follower = new Follower();
+    
         try {
-            const followers = await FollowersRepository.getFollowers(userId);
-            res.json(followers);
+          const count = await follower.getFollowingCount(userId);
+          res.status(200).json({ following: count });
         } catch (error) {
-            console.error('Erro ao buscar seguidores:', error);
-            res.status(500).json({ message: 'Erro ao buscar seguidores', error });
+          console.error('Erro ao obter contagem de seguidos:', error);
+          res.status(500).json({ message: 'Erro ao obter contagem de seguidos.' });
         }
-    }
+      }
 
-    async getFollowing(req, res) {
-        const { userId } = req.params;
+      checkFollowStatus = async (request, response) => {
+        const { userId, targetUserId } = request.params; // Captura os parâmetros da URL
+
+        const followers = new Follower();
         try {
-            const following = await FollowersRepository.getFollowing(userId);
-            res.json(following);
+            const isFollowing = await followers.checkIfFollowing(userId, targetUserId);
+            response.status(200).json({ isFollowing });
         } catch (error) {
-            console.error('Erro ao buscar seguidos:', error);
-            res.status(500).json({ message: 'Erro ao buscar seguidos', error });
+            console.error('Error checking follow status:', error);
+            response.status(500).json({ message: error.message });
         }
     }
 }

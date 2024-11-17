@@ -49,13 +49,7 @@ admin.initializeApp({
 // Adicionar rotas
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
-
-//Rotas de seguidores
-app.use('/follow', followersRouter);
-app.use('/unfollow', followersRouter);
-app.use('followers', followersRouter);
-app.use('following', followersRouter);
-
+app.use('/followers', followersRouter);
 app.use('/comments', commentsRouter);
 app.use('/likes', likeRouter);
 app.use('/chat', chatRouter);  // Adicionar rotas de chat

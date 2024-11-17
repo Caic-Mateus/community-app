@@ -1,8 +1,8 @@
-import { FollowerRepository } from './followerRepository.js';
+import { FollowerRepository } from './repository.js';
 
 export class Follower {
-    followerId;
-    followingId;
+    userId;
+    targetUserId;
 
     #repository;
 
@@ -10,52 +10,56 @@ export class Follower {
         this.#repository = new FollowerRepository();
     }
 
-    async followUser() {
-        if (!this.followerId || !this.followingId) {
-            throw {
-                code: 500,
-                message: 'Seguidor ou seguido não informado!'
-            };
-        }
-
+    async toggleFollow(followData) {
         try {
-            return await this.#repository.followUser(this.followerId, this.followingId);
+            // Verifica se a relação já existe
+            const followDocId = await this.#repository.checkFollowExists(followData.userId, followData.targetUserId);
+            if (followDocId) {
+                // Se já existe, remove a relação
+                await this.#repository.deleteFollow(followDocId);
+                return {
+                    success: true,
+                    message: 'Deixou de seguir o usuário com sucesso!'
+                };
+            } else {
+                // Caso contrário, cria a relação
+                await this.#repository.createFollow(followData);
+                return {
+                    success: true,
+                    message: 'Seguiu o usuário com sucesso!'
+                };
+            }
         } catch (error) {
-            console.error('Error following user:', error);
+            console.error('Error toggling follow:', error);
             throw error;
         }
     }
 
-    async unfollowUser() {
-        if (!this.followerId || !this.followingId) {
-            throw {
-                code: 500,
-                message: 'Seguidor ou seguido não informado!'
-            };
-        }
-
+    async getFollowerCount(targetUserId) {
         try {
-            return await this.#repository.unfollowUser(this.followerId, this.followingId);
+          return await this.#repository.countFollowers(targetUserId);
         } catch (error) {
-            console.error('Error unfollowing user:', error);
-            throw error;
+          console.error('Erro ao obter contagem de seguidores:', error);
+          throw error;
         }
-    }
-
-    async getFollowers(userId) {
+      }
+    
+      async getFollowingCount(userId) {
         try {
-            return await this.#repository.getFollowers(userId);
+          return await this.#repository.countFollowing(userId);
         } catch (error) {
-            console.error('Error fetching followers:', error);
-            throw error;
+          console.error('Erro ao obter contagem de seguidos:', error);
+          throw error;
         }
-    }
+      }
 
-    async getFollowing(userId) {
+      async checkIfFollowing(userId, targetUserId) {
         try {
-            return await this.#repository.getFollowing(userId);
+            // Chama o repositório para verificar a relação de seguir
+            const isFollowing = await this.#repository.checkIfFollowing(userId, targetUserId);
+            return isFollowing;
         } catch (error) {
-            console.error('Error fetching following:', error);
+            console.error('Error checking follow status:', error);
             throw error;
         }
     }
