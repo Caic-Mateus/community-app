@@ -11,6 +11,7 @@ function PerfilOtherForm({ authService }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
+  const [updateFlag, setUpdateFlag] = useState(false);
   const [posts, setPosts] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
   const [followersCount, setFollowersCount] = useState(""); // Novo estado para seguidores
@@ -84,6 +85,9 @@ function PerfilOtherForm({ authService }) {
       console.log("Token:", token);
     }
   };
+  useEffect(() =>{
+    fetchPostsOther();
+  }, [updateFlag])
 
   const fetchUser = async () => {
     setLoading(true);
@@ -163,9 +167,10 @@ function PerfilOtherForm({ authService }) {
   const handleLike = async (postId) => {
     try {
       const newLike = {
-        perfilUserId: perfilUserId,
+        userId: perfilUserId,
         postId: postId,
       };
+      console.log(newLike)
       const response = await axios.post(
         `http://localhost:3000/likes`,
         newLike,

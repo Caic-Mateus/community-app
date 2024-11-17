@@ -7,12 +7,19 @@ export class PostRepository {
             const snapshot = await admin.firestore()
                 .collection('Posts')
                 .where('userId', '==', userId)
-                .get();
+                .get()
+                .then(async snapshot => {
+                    const postsData = [];
+                    for (const doc of snapshot.docs) {
+                        const postData = { ...doc.data(), uid: doc.id };
+                        const userData = await this.findUserById(postData.userId);
+                        postData.user = userData; // Adicionar dados do usuário ao objeto de postagem
+                        postsData.push(postData);
+                    }
+                    return postsData;
+                });
 
-            return snapshot.docs.map(doc => ({
-                ...doc.data(),
-                uid: doc.id
-            }));
+            return snapshot;
         } catch (error) {
             console.error('Erro ao buscar posts do usuário:', error);
             throw error;
@@ -98,4 +105,37 @@ export class PostRepository {
             throw new Error(`Erro ao criar post: ${error.message}`);
         }
     }
+
+// repository.js
+async savePost(userId, postId) {
+    try {
+        // Verifica duplicidade e salva o post
+        const snapshot = await admin.firestore()
+            .collection('PostsSaves')
+            .where('userId', '==', userId)
+            .where('postId', '==', postId)
+            .get();
+
+        if (!snapshot.empty) {
+            snapshot.forEach(async (doc) => {
+                await doc.ref.delete();
+            });
+            throw new Error('Este post já foi salvo.');
+        }
+
+        // Adiciona o post salvo no Firestore
+        await admin.firestore().collection('PostsSaves').add({
+            userId: userId,
+            postId: postId,
+            savedAt: admin.firestore.FieldValue.serverTimestamp(),
+        });
+    } catch (error) {
+        console.error('Erro ao salvar post na repository:', error);
+        throw error;
+    }
+}
+
+
+
+
 }
