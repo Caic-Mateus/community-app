@@ -47,15 +47,22 @@ function LoginForm({ authService }) {
 
   const login = () => {
     // Verificando se o email e a senha são os dados do admin
-  if (form.email.value === "admin@admin.com" && form.password.value === "123456") {
-    navigate("/adm"); // Redireciona para a página de administrador
-  } else {
-    // Caso contrário, continua o fluxo normal de login
-    authService.login(form.email.value, form.password.value).then(() => {
-      navigate("/feed"); // Redireciona para a página de feed
-    });
-  }
+    if (form.email.value === "admin@admin.com" && form.password.value === "123456") {
+      navigate("/adm"); // Redireciona para a página de administrador
+    } else {
+      // Caso contrário, continua o fluxo normal de login
+      authService
+        .login(form.email.value, form.password.value)
+        .then(() => {
+          navigate("/feed"); // Redireciona para a página de feed
+        })
+        .catch((error) => {
+            setError("E-mail e/ou senha estão incorretos."); // Define a mensagem de erro
+         
+        });
+    }
   };
+  
 
   const isEmailValid = (email) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -68,56 +75,58 @@ function LoginForm({ authService }) {
           <img src="../../public/img/logo.png" alt="Imagem 1" />
         </div>
         <form action="#" className="form-login">
-          <input
-            type="email"
-            className="input-field-login"
-            placeholder="E-mail"
-            value={form.email.value}
-            onChange={(event) =>
-              setForm({
-                ...form,
-                email: {
-                  hasChanged: true,
-                  value: event.target.value,
-                },
-              })
-            }
-            required
-          />
-          {form.email.hasChanged && !form.email.value && (
-            <div className="inputvalidation-login">Email é obrigatório</div>
-          )}
-          {form.email.hasChanged && !isEmailValid(form.email.value) && (
-            <div className="inputvalidation-login">Email é invalido</div>
-          )}
-          <input
-            type="password"
-            className="input-field-login"
-            placeholder="Password"
-            value={form.password.value}
-            onChange={(event) =>
-              setForm({
-                ...form,
-                password: {
-                  hasChanged: true,
-                  value: event.target.value,
-                },
-              })
-            }
-            required
-          />
-          {form.password.hasChanged && !form.password.value && (
-            <div className="inputvalidation-login">Senha é obrigatória</div>
-          )}
-          <button
-            type="button"
-            className="submit-button-login"
-            disabled={!isEmailValid(form.email.value) || !form.password.value}
-            onClick={login}
-          >
-            Entrar
-          </button>
-        </form>
+  <input
+    type="email"
+    className="input-field-login"
+    placeholder="E-mail"
+    value={form.email.value}
+    onChange={(event) =>
+      setForm({
+        ...form,
+        email: {
+          hasChanged: true,
+          value: event.target.value,
+        },
+      })
+    }
+    required
+  />
+  {form.email.hasChanged && !form.email.value && (
+    <div className="inputvalidation-login">Email é obrigatório</div>
+  )}
+  {form.email.hasChanged && !isEmailValid(form.email.value) && (
+    <div className="inputvalidation-login">Email é inválido</div>
+  )}
+  <input
+    type="password"
+    className="input-field-login"
+    placeholder="Password"
+    value={form.password.value}
+    onChange={(event) =>
+      setForm({
+        ...form,
+        password: {
+          hasChanged: true,
+          value: event.target.value,
+        },
+      })
+    }
+    required
+  />
+  {form.password.hasChanged && !form.password.value && (
+    <div className="inputvalidation-login">Senha é obrigatória</div>
+  )}
+  <button
+    type="button"
+    className="submit-button-login"
+    disabled={!isEmailValid(form.email.value) || !form.password.value}
+    onClick={login}
+  >
+    Entrar
+  </button>
+  {error && <div className="inputvalidation-login">{error}</div>}
+</form>
+
         <div className="signup-text-login">
           <a
             type="button"

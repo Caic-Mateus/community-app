@@ -1,48 +1,74 @@
 import admin from 'firebase-admin';
 
-export class FollowersRepository {
-    static async followUser(userId, followerId) {
-        const db = admin.firestore();
-        const docRef = db.collection('Followers').doc(userId).collection('userFollowers').doc(followerId);
-        try {
-            await docRef.set({ followedAt: admin.firestore.Timestamp.now() });
-            return docRef.id; // Retorna o ID do documento como resultado
-        } catch (error) {
-            console.error('Erro ao seguir usuário:', error);
-            throw error;
+export class FollowerRepository {
+    // Verifica se a relação de "seguir" já existe
+    async checkFollowExists(userId, targetUserId) {
+        const followSnapshot = await admin.firestore()
+            .collection('Followers')
+            .where('userId', '==', userId)
+            .where('targetUserId', '==', targetUserId)
+            .get();
+
+        if (!followSnapshot.empty) {
+            return followSnapshot.docs[0].id; // Retorna o ID do documento
+        } else {
+            return false;
         }
     }
 
-    static async unfollowUser(userId, followerId) {
-        const db = admin.firestore();
-        const docRef = db.collection('Followers').doc(userId).collection('userFollowers').doc(followerId);
+    // Cria uma nova relação de "seguir"
+    async createFollow(followData) {
         try {
-            await docRef.delete();
+            await admin.firestore().collection('Followers').add(followData);
         } catch (error) {
-            console.error('Erro ao deixar de seguir usuário:', error);
-            throw error;
+            throw new Error(`Error creating follow: ${error.message}`);
         }
     }
 
-    static async getFollowers(userId) {
-        const db = admin.firestore();
+    // Remove a relação de "seguir"
+    async deleteFollow(followDocId) {
         try {
-            const snapshot = await db.collection('Followers').doc(userId).collection('userFollowers').get();
-            return snapshot.docs.map(doc => ({ followerId: doc.id, ...doc.data() }));
+            await admin.firestore().collection('Followers').doc(followDocId).delete();
         } catch (error) {
-            console.error('Erro ao buscar seguidores:', error);
-            throw error;
+            throw new Error(`Error deleting follow: ${error.message}`);
         }
     }
 
-    static async getFollowing(followerId) {
-        const db = admin.firestore();
+    async countFollowers(targetUserId) {
         try {
-            const snapshot = await db.collectionGroup('userFollowers').where(admin.firestore.FieldPath.documentId(), '==', followerId).get();
-            return snapshot.docs.map(doc => ({ userId: doc.ref.parent.parent.id, ...doc.data() }));
+          const snapshot = await admin
+            .firestore()
+            .collection('Followers')
+            .where('targetUserId', '==', targetUserId)
+            .get();
+          return snapshot.size; // Número de seguidores
         } catch (error) {
-            console.error('Erro ao buscar seguidos:', error);
-            throw error;
+          console.error('Erro ao contar seguidores:', error);
+          throw new Error('Erro ao contar seguidores.');
         }
+      }
+    
+      async countFollowing(userId) {
+        try {
+          const snapshot = await admin
+            .firestore()
+            .collection('Followers')
+            .where('userId', '==', userId)
+            .get();
+          return snapshot.size; // Número de pessoas que o usuário segue
+        } catch (error) {
+          console.error('Erro ao contar seguidos:', error);
+          throw new Error('Erro ao contar seguidos.');
+        }
+      }
+
+      async checkIfFollowing(userId, targetUserId) {
+        const snapshot = await admin.firestore()
+            .collection('Followers')
+            .where('userId', '==', userId)
+            .where('targetUserId', '==', targetUserId)
+            .get();
+
+        return !snapshot.empty; // Se não estiver vazio, existe a relação de seguir
     }
 }

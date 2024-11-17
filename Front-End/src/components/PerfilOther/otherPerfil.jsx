@@ -11,6 +11,7 @@ function PerfilOtherForm({ authService }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
+  const [updateFlag, setUpdateFlag] = useState(false);
   const [posts, setPosts] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
   const [followersCount, setFollowersCount] = useState(""); // Novo estado para seguidores
@@ -33,57 +34,67 @@ function PerfilOtherForm({ authService }) {
 
   const checkIfFollowing = async () => {
     try {
+      // Requisição para o endpoint de verificação de seguimento
       const response = await axios.get(
-        `http://localhost:3000/followers/${perfilUserId}/following`,
+        `http://localhost:3000/followers/followers/${uid}/check/${perfilUserId}`, // Envia o userId e o targetUserId
         {
           headers: {
+            "Content-Type": "application/json",
             Authorization: token,
           },
         }
       );
-      const isUserFollowing = response.data.some(
-        (following) => following.uid === uid
-      );
+      
+      // A resposta será um objeto { isFollowing: true/false }
+      const isUserFollowing = response.data.isFollowing;
+      
+      // Atualiza o estado de acordo com a resposta
       setIsFollowing(isUserFollowing);
     } catch (error) {
       console.error("Erro ao verificar se segue o usuário:", error);
     }
-  };
+};
+
 
   const handleFollow = async () => {
     try {
-      if (isFollowing) {
-        // Deixar de seguir
-        await axios.delete(
-          `http://localhost:3000/followers/${perfilUserId}/unfollow`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        setIsFollowing(false);
-        setFollowersCount(followersCount - 1); // Decrementa o contador de seguidores
-      } else {
-        // Seguir
-        await axios.post(
-          `http://localhost:3000/followers/${perfilUserId}/follow`,
-          {},
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        setIsFollowing(true);
-        setFollowersCount(followersCount + 1); // Incrementa o contador de seguidores
+      // Faz a requisição para alternar entre seguir e deixar de seguir
+      const response = await axios.post(
+        `http://localhost:3000/followers/toggleFollow`, // Nova rota para alternar seguir/deixar de seguir
+        {
+          userId: uid, // ID do usuário atual (quem está seguindo)
+          targetUserId: perfilUserId, // ID do perfil sendo seguido
+        },
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      // Atualiza o estado local com base na resposta do backend
+      const { success, message } = response.data;
+  
+      if (success) {
+        if (message.includes("Seguiu")) {
+          setIsFollowing(true); // Atualiza para "seguindo"
+          setFollowersCount(followersCount + 1); // Incrementa o contador
+        } else if (message.includes("Deixou de seguir")) {
+          setIsFollowing(false); // Atualiza para "não seguindo"
+          setFollowersCount(followersCount - 1); // Decrementa o contador
+        }
       }
     } catch (error) {
-      console.error("Erro ao seguir/deixar de seguir:", error);
+      console.error("Erro ao alternar seguir/deixar de seguir:", error);
       console.log("Perfil User ID:", perfilUserId);
       console.log("Token:", token);
     }
   };
+  
+  useEffect(() =>{
+    fetchPostsOther();
+  }, [updateFlag])
 
   const fetchUser = async () => {
     setLoading(true);
@@ -110,32 +121,33 @@ function PerfilOtherForm({ authService }) {
   const fetchFollowersCount = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/followers/${perfilUserId}/followers`,
+        `http://localhost:3000/followers/followers/${perfilUserId}/count`, // Endpoint atualizado
         {
           headers: {
-            Authorization: token,
+            Authorization: token, // Mantém a autenticação
           },
         }
       );
-      setFollowersCount(response.data.length);
+      setFollowersCount(response.data.followers); // Atualiza o estado com a contagem de seguidores
     } catch (error) {
-      console.error("Erro ao buscar seguidores:", error);
+      console.error("Erro ao buscar contagem de seguidores:", error);
     }
   };
+  
 
   const fetchFollowingCount = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/followers/${perfilUserId}/following`,
+        `http://localhost:3000/followers/following/${perfilUserId}/count`, // Endpoint atualizado
         {
           headers: {
             Authorization: token,
           },
         }
       );
-      setFollowingCount(response.data.length);
+      setFollowingCount(response.data.following); // Usando o campo retornado pelo backend
     } catch (error) {
-      console.error("Erro ao buscar usuários seguidos:", error);
+      console.error("Erro ao buscar contagem de seguidos:", error);
     }
   };
 
@@ -163,9 +175,10 @@ function PerfilOtherForm({ authService }) {
   const handleLike = async (postId) => {
     try {
       const newLike = {
-        perfilUserId: perfilUserId,
+        userId: perfilUserId,
         postId: postId,
       };
+      console.log(newLike)
       const response = await axios.post(
         `http://localhost:3000/likes`,
         newLike,
