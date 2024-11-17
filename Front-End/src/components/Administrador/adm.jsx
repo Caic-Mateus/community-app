@@ -15,13 +15,28 @@ function Administrador({ authService }) {
     reports: 0,
   });
 
+  const logout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await authService.logout();
+      setIsLoggingOut(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      setIsLoggingOut(false);
+    }
+  };
+
   const fetchData = async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3000/admin/dashboard", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        "http://localhost:3000/admin/dashboard",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setData(response.data);
     } catch (error) {
       console.error("Erro ao buscar os dados do dashboard:", error);
@@ -43,10 +58,17 @@ function Administrador({ authService }) {
         <p className="sidebar-welcome">Bem-vindo, Administrador!</p>
         <div className="sidebar-links">
           <ul>
-            <li><a href="/adm">Dashboard</a></li>
-            <li><a href="/users">Usuários</a></li>
-            <li><a href="/admRelat">Relatórios</a></li>
-            <li><a href="#" onClick={() => authService.logout()}>Sair</a></li>
+            <li>
+              <a href="/adm">Dashboard</a>
+            </li>
+            <li>
+              <a href="/admRelat">Relatórios</a>
+            </li>
+            <li>
+              <a href="/" onClick={logout}>
+                Sair
+              </a>
+            </li>
           </ul>
         </div>
       </div>

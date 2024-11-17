@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./maisOpcoes.css";
-import SegurancaPopUp from "../components/SegurancaPop-Up/segurancaPopUp";
 import Perguntas_frequentes from "../components/Perguntas_frequentes/perguntas_frequentes";
 import Denuncia from "../components/DenunciaPopUp/denuncia";
+import AuthService from "../components/services/AuthServices";
 
-function MaisOpcoesForm() {
+function MaisOpcoesForm({ authService }) {
   const [isSegurancaOpen, setIsSegurancaOpen] = useState(false);
   const [isPerguntasOpen, setIsPerguntasOpen] = useState(false);
   const [isDenunciaOpen, setIsDenunciaOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const navigate = useNavigate();
 
   const openSeguranca = () => setIsSegurancaOpen(true);
   const closeSeguranca = () => setIsSegurancaOpen(false);
@@ -46,14 +49,7 @@ function MaisOpcoesForm() {
             />
             <span>Página inicial</span>
           </a>
-          <a href="http://localhost:5173/notificacao">
-            <img
-              src="../../public/img/Notify.png"
-              alt="HomePage Logo"
-              className="homePage-logo-mais"
-            />
-            <span>Notificações</span>
-          </a>
+
           <a href="http://localhost:5173/mensagens">
             <img
               src="../../public/img/Message.png"
@@ -101,15 +97,6 @@ function MaisOpcoesForm() {
           <h2>Configurações</h2>
         </header>
         <section className="settings-mais">
-          <div className="seguranca-mais">
-            <button onClick={openSeguranca}>
-              <img
-                src="../../public/img/seguranca.png"
-                className="homePage-logo-mais"
-              ></img>
-              <span>Privacidade e Segurança</span>
-            </button>
-          </div>
           <div className="ajuda-mais">
             <button onClick={openPerguntas}>
               <img
@@ -129,13 +116,13 @@ function MaisOpcoesForm() {
             </button>
           </div>
           <div className="sair-mais">
-            <button onClick={logout}>
+            <a onClick={logout}>
               <img
                 src="../../public/img/Logout.png"
                 className="homePage-logo-mais"
               ></img>
               <span>Sair</span>
-            </button>
+            </a>
           </div>
         </section>
       </main>

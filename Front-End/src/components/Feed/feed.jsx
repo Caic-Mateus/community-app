@@ -192,14 +192,6 @@ function FeedIndex({ authService }) {
             />
             <span>Página inicial</span>
           </a>
-          <a href="http://localhost:5173/notificacao">
-            <img
-              src="../../public/img/Notify.png"
-              alt="HomePage Logo"
-              className="homePage-logo-feed"
-            />
-            <span>Notificações</span>
-          </a>
           <a href="http://localhost:5173/mensagens">
             <img
               src="../../public/img/Message.png"

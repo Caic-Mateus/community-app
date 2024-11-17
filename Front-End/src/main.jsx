@@ -8,7 +8,6 @@ import { Cadastro } from "./pages/cadastro.jsx";
 import { Feed } from "./pages/feed.jsx";
 import { Perfil } from "./pages/perfil.jsx";
 import { Administrador } from "./pages/adm.jsx";
-import { Notificacao } from "./pages/notificacao.jsx";
 import { Mensagem } from "./pages/mensagem.jsx";
 import { ItensSalvos } from "./pages/itensSalvos.jsx";
 import { MaisOpcoes } from "./pages/maisOpcoes.jsx";
@@ -31,7 +30,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/perfil",
-    element: <Perfil />,
+    element: <Perfil authService={authService} />,
   },
   {
     path: "/adm",
@@ -42,20 +41,16 @@ const router = createBrowserRouter([
     element: <AdministradorRelat />,
   },
   {
-    path: "/notificacao",
-    element: <Notificacao />,
-  },
-  {
     path: "/mensagens",
-    element: <Mensagem />,
+    element: <Mensagem authService={authService} />,
   },
   {
     path: "/itensSalvos",
-    element: <ItensSalvos />,
+    element: <ItensSalvos authService={authService} />,
   },
   {
     path: "/maisOpcoes",
-    element: <MaisOpcoes />,
+    element: <MaisOpcoes authService={authService} />,
   },
   {
     path: "/perfilOther/:otherUserId",

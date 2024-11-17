@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./mensagem.css";
 import io from "socket.io-client";
@@ -87,6 +88,19 @@ const MensagemForm = ({ authService }) => {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await authService.logout();
+      setIsLoggingOut(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      setIsLoggingOut(false);
+    }
+  };
 
   const fetchUsers = async (term) => {
     setIsSearching(true);
@@ -105,18 +119,6 @@ const MensagemForm = ({ authService }) => {
       setError("Não foi possível carregar os usuários.");
     } finally {
       setIsSearching(false);
-    }
-  };
-
-  const logout = async () => {
-    setIsLoggingOut(true);
-    try {
-      await authService.logout();
-      setIsLoggingOut(false);
-      navigate("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-      setIsLoggingOut(false);
     }
   };
 
@@ -201,24 +203,13 @@ const MensagemForm = ({ authService }) => {
 
     if (selectedRecipientId && selectedChat == null) {
       try {
-        // Iniciar o loading
-        setLoading(true);
-        closeModal();
-
-        // Emitir a primeira mensagem
         socket.emit("chatMessage", message, uid, null, selectedRecipientId);
-
         const chatId = await fetchChatId(selectedRecipientId);
         selectedChat.chatId = chatId;
-        openModal(selectedChat);
-
         setSelectedRecipientId(null);
       } catch (error) {
         console.error("Erro ao iniciar conversa:", error);
         return;
-      } finally {
-        // Finalizar o loading
-        setLoading(false);
       }
     } else {
       socket.emit(
@@ -226,6 +217,7 @@ const MensagemForm = ({ authService }) => {
         message,
         uid,
         selectedChat.id,
+
         selectedChat.recipientId === uid
           ? selectedChat.userId
           : selectedChat.recipientId
@@ -284,14 +276,7 @@ const MensagemForm = ({ authService }) => {
             />
             <span>Página inicial</span>
           </a>
-          <a href="http://localhost:5173/notificacao">
-            <img
-              src="../../public/img/Notify.png"
-              alt="HomePage Logo"
-              className="homePage-logo-mensagem"
-            />
-            <span>Notificações</span>
-          </a>
+
           <a href="http://localhost:5173/mensagens">
             <img
               src="../../public/img/Message.png"
